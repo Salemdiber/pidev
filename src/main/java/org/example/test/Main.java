@@ -11,13 +11,13 @@ public class Main {
     public static void main(String[] args) {
         ServiceTerrain st = new ServiceTerrain();
         try{
-          st.ajouter(new Terrain("Stade rades","ben arous","olympique","test img"));
+          st.ajouter_t(new Terrain("Stade rades","ben arous","olympique","test img"));
             System.out.println("terrain ajouté");
-            //st.modifier(new Terrain(1,"Camp nou","Barcelona","Barça","img"));
+            //st.modifier_t(new Terrain(1,"Camp nou","Barcelona","Barça","img"));
           //  System.out.println("terrain MODIFIED");
-           //st.supprimer();
+           //st.supprimer_t();
         //  System.out.println("Terrain supprimé");
-            List<Terrain> terrains = st.afficher();
+            List<Terrain> terrains = st.afficher_t();
             System.out.println("\n📌 Liste des terrains enregistrés:");
             for (Terrain t : terrains) {
                 System.out.println("🆔 ID: " + t.getId_terrain() +
@@ -26,7 +26,7 @@ public class Main {
                         " | 📝 Description: " + t.getDes() +
                         " | 🖼 Image: " + t.getImg());
             }
-            System.out.println(st.afficher());
+            System.out.println(st.afficher_t());
         } catch (RuntimeException | SQLException e) {
             System.out.println(e.getMessage());
         }
