@@ -1,4 +1,6 @@
 package org.example.entities;
+import javafx.beans.property.*;
+import javafx.beans.binding.BooleanExpression;
 
 public class Terrain {
     String nom,lieu,des,img;
@@ -57,8 +59,6 @@ public class Terrain {
         return id_terrain;
     }
 
-    public void setId_terrain(int id_terrain) {
-        this.id_terrain = id_terrain;
-    }
+
 }
 

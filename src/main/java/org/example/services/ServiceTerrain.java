@@ -1,6 +1,4 @@
 package org.example.services;
-import com.mysql.cj.MysqlConnection;
-import com.mysql.cj.x.protobuf.MysqlxCrud;
 import org.example.entities.Terrain;
 import org.example.utils.MyDataBase;
 import java.sql.*;
@@ -9,8 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceTerrain implements IService<Terrain> {
-    private Connection connection;
-    public ServiceTerrain() {connection = MyDataBase.getInstance().getConnection();
+    private final Connection connection;
+
+    public ServiceTerrain() {
+        connection = MyDataBase.getInstance().getConnection();
     }
     @Override
     public void ajouter_t(Terrain terrain) throws SQLException {
@@ -52,4 +52,16 @@ ps.executeUpdate();
 
         return terrains;
     }
+
+    public void reserverTerrain(int idTerrain, int idUser, String dateReservation) throws SQLException {
+        String sql = "INSERT INTO reservation (date_res, id_user, id_terrain) VALUES (?, ?, ?)";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, dateReservation);
+            stmt.setInt(2, idUser);
+            stmt.setInt(3, idTerrain);
+            stmt.executeUpdate();
+        }
+    }
+
 }

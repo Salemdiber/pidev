@@ -12,11 +12,45 @@
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AjouterTerrainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/HomeAfficheTerrainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ListeReservationsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ModifierTerrainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/SupprimerTerrainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Reservation.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Terrain.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/IService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceReservation.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceTerrain.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/test/Main.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/MyDataBase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/29516027-isolé-noir-blanc-joueur-de-football-vecteur-de-prise-de-vue-illustration-removebg-preview.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/abri.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/accueil.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/actif.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/ajouter-de-la-musique.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/bavarder.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/event-management.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/fcbarcelona.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/logo-removebg-preview.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/podium.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/position.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/profile.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/profile1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/realmadrid.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/recherche.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/se-deconnecter.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/team-building.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/terrain-de-football.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/video-games.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/styles/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/AjouterTerrain.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/HomeAffiche.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/Listereservations.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/modifierTerrain.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +61,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -34,31 +69,70 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/resources/view/HomeAffiche.fxml" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2slPQCtxnyKKFxXH3hEXpFbU9Jw" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/KF7/IdeaProjects/sportnexus/src/main/java/org/example/Main.java",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/KF7/IdeaProjects/sportnexusTest/src/main/resources/img&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/KF7/IdeaProjects/sportnexus/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\KF7\IdeaProjects\sportnexusTest\src\main\resources\img" />
+      <recent name="C:\Users\KF7\IdeaProjects\sportnexus\src\main\resources\img" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.test.Main" />
+      <module name="sportnexus" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\javafx-sdk-23.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -75,7 +149,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1739027169894</updated>
-      <workItem from="1739027170923" duration="7270000" />
+      <workItem from="1739027170923" duration="8171000" />
+      <workItem from="1739054637198" duration="4003000" />
+      <workItem from="1739104080114" duration="6469000" />
+      <workItem from="1739118717222" duration="8848000" />
+      <workItem from="1739229489557" duration="1580000" />
+      <workItem from="1739293815173" duration="10375000" />
+      <workItem from="1739320604903" duration="3027000" />
+      <workItem from="1739386767649" duration="12357000" />
+      <workItem from="1739403003324" duration="3052000" />
     </task>
     <servers />
   </component>
