@@ -5,7 +5,7 @@ import javafx.beans.binding.BooleanExpression;
 public class Terrain {
     String nom,lieu,des,img;
     int id_terrain;
-
+public Terrain() {}
     public Terrain(int id_terrain,String nom, String lieu, String des, String img) {
         this.id_terrain = id_terrain;
         this.nom = nom;
@@ -58,7 +58,16 @@ public class Terrain {
     public int getId_terrain() {
         return id_terrain;
     }
-
+    @Override
+    public String toString() {
+        return "Terrain{" +
+                "id_terrain=" + id_terrain +
+                ", nom='" + nom + '\'' +
+                ", lieu='" + lieu + '\'' +
+                ", description='" + des + '\'' +
+                ", img='" + img + '\'' +
+                '}';
+    }
 
 }
 

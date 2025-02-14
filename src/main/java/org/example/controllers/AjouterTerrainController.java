@@ -13,6 +13,9 @@ import org.example.entities.Terrain;
 import org.example.services.ServiceTerrain;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 
 public class AjouterTerrainController {
@@ -52,32 +55,55 @@ public class AjouterTerrainController {
         File selectedFile = fileChooser.showOpenDialog(new Stage());
 
         if (selectedFile != null) {
+            // Sauvegarde uniquement le nom du fichier au lieu du chemin absolu
             imageFile = selectedFile;
             terrainImage.setImage(new Image(imageFile.toURI().toString()));
+
+            // Copier l'image sélectionnée vers le dossier resources/img/ (À FAIRE)
         }
     }
     private void ajouterTerrain() {
         String nom = nametxtfield.getText();
         String lieu = lieutxtfield.getText();
         String description = desctxtfield.getText();
-        String imgPath = (imageFile != null) ? imageFile.getAbsolutePath() : "";
 
-
-        if (nom.isEmpty() || lieu.isEmpty() || description.isEmpty() || imgPath.isEmpty()) {
+        // Vérifier si une image a été sélectionnée
+        if (nom.isEmpty() || lieu.isEmpty() || description.isEmpty() || imageFile == null) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires !");
             return;
         }
-        Terrain terrain = new Terrain(nom, lieu, description, imgPath);
+
+        // 📂 Définir le dossier de destination des images
+        File destinationDir = new File("img/");
+        if (!destinationDir.exists()) {
+            destinationDir.mkdirs(); // Crée le dossier s'il n'existe pas
+        }
+
+        // 🎯 Nom de fichier unique pour éviter les conflits
+        String newFileName = System.currentTimeMillis() + "_" + imageFile.getName();
+        File destinationFile = new File(destinationDir, newFileName);
 
         try {
+            // 📥 Copier l'image sélectionnée vers le dossier des uploads
+            Files.copy(imageFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+            // 📌 Enregistrer uniquement le nom du fichier dans la base de données
+            String imgPath = "img/" + newFileName;
+
+            Terrain terrain = new Terrain(nom, lieu, description, imgPath);
+
+            // 📤 Enregistrement en base de données
             serviceTerrain.ajouter_t(terrain);
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Terrain ajouté avec succès !");
             clearFields();
+
+            System.out.println("✅ Image copiée et sauvegardée avec succès : " + imgPath);
+        } catch (IOException e) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de copier l'image : " + e.getMessage());
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible d'ajouter le terrain : " + e.getMessage());
         }
     }
-
     private void clearFields() {
         nametxtfield.clear();
         lieutxtfield.clear();

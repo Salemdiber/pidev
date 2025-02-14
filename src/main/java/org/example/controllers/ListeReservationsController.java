@@ -11,7 +11,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import org.example.entities.Reservation;
-import org.example.entities.Terrain;
 import org.example.services.ServiceReservation;
 
 import java.net.URL;

@@ -1,7 +1,5 @@
 package org.example.controllers;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -30,42 +28,29 @@ public class HomeAfficheTerrainController {
     public Circle profilImgContainer;
     public Circle demandeJoinWBImg;
     public Label courseWBJTitle;
-    // Déclaration des éléments FXML
 
+    // Déclaration des éléments FXML
     @FXML
-    private TableView<Terrain> tableViewTerrains;
-    @FXML
-    private TableColumn<Terrain, Integer> colId;
-    @FXML
-    private TableColumn<Terrain, String> colNom, colLieu, colDesc, colImg;
+    private ListView<Terrain> listViewTerrains; // Remplace TableView par ListView
+
     @FXML
     private Button btnsupprimer;
     @FXML
     private Button btnmodifier;
-
     @FXML
     private Button btnreserver;
     @FXML
     private Button btnreserver1;
 
-
-
-
     private static final ServiceTerrain serviceTerrain = new ServiceTerrain();
 
     @FXML
     public void initialize() {
-        if (tableViewTerrains == null) {
-            System.out.println("❌ ERREUR : tableViewTerrains est NULL dans initialize()");
+        if (listViewTerrains == null) {
+            System.out.println("❌ ERREUR : listViewTerrains est NULL dans initialize()");
             return;
         }
-
-        // Lier les colonnes avec les propriétés de Terrain
-        colId.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getId_terrain()));
-        colNom.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getNom()));
-        colLieu.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getLieu()));
-        colDesc.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getDes()));
-        colImg.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getImg()));
+        listViewTerrains.setCellFactory(param -> new TerrainListCellController());
 
         // Charger les données
         chargerTerrains();
@@ -75,18 +60,18 @@ public class HomeAfficheTerrainController {
         btnsupprimer.setOnAction(event -> supprimerTerrain());
         btnreserver.setOnAction(event -> reserverTerrain());
         btnreserver1.setOnAction(event -> handleAfficherReservations());
-
     }
 
     private void chargerTerrains() {
         try {
             List<Terrain> terrains = serviceTerrain.afficher_t();
             ObservableList<Terrain> data = FXCollections.observableArrayList(terrains);
-            tableViewTerrains.setItems(data);
+            listViewTerrains.setItems(data);
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de charger les terrains : " + e.getMessage());
         }
     }
+
     private static void afficherAlerte(Alert.AlertType type, String titre, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(titre);
@@ -94,6 +79,7 @@ public class HomeAfficheTerrainController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
     @FXML
     private void handleAjouterTerrain() {
         try {
@@ -105,7 +91,7 @@ public class HomeAfficheTerrainController {
             stage.setTitle("Ajouter un Terrain");
             stage.setScene(new Scene(root));
 
-            // Ajouter un écouteur pour détecter la fermeture de la fenêtre et rafraîchir la TableView
+            // Ajouter un écouteur pour détecter la fermeture de la fenêtre et rafraîchir la ListView
             stage.setOnHidden((WindowEvent e) -> rafraichirAffichage());
 
             stage.show();
@@ -114,16 +100,18 @@ public class HomeAfficheTerrainController {
             System.err.println("Erreur lors du chargement de AddTerrain.fxml");
         }
     }
-    public  void rafraichirAffichage() {
+
+    public void rafraichirAffichage() {
         try {
             List<Terrain> terrains = serviceTerrain.afficher_t();
-            tableViewTerrains.setItems(FXCollections.observableArrayList(terrains));
+            listViewTerrains.setItems(FXCollections.observableArrayList(terrains));
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de rafraîchir l'affichage : " + e.getMessage());
         }
     }
+
     public void supprimerTerrain() {
-        Terrain terrainSelectionne = tableViewTerrains.getSelectionModel().getSelectedItem();
+        Terrain terrainSelectionne = listViewTerrains.getSelectionModel().getSelectedItem();
         if (terrainSelectionne == null) {
             afficherAlerte(Alert.AlertType.WARNING, "Avertissement", "Veuillez sélectionner un terrain à supprimer.");
             return;
@@ -140,18 +128,18 @@ public class HomeAfficheTerrainController {
                 serviceTerrain.supprimer_t(terrainSelectionne.getId_terrain());
                 afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Terrain supprimé avec succès !");
                 rafraichirAffichage();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de supprimer le terrain : " + e.getMessage());
             }
         }
     }
 
     public void ouvrirFenetreModification() {
-        if (tableViewTerrains == null) { // Vérifie si l'élément est bien chargé
-            System.out.println("❌ ERREUR : tableTerrain n'est pas initialisé !");
+        if (listViewTerrains == null) { // Vérifie si l'élément est bien chargé
+            System.out.println("❌ ERREUR : listViewTerrains n'est pas initialisé !");
             return;
         }
-        Terrain terrain = tableViewTerrains.getSelectionModel().getSelectedItem();
+        Terrain terrain = listViewTerrains.getSelectionModel().getSelectedItem();
         if (terrain == null) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Veuillez sélectionner un terrain à modifier.");
             return;
@@ -172,9 +160,10 @@ public class HomeAfficheTerrainController {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void reserverTerrain() {
-        Terrain terrainSelectionne = tableViewTerrains.getSelectionModel().getSelectedItem();
+        Terrain terrainSelectionne = listViewTerrains.getSelectionModel().getSelectedItem();
 
         if (terrainSelectionne == null) {
             afficherAlerte(Alert.AlertType.WARNING, "Avertissement", "Veuillez sélectionner un terrain à réserver.");
@@ -182,41 +171,34 @@ public class HomeAfficheTerrainController {
         }
 
         int idTerrain = terrainSelectionne.getId_terrain();
-        int idUser = getCurrentUserId();
+        int idUser  = getCurrentUserId();
         String dateReservation = java.time.LocalDate.now().toString();
 
         try {
-            serviceTerrain.reserverTerrain(idTerrain, idUser, dateReservation);
+            serviceTerrain.reserverTerrain(idTerrain, idUser , dateReservation);
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Terrain réservé avec succès !");
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de réserver le terrain : " + e.getMessage());
         }
     }
-    private int getCurrentUserId() {
 
-        return 1;
+    private int getCurrentUserId() {
+        return 1; // Remplacez ceci par la logique pour obtenir l'ID de l'utilisateur actuel
     }
 
     @FXML
     private void handleAfficherReservations() {
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Listereservations.fxml"));
             Parent root = loader.load();
-
 
             Stage stage = new Stage();
             stage.setTitle("Liste des Réservations");
             stage.setScene(new Scene(root));
-
-
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la fenêtre des réservations : " + e.getMessage());
         }
     }
-
-
-
 }
