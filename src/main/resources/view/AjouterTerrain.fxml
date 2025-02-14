@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
+            prefWidth="600.0" styleClass="ajouter-terrain-container" stylesheets="@../styles/style.css"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.controllers.AjouterTerrainController">
+
+    <VBox alignment="TOP_CENTER" spacing="10" layoutX="50" layoutY="20" prefWidth="500.0">
+        <Label text="Ajouter un Terrain" styleClass="form-title">
+            <font>
+                <Font name="Jost Regular" size="24.0"/>
+            </font>
+        </Label>
+
+        <TextField fx:id="nomTerrain" promptText="Nom du terrain" prefHeight="40.0"/>
+        <TextField fx:id="lieuTerrain" promptText="Lieu" prefHeight="40.0"/>
+        <TextArea fx:id="descTerrain" promptText="Description" prefHeight="80.0"/>
+
+        <HBox spacing="10">
+            <Label text="Image:"/>
+            <Button fx:id="btnChoisirImage" text="Choisir Image"/>
+        </HBox>
+
+        <ImageView fx:id="terrainImage" fitHeight="100.0" fitWidth="150.0" preserveRatio="true"/>
+
+        <HBox spacing="10" alignment="CENTER">
+            <Button fx:id="btnAjouter" text="Ajouter" styleClass="primary-button"/>
+            <Button fx:id="btnAnnuler" text="Annuler" styleClass="secondary-button"/>
+        </HBox>
+    </VBox>
+</AnchorPane>
