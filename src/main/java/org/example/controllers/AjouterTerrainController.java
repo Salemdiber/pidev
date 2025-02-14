@@ -16,24 +16,24 @@ import java.io.File;
 import java.sql.SQLException;
 
 public class AjouterTerrainController {
-    public Button btnAnnuler;
-    @FXML
-    private TextField nomTerrain;
+
 
     @FXML
-    private TextField lieuTerrain;
-
+    private TextField nametxtfield ;
     @FXML
-    private TextArea descTerrain;
-
+    private TextField lieutxtfield ;
+    @FXML
+    private TextField desctxtfield ;
     @FXML
     private ImageView terrainImage;
 
     @FXML
     private Button btnChoisirImage;
-
     @FXML
-    private Button btnAjouter;
+    private Button ajouterbtn;
+    @FXML
+    private Button annulerbtn;
+
 
     private final ServiceTerrain serviceTerrain = new ServiceTerrain();
     private File imageFile; // Stocke le fichier image sélectionné
@@ -44,7 +44,7 @@ public class AjouterTerrainController {
         btnChoisirImage.setOnAction(event -> choisirImage());
 
 
-        btnAjouter.setOnAction(event -> ajouterTerrain());
+        ajouterbtn.setOnAction(event -> ajouterTerrain());
     }
     private void choisirImage() {
         FileChooser fileChooser = new FileChooser();
@@ -57,9 +57,9 @@ public class AjouterTerrainController {
         }
     }
     private void ajouterTerrain() {
-        String nom = nomTerrain.getText();
-        String lieu = lieuTerrain.getText();
-        String description = descTerrain.getText();
+        String nom = nametxtfield.getText();
+        String lieu = lieutxtfield.getText();
+        String description = desctxtfield.getText();
         String imgPath = (imageFile != null) ? imageFile.getAbsolutePath() : "";
 
 
@@ -79,9 +79,9 @@ public class AjouterTerrainController {
     }
 
     private void clearFields() {
-        nomTerrain.clear();
-        lieuTerrain.clear();
-        descTerrain.clear();
+        nametxtfield.clear();
+        lieutxtfield.clear();
+        desctxtfield.clear();
         terrainImage.setImage(null); // Réinitialise l'image
         imageFile = null; // Réinitialise le fichier image
     }

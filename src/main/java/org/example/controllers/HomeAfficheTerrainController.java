@@ -97,7 +97,7 @@ public class HomeAfficheTerrainController {
     @FXML
     private void handleAjouterTerrain() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AjouterTerrain.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddTerrain.fxml"));
             Parent root = loader.load();
 
             // Créer une nouvelle fenêtre pour AjouterTerrain
@@ -111,7 +111,7 @@ public class HomeAfficheTerrainController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Erreur lors du chargement de AjouterTerrain.fxml");
+            System.err.println("Erreur lors du chargement de AddTerrain.fxml");
         }
     }
     public  void rafraichirAffichage() {
@@ -145,6 +145,7 @@ public class HomeAfficheTerrainController {
             }
         }
     }
+
     public void ouvrirFenetreModification() {
         if (tableViewTerrains == null) { // Vérifie si l'élément est bien chargé
             System.out.println("❌ ERREUR : tableTerrain n'est pas initialisé !");
@@ -157,7 +158,7 @@ public class HomeAfficheTerrainController {
         }
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/modifierTerrain.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/UpdateTerrain.fxml"));
             Parent root = loader.load();
 
             ModifierTerrainController controller = loader.getController();

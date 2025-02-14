@@ -348,3 +348,29 @@ btnClearAdmin:hover,.btnAdminReports:hover,.btnCancel:hover,.btn-light:hover{
 
 .secondary-button {
 }
+
+.title_page {
+    -fx-font-family: "Century Gothic"; /* Police en gras pour attirer l'attention */
+    -fx-font-size: 36px; /* Taille de la police */
+    -fx-text-fill: #548737; /* Couleur du texte (blanc) pour un bon contraste */
+    -fx-font-weight: bold; /* Met le texte en gras */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 5, 0.0, 0, 1); /* Ombre portée pour profondeur */
+    -fx-padding: 10; /* Espace autour du texte */
+    -fx-font-style: italic;
+}
+.description_page{
+    -fx-font-family: "Century Gothic"; /* Police en gras pour attirer l'attention */
+    -fx-font-size: 36px; /* Taille de la police */
+    -fx-text-fill: #548737; /* Couleur du texte (blanc) pour un bon contraste */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 5, 0.0, 0, 1); /* Ombre portée pour profondeur */
+    -fx-padding: 10; /* Espace autour du texte */
+    -fx-font-style: italic;
+}
+.labelnames {
+    -fx-font-family: "Century Gothic"; /* Police en gras pour attirer l'attention */
+    -fx-font-size: 36px; /* Taille de la police */
+    -fx-text-fill: #548737; /* Couleur du texte (blanc) pour un bon contraste */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 5, 0.0, 0, 1); /* Ombre portée pour profondeur */
+    -fx-padding: 10; /* Espace autour du texte */
+    -fx-font-style: italic;
+}

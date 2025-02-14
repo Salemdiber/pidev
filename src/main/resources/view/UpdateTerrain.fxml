@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="987.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ModifierTerrainController">
+    <AnchorPane prefHeight="100.0" prefWidth="258.0">
+        <ImageView fitHeight="97.0" fitWidth="124.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../img/ajouter-de-la-musique.png" />
+        </ImageView>
+        <Label layoutX="105.0" layoutY="18.0" prefHeight="74.0" prefWidth="349.0" styleClass="title_page" stylesheets="@../styles/style.css" text="Modifier Terrain">
+            <font>
+                <Font name="Century Gothic Bold" size="26.0" />
+            </font>
+        </Label>
+    </AnchorPane>
+    <Label layoutX="46.0" layoutY="196.0" prefHeight="31.0" prefWidth="155.0" text="Nom de terrain">
+        <font>
+            <Font name="System Bold" size="21.0" />
+        </font>
+    </Label>
+    <Label layoutX="46.0" layoutY="236.0" prefHeight="31.0" prefWidth="155.0" text="Lieu de terrain">
+        <font>
+            <Font name="System Bold" size="21.0" />
+        </font>
+    </Label>
+    <Label layoutX="46.0" layoutY="277.0" prefHeight="31.0" prefWidth="155.0" text="Description">
+        <font>
+            <Font name="System Bold" size="21.0" />
+        </font>
+    </Label>
+    <TextField fx:id="nametxtfield" layoutX="258.0" layoutY="196.0" prefHeight="31.0" prefWidth="277.0" promptText="ENTRER LE NOM DE TERRAIN" />
+    <TextField fx:id="lieutxtfield" layoutX="258.0" layoutY="236.0" prefHeight="31.0" prefWidth="277.0" promptText="ENTRER LE LIEU" />
+    <TextField fx:id="desctxtfield" layoutX="258.0" layoutY="277.0" prefHeight="31.0" prefWidth="277.0" promptText="ENTRER UN DESCRIPTION" />
+
+    <TextField fx:id="txtImgTerrain" layoutX="258.0" layoutY="320.0" prefHeight="31.0" prefWidth="277.0" />
+    <Button fx:id="btnChoisirImage" layoutX="263.0" layoutY="374.0" prefHeight="25.0" prefWidth="277.0" text="Choisir Image" />
+
+
+    <ImageView fx:id="terrainImage" fitHeight="100.0" fitWidth="150.0" layoutX="313.0" layoutY="374.0" preserveRatio="true" />
+    <Button fx:id="btnModifierTerrain" layoutX="259.0" layoutY="484.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Modifier" />
+    <Label layoutX="115.0" layoutY="100.0" prefHeight="62.0" prefWidth="600.0" text="Modifier votre terrain maintenant et profitez de votre expérience !">
+        <font>
+            <Font name="Century Gothic Bold Italic" size="19.0" />
+        </font>
+    </Label>
+    <Button fx:id="annulerbtn" layoutX="258.0" layoutY="533.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="ANNULER" />
+    <Label layoutX="46.0" layoutY="319.0" prefHeight="31.0" prefWidth="155.0" text="Entrer image">
+        <font>
+            <Font name="System Bold" size="21.0" />
+        </font>
+    </Label>
+</Pane>

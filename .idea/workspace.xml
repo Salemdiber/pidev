@@ -16,6 +16,7 @@
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/HomeAfficheTerrainController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ListeReservationsController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ModifierTerrainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/SupprimerReservationController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/SupprimerTerrainController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Reservation.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Terrain.java" afterDir="false" />
@@ -38,8 +39,6 @@
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/logo.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/podium.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/position.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/img/profile.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/img/profile1.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/realmadrid.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/recherche.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/se-deconnecter.png" afterDir="false" />
@@ -47,10 +46,10 @@
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/terrain-de-football.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/video-games.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/styles/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/view/AjouterTerrain.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/AddTerrain.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/view/HomeAffiche.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/view/Listereservations.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/view/modifierTerrain.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/UpdateTerrain.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,8 +60,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
+        <option value="JavaFXApplication" />
       </list>
     </option>
   </component>
@@ -158,6 +158,9 @@
       <workItem from="1739320604903" duration="3027000" />
       <workItem from="1739386767649" duration="12357000" />
       <workItem from="1739403003324" duration="3052000" />
+      <workItem from="1739480235502" duration="4395000" />
+      <workItem from="1739484685590" duration="6454000" />
+      <workItem from="1739546726231" duration="1458000" />
     </task>
     <servers />
   </component>

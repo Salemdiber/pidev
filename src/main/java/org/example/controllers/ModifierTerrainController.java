@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.entities.Terrain;
@@ -15,22 +16,24 @@ import java.sql.SQLException;
 public class ModifierTerrainController {
 
     @FXML
-    private TextField txtNomTerrain;
+    private TextField nametxtfield ;
+    @FXML
+    private TextField lieutxtfield ;
+    @FXML
+    private TextField desctxtfield ;
+    @FXML
+    private TextField txtImgTerrain ;
+    @FXML
+    private ImageView terrainImage;
 
     @FXML
-    private TextField txtLieuTerrain;
-
-    @FXML
-    private TextField txtDescTerrain;
-
-    @FXML
-    private TextField txtImgTerrain;
-
-    @FXML
-    private Button btnParcourirImg;
-
+    private Button btnChoisirImage;
     @FXML
     private Button btnModifierTerrain;
+    @FXML
+    private Button annulerbtn;
+
+
 
     private Terrain terrainSelectionne;
     private final ServiceTerrain serviceTerrain = new ServiceTerrain();
@@ -38,16 +41,16 @@ public class ModifierTerrainController {
     public void setTerrain(Terrain terrain) {
         this.terrainSelectionne = terrain;
         if (terrain != null) {
-            txtNomTerrain.setText(terrain.getNom());
-            txtLieuTerrain.setText(terrain.getLieu());
-            txtDescTerrain.setText(terrain.getDes());
+            nametxtfield.setText(terrain.getNom());
+            lieutxtfield.setText(terrain.getLieu());
+            desctxtfield.setText(terrain.getDes());
             txtImgTerrain.setText(terrain.getImg());
         }
     }
 
     @FXML
     public void initialize() {
-        btnParcourirImg.setOnAction(event -> choisirImage());
+        btnChoisirImage.setOnAction(event -> choisirImage());
         btnModifierTerrain.setOnAction(event -> modifierTerrain());
     }
 
@@ -67,9 +70,9 @@ public class ModifierTerrainController {
             return;
         }
 
-        String nom = txtNomTerrain.getText();
-        String lieu = txtLieuTerrain.getText();
-        String description = txtDescTerrain.getText();
+        String nom = nametxtfield.getText();
+        String lieu = lieutxtfield.getText();
+        String description = desctxtfield.getText();
         String img = txtImgTerrain.getText();
 
         if (nom.isEmpty() || lieu.isEmpty() || description.isEmpty() || img.isEmpty()) {
@@ -103,7 +106,7 @@ public class ModifierTerrainController {
         alert.showAndWait();
     }
     private void fermerFenetre() {
-        Stage stage = (Stage) txtNomTerrain.getScene().getWindow();
+        Stage stage = (Stage) nametxtfield.getScene().getWindow();
         stage.close();
 
         if (homeAfficheTerrainController != null) {
