@@ -18,6 +18,8 @@
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ModifierTerrainController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/SupprimerReservationController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/SupprimerTerrainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/TerrainDetailController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/TerrainListCellController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Reservation.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Terrain.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/IService.java" afterDir="false" />
@@ -49,6 +51,7 @@
       <change afterPath="$PROJECT_DIR$/src/main/resources/view/AddTerrain.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/view/HomeAffiche.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/view/Listereservations.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/TerrainDetail.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/view/UpdateTerrain.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,9 +63,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
-        <option value="FxmlFile" />
         <option value="JavaFXApplication" />
+        <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -97,7 +100,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/KF7/IdeaProjects/sportnexusTest/src/main/resources/img&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/KF7/IdeaProjects/sportnexus&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -160,7 +163,11 @@
       <workItem from="1739403003324" duration="3052000" />
       <workItem from="1739480235502" duration="4395000" />
       <workItem from="1739484685590" duration="6454000" />
-      <workItem from="1739546726231" duration="1458000" />
+      <workItem from="1739546726231" duration="6562000" />
+      <workItem from="1739558343079" duration="11166000" />
+      <workItem from="1739569822769" duration="9836000" />
+      <workItem from="1739629441883" duration="1614000" />
+      <workItem from="1739645262081" duration="6720000" />
     </task>
     <servers />
   </component>

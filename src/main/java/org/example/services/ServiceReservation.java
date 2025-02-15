@@ -1,6 +1,7 @@
 package org.example.services;
 
 import org.example.entities.Reservation;
+import org.example.entities.Terrain;
 import org.example.utils.MyDataBase;
 
 import java.sql.*;
@@ -76,4 +77,5 @@ public class ServiceReservation implements IService<Reservation> {
         }
         return reservations;
     }
+
 }

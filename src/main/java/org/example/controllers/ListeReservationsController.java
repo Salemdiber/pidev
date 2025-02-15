@@ -6,12 +6,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 import org.example.entities.Reservation;
-import org.example.entities.Terrain;
 import org.example.services.ServiceReservation;
 
 import java.net.URL;
@@ -23,7 +20,7 @@ import java.util.ResourceBundle;
 public class ListeReservationsController implements Initializable {
 
     @FXML
-    private TableView<Reservation> tableViewReservations;
+    private ListView<Reservation> listViewReservations;
 
 
 
@@ -35,30 +32,36 @@ public class ListeReservationsController implements Initializable {
 
     @FXML
     private TableColumn<Reservation, Integer> colIdterrain;
+    @FXML
+    private Button btnreturn;
 
     private final ServiceReservation serviceReservation = new ServiceReservation();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Liaison des colonnes avec les propriétés de Reservation
-
-        colDateRes.setCellValueFactory(cellData -> {
-            java.sql.Date dateRes = cellData.getValue().getDate_res(); // Récupérer la date
-            String dateString = dateRes.toString(); // Convertir la date en String
-            return new ReadOnlyStringWrapper(dateString); // Encapsuler la chaîne
-        });
-        colIduser.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getId_user()));
-        colIdterrain.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getId_terrain()));
-
         // Charger les réservations
         chargerReservations();
+
+        // Configurer le ListView pour afficher les réservations
+        listViewReservations.setCellFactory(param -> new ListCell<Reservation>() {
+            @Override
+            protected void updateItem(Reservation item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    // Personnaliser l'affichage de chaque réservation
+                    setText("Date de Reservation : " + item.getDate_res() + ", USER ID: " + item.getId_user() + ", Terrain ID: " + item.getId_terrain());
+                }
+            }
+        });
     }
 
     private void chargerReservations() {
         try {
             List<Reservation> reservations = serviceReservation.afficher_t();
             ObservableList<Reservation> data = FXCollections.observableArrayList(reservations);
-            tableViewReservations.setItems(data);
+            listViewReservations.setItems(data);
         } catch (SQLException e) {
             e.printStackTrace();
             afficherAlerte("Impossible de charger les réservations : " + e.getMessage());
@@ -73,7 +76,7 @@ public class ListeReservationsController implements Initializable {
         alert.showAndWait();
     }
     public void supprimerReservation() {
-        Reservation reservationSelectionne = tableViewReservations.getSelectionModel().getSelectedItem();
+        Reservation reservationSelectionne = listViewReservations.getSelectionModel().getSelectedItem();
         if (reservationSelectionne == null) {
             afficherAlerte(Alert.AlertType.WARNING, "Avertissement", "Veuillez sélectionner un reservation à supprimer.");
             return;
@@ -99,12 +102,18 @@ public class ListeReservationsController implements Initializable {
     private void rafraichirAffichage() {
         try {
             List<Reservation> reservations = serviceReservation.afficher_t();
-            tableViewReservations.setItems(FXCollections.observableArrayList(reservations));
+            listViewReservations.setItems(FXCollections.observableArrayList(reservations));
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de rafraîchir l'affichage : " + e.getMessage());
         }
     }
 
     private void afficherAlerte(Alert.AlertType alertType, String avertissement, String s) {
+    }
+    @FXML
+    private void handleReturnButtonClick() {
+        // Fermer la fenêtre actuelle
+        Stage stage = (Stage) btnreturn.getScene().getWindow();
+        stage.close(); // Cela fermera la fenêtre actuelle
     }
 }

@@ -16,6 +16,7 @@ public class Reservation {
 this.date_res = date_res;
 this.id_user = id_user;
 this.id_terrain = id_terrain;
+
     }
 
     public int getId_res() {
@@ -49,5 +50,6 @@ this.id_terrain = id_terrain;
     public void setDate_res(Date date_res) {
         this.date_res = date_res;
     }
+
 }
 

@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -52,17 +53,29 @@ public class ModifierTerrainController {
     public void initialize() {
         btnChoisirImage.setOnAction(event -> choisirImage());
         btnModifierTerrain.setOnAction(event -> modifierTerrain());
+        annulerbtn.setOnAction(event -> annulerModification());
+
     }
 
     private void choisirImage() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg"));
-        File selectedFile = fileChooser.showOpenDialog(new Stage());
+        fileChooser.setTitle("Choisir une image pour le terrain");
+
+        File selectedFile = fileChooser.showOpenDialog(txtImgTerrain.getScene().getWindow());
 
         if (selectedFile != null) {
-            txtImgTerrain.setText(selectedFile.toURI().toString()); // Stocke le chemin de l'image
+            // ✅ Met à jour le champ texte avec le chemin absolu
+            txtImgTerrain.setText(selectedFile.getAbsolutePath());
+
+            // ✅ Met à jour l'ImageView avec l'image sélectionnée
+            Image image = new Image(selectedFile.toURI().toString());
+            terrainImage.setImage(image);
+        } else {
+            afficherAlerte(Alert.AlertType.WARNING, "Aucune sélection", "Aucune image n'a été sélectionnée !");
         }
     }
+
 
     private void modifierTerrain() {
         if (terrainSelectionne == null) {
@@ -117,6 +130,11 @@ public class ModifierTerrainController {
 
     public void setHomeAfficheTerrainController(HomeAfficheTerrainController controller) {
         this.homeAfficheTerrainController = controller;
+    }
+    @FXML
+    private void annulerModification() {
+        Stage stage = (Stage) annulerbtn.getScene().getWindow();
+        stage.close();
     }
 
 
