@@ -28,7 +28,7 @@ public class TerrainListCellController extends ListCell<Terrain> {
         imageView.setPreserveRatio(true);
 
         nomLabel = new Label();
-         // Style pour le titre
+        nomLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         lieuLabel = new Label();
 

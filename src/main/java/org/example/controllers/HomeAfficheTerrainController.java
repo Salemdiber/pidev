@@ -4,12 +4,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.example.entities.Terrain;
@@ -60,7 +62,41 @@ public class HomeAfficheTerrainController {
         btnsupprimer.setOnAction(event -> supprimerTerrain());
         btnreserver.setOnAction(event -> reserverTerrain());
         btnreserver1.setOnAction(event -> handleAfficherReservations());
+        listViewTerrains.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) { // Vérifiez si c'est un double-clic
+                Terrain selectedTerrain = listViewTerrains.getSelectionModel().getSelectedItem();
+                if (selectedTerrain != null) {
+                    openTerrainDetail(selectedTerrain);
+                }
+            }
+        });
     }
+
+    private void openTerrainDetail(Terrain selectedTerrain) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TerrainDetail.fxml"));
+            Parent root = loader.load();
+
+            TerrainDetailController controller = loader.getController();
+            controller.setTerrain(selectedTerrain);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Détails du Terrain");
+
+            stage.setMaximized(true); // Plein écran fenêtré
+            stage.setResizable(false); // Empêche le redimensionnement
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
 
     private void chargerTerrains() {
         try {
@@ -90,7 +126,8 @@ public class HomeAfficheTerrainController {
             Stage stage = new Stage();
             stage.setTitle("Ajouter un Terrain");
             stage.setScene(new Scene(root));
-
+            stage.setMaximized(true);
+            stage.setResizable(false);
             // Ajouter un écouteur pour détecter la fermeture de la fenêtre et rafraîchir la ListView
             stage.setOnHidden((WindowEvent e) -> rafraichirAffichage());
 
@@ -155,6 +192,8 @@ public class HomeAfficheTerrainController {
             Stage stage = new Stage();
             stage.setTitle("Modifier un terrain");
             stage.setScene(new Scene(root));
+            stage.setMaximized(true);
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -196,6 +235,8 @@ public class HomeAfficheTerrainController {
             stage.setTitle("Liste des Réservations");
             stage.setScene(new Scene(root));
             stage.show();
+            stage.setMaximized(true);
+            stage.setResizable(false);
         } catch (IOException e) {
             e.printStackTrace();
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la fenêtre des réservations : " + e.getMessage());

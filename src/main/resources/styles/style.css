@@ -374,3 +374,52 @@ btnClearAdmin:hover,.btnAdminReports:hover,.btnCancel:hover,.btn-light:hover{
     -fx-padding: 10; /* Espace autour du texte */
     -fx-font-style: italic;
 }
+/* style.css */
+
+/* Style général des cellules de la ListView */
+.list-view .list-cell {
+    -fx-background-color: transparent; /* Fond transparent par défaut */
+    -fx-text-fill: #333; /* Couleur du texte */
+    -fx-padding: 10px; /* Espacement interne */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-font-weight: normal; /* Texte normal par défaut */
+    -fx-border-width: 0 0 1px 0; /* Ligne de séparation entre les cellules */
+    -fx-border-color: #ddd; /* Couleur de la bordure */
+    -fx-alignment: center-left; /* Alignement du texte */
+    -fx-transition: all 0.3s ease-in-out; /* Transition fluide */
+}
+
+
+
+
+/* Effet au survol */
+.list-view .list-cell:hover {
+    -fx-background-color: #4CAF50; /* Fond vert */
+    -fx-text-fill: white; /* Texte blanc */
+    -fx-font-weight: bold; /* Met en gras pour plus de visibilité */
+}
+
+/* Style des cellules sélectionnées */
+.list-view .list-cell:selected {
+    -fx-background-color: #388E3C; /* Vert foncé */
+    -fx-text-fill: white; /* Texte blanc */
+    -fx-font-weight: bold; /* Texte en gras */
+}
+
+/* Désactiver l'effet de sélection des cellules vides */
+.list-view .list-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+.btnreturn {
+    -fx-background-color: transparent; /* Matching green */
+    -fx-text-fill: white; /* White text for readability */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 16px;
+
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 2, 2);
+}
