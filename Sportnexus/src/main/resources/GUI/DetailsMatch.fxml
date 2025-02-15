@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="detailsmatchpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="987.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.DetailsMatchController">
+   <children>
+      <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="100.0" prefWidth="258.0">
+         <children>
+            <Label layoutX="91.0" layoutY="19.0" prefHeight="62.0" prefWidth="187.0" text="Match Details">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="97.0" fitWidth="124.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/info.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Button fx:id="Updmatchbtn" layoutX="287.0" layoutY="470.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Update Match" />
+      <Label layoutX="194.0" layoutY="120.0" prefHeight="62.0" prefWidth="460.0" text="See your Match Details and enjoy your experience !">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Button fx:id="quitmatchbtn" layoutX="287.0" layoutY="572.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Quit" />
+      <Button fx:id="Deletematchbtn" layoutX="287.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Delete Match" />
+      <Label layoutX="137.0" layoutY="216.0" prefHeight="31.0" prefWidth="84.0" text="TYPE:">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="137.0" layoutY="256.0" prefHeight="31.0" prefWidth="117.0" text="RESULT:">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="136.0" layoutY="298.0" prefHeight="31.0" prefWidth="147.0" text="DATE_MATCH:">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="135.0" layoutY="339.0" prefHeight="31.0" prefWidth="155.0" text="Place:">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="135.0" layoutY="381.0" prefHeight="31.0" prefWidth="97.0" text="TEAMS:">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="typelabel" layoutX="292.0" layoutY="216.0" prefHeight="32.0" prefWidth="277.0" text="Type">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="team2label" layoutX="289.0" layoutY="420.0" prefHeight="32.0" prefWidth="277.0" text="Team 2">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="resultlabel" layoutX="291.0" layoutY="256.0" prefHeight="32.0" prefWidth="277.0" text="Result">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="datelabel" layoutX="290.0" layoutY="298.0" prefHeight="32.0" prefWidth="277.0" text="Date">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="placelabel" layoutX="290.0" layoutY="339.0" prefHeight="32.0" prefWidth="277.0" text="Place">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="team1label" layoutX="289.0" layoutY="381.0" prefHeight="32.0" prefWidth="277.0" text="Team 1">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

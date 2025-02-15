@@ -1,0 +1,20 @@
+.viewdetailsbtn{
+    -fx-background-color: #D8F3DC; /* Light green for contrast */
+    -fx-text-fill: #1B4332; /* Dark green text for readability */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: #1B4332; /* Deep green border */
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 2, 2);
+}
+.viewdetailsbtn:hover {
+    -fx-background-color: #B7E4C7; /* Slightly darker on hover */
+}
+
+.viewdetailsbtn:pressed {
+    -fx-background-color: #1B4332; /* Dark green when clicked */
+    -fx-text-fill: white;
+}

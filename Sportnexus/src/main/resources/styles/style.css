@@ -1,0 +1,135 @@
+.home-page-container{
+    -fx-background-color: #D5FFDC;
+}
+.leftMenuContainer{
+    -fx-background-color: #1B4332;
+    -fx-background-radius: 56px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 4, 0);
+}
+.menu-btn{
+    -fx-font-family: "Jost Medium";
+    -fx-font-size: 15;
+    -fx-background-color: #F5F5DC;
+    -fx-text-fill: #000000;
+    -fx-cursor: hand;
+}
+.menu-btn:hover{
+    /*-fx-opacity: 0.6;*/
+    -fx-background-color: #EDE4D4; /* Slightly darker beige */
+}
+.menu-btn:pressed {
+    -fx-background-color: #D6C7A1; /* Even darker beige */
+
+}
+.notif-btn{
+    -fx-font-family: "Jost";
+    -fx-font-weight: bold;
+    -fx-font-size: 16;
+    -fx-background-color: transparent;
+    -fx-text-fill: #D5FFDC;
+}
+.notif-count{
+    -fx-background-color: RED;
+    -fx-background-radius: 56px;
+}
+.search-bar{
+    -fx-fill: #D9D9D9;
+    -fx-border-radius: 56px;
+    -fx-arc-width: 30;
+    -fx-arc-height: 30;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 4, 0);
+}
+.search-input{
+    -fx-background-color: transparent;
+    -fx-font-family: "Jost Medium";
+    -fx-font-size: 12;
+    -fx-text-fill: #000000;
+}
+.add_team{
+    -fx-background-color: #40916C; /* Matching green */
+    -fx-text-fill: white; /* White text for readability */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: #1B4332; /* Darker green border */
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 2, 2);
+}
+.add_team:hover {
+    -fx-background-color: #52B788;}
+
+.add_team:pressed {
+    -fx-background-color: #1B4332; /* Darker green when clicked */
+}
+
+.add_match{
+    -fx-background-color: #40916C; /* Matching green */
+    -fx-text-fill: white; /* White text for readability */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: #1B4332; /* Darker green border */
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 2, 2);
+}
+.add_match:hover {
+    -fx-background-color: #52B788;
+}
+.add_match:pressed {
+    -fx-background-color: #1B4332; /* Darker green when clicked */
+}
+.welcome-container{
+    -fx-fill: #40916C;
+    -fx-border-radius: 56px;
+    -fx-arc-width: 30;
+    -fx-arc-height: 30;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 4, 4);
+}
+
+.welcome-msg{
+    -fx-font-family: "Jost Medium";
+    -fx-font-size: 32;
+    -fx-text-fill: #000000;
+}
+.second-welcome-msg{
+    -fx-font-family: "Jost Medium";
+    -fx-font-size: 16;
+    -fx-opacity: 0.6;
+    -fx-text-fill: #000000;
+}
+.allTeamsBtn, .allMatchesBtn, .teamsRankingBtn{
+    -fx-font-family: "Jost Medium";
+    -fx-font-size: 16;
+    -fx-opacity: 0.6;
+    -fx-background-color: transparent;
+    -fx-text-fill: #000000;
+    -fx-cursor: hand;
+}
+.TMScrollPane{
+    -fx-background-color: #D5FFDC;
+}
+.TMScrollPane .scroll-bar:vertical{
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 2px;
+}
+.TMScrollPane .scroll-bar:vertical .thumb {
+    -fx-background-color: #000000;
+}
+.TMScrollPane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.68);
+}
+.TMScrollPane .scroll-bar:vertical .increment-button,
+.TMScrollPane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+}
+.TMVboxHomePage{
+    -fx-background-color: #D5FFDC;
+}
+
+
+

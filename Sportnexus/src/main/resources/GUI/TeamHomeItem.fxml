@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="teamhomeitemAnchpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="111.0" prefWidth="584.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AfficherTeamController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#40916c" height="111.0" stroke="BLACK" strokeType="INSIDE" width="585.0" />
+      <Circle fx:id="imgteamitem" layoutX="53.0" layoutY="56.0" radius="46.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label fx:id="namelabelteamitem" layoutX="112.0" layoutY="34.0" prefHeight="43.0" prefWidth="168.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="pointsLabelteamitem" layoutX="395.0" layoutY="25.0" prefHeight="27.0" prefWidth="27.0" text="0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="classementlabelteamitem" layoutX="393.0" layoutY="65.0" prefHeight="27.0" prefWidth="27.0" text="1">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="viewDetailsButton" layoutX="457.0" layoutY="34.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="120.0" styleClass="viewdetailsbtn" stylesheets="@../styles/TeamHomeItem.css" text="View Details" />
+      <Label layoutX="308.0" layoutY="27.0" text="Points:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="292.0" layoutY="67.0" text="Classement:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
