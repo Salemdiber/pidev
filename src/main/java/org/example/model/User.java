@@ -19,6 +19,8 @@ public class User {
         this.mdp = mdp;
     }
 
+
+
     // Getters and Setters
     public int getIdUser() {
         return idUser;

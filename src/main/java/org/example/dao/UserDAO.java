@@ -28,27 +28,32 @@ public class UserDAO {
             e.printStackTrace();
             return false;
         }
-    }
-
-    public boolean updateUser(User user) {
-        String updateSQL = "UPDATE user SET nom = ?, prenom = ?, email = ?, role = ?, mdp = ? WHERE id_user = ?";
+    }public boolean updateUser(User user) {
+        String updateSQL = "UPDATE user SET nom = ?, prenom = ?, email = ?, role = ? WHERE id_user = ?";
 
         try (Connection connection = DataBase.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(updateSQL)) {
+
+            System.out.println("PreparedStatement created successfully.");  // Debugging
 
             preparedStatement.setString(1, user.getNom());
             preparedStatement.setString(2, user.getPrenom());
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setString(4, user.getRole());
-            preparedStatement.setString(5, user.getMdp());
-            preparedStatement.setInt(6, user.getIdUser());
+            preparedStatement.setInt(5, user.getIdUser());
+
+            System.out.println("SQL executed with ID: " + user.getIdUser());  // Debugging
 
             int rowsAffected = preparedStatement.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected);  // Debugging
+
             return rowsAffected > 0;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace();  // This will print the SQL error if there is one
             return false;
         }
     }
+
+
 }

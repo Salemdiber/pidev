@@ -9,6 +9,8 @@ import javafx.event.ActionEvent;
 import org.example.dao.UserDAO;
 import org.example.model.User;
 
+import org.example.model.SessionManager;
+
 public class UpdateController {
 
     @FXML
@@ -36,11 +38,18 @@ public class UpdateController {
 
     @FXML
     public void initialize() {
-        // Initialize the controller, e.g., set up event listeners
+        currentUser = SessionManager.getCurrentUser();
+        System.out.println("Currqqqqent user ID: " + currentUser.getIdUser());
+
+        if (currentUser != null) {
+
+            setUserDetails(currentUser);
+            // displayUserImage(currentUser);
+
+        }
     }
 
     public void setUserDetails(User user) {
-        this.currentUser = user;
         nomField.setText(user.getNom());
         prenomField.setText(user.getPrenom());
         emailField.setText(user.getEmail());
@@ -50,31 +59,34 @@ public class UpdateController {
 
     @FXML
     private void handleSubmitButtonAction(ActionEvent event) {
-        // Retrieve data from input fields
+        // Récupérer les données des champs
         String nom = nomField.getText();
         String prenom = prenomField.getText();
         String email = emailField.getText();
         String role = roleField.getText();
-        String mdp = mdpField.getText();
 
-        // Perform validation
-        if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || role.isEmpty() || mdp.isEmpty()) {
+        // Validation des champs
+        if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || role.isEmpty()) {
             errorLabel.setText("Please fill in all fields.");
             return;
         }
+        currentUser = SessionManager.getCurrentUser();
+        System.out.println("Current user ID: " + currentUser.getIdUser());
 
-        // Update user details in the database
-        User updatedUser = new User(nom, prenom, email, role, mdp);
-        updatedUser.setIdUser(currentUser.getIdUser()); // Ensure the ID is retained for update
+        // Créer un utilisateur mis à jour sans toucher au mot de passe
+        User updatedUser = new User(nom, prenom, email, role, currentUser.getMdp()); // Utiliser le mot de passe actuel
+        updatedUser.setIdUser(currentUser.getIdUser()); // S'assurer que l'ID est conservé pour la mise à jour
+        System.out.println("Current user ID: " + currentUser.getIdUser());
 
         UserDAO userDAO = new UserDAO();
         if (userDAO.updateUser(updatedUser)) {
             errorLabel.setText("Update successful!");
-            // Optionally, navigate to another page or show a success message
+            // Optionnellement, naviguer vers une autre page ou afficher un message de succès
         } else {
             errorLabel.setText("Update failed. Please try again.");
         }
     }
+
 
     @FXML
     private void handleEditProfile(ActionEvent event) {

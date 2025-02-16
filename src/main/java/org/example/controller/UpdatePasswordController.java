@@ -6,7 +6,7 @@ import javafx.scene.control.PasswordField;
 import javafx.event.ActionEvent;
 import org.example.dao.UserDAO;
 import org.example.model.User;
-//a faire session 
+//a faire session
 public class UpdatePasswordController {
 
     @FXML

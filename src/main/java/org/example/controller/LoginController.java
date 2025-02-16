@@ -19,6 +19,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
+
+import org.example.model.SessionManager;
+
 
 public class LoginController {
 
@@ -32,7 +36,7 @@ public class LoginController {
     private Button loginButton;
 
     @FXML
-    private void handleLoginButtonAction(ActionEvent event) {
+    private void handleLoginButtonAction(ActionEvent event) throws IOException {
         // Retrieve data from input fields
         String email = emailField.getText();
         String mdp = mdpField.getText();
@@ -46,11 +50,17 @@ public class LoginController {
         // Validate login credentials
         User user = validateLogin(email, mdp);
         if (user != null) {
-            System.out.println("Login is successful!");
+            System.out.println("User found in DB: " + user.getEmail());
+            System.out.println("User ID from DB: " + user.getIdUser());
+
+            SessionManager.setCurrentUser(user);
+            System.out.println("User ID in Session: " + SessionManager.getCurrentUser().getIdUser());
             if ("Admin".equals(user.getRole())) {
+
                 openAdminPage(user, event);
             } else {
-                openProfilPage(user, event);
+
+                openProfilPage(event);
             }
         } else {
             System.out.println("Login failed. Please check your email and password.");
@@ -68,13 +78,17 @@ public class LoginController {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    return new User(
+
+                    User user = new User(
                             resultSet.getString("nom"),
                             resultSet.getString("prenom"),
                             resultSet.getString("email"),
                             resultSet.getString("role"),
                             resultSet.getString("mdp")
                     );
+                    user.setIdUser(resultSet.getInt("id_user")); // 🔥 Ajout de l'ID ici
+                    return user;
+
                 }
             }
         } catch (SQLException e) {
@@ -83,7 +97,18 @@ public class LoginController {
         return null;
     }
 
-    private void openProfilPage(User user, ActionEvent event) {
+    private void openProfilPage( ActionEvent event) throws IOException {
+
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/profil.fxml")));
+        Scene scene = ((Node) event.getSource()).getScene();
+        scene.setRoot(root);
+
+
+
+
+
+       /*
+
         try {
             // Load the profil.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/profil.fxml"));
@@ -91,7 +116,7 @@ public class LoginController {
 
             // Get the controller and set user details
             ProfilController profilController = loader.getController();
-            profilController.setUserDetails(user);
+            //profilController.setUserDetails(user);
 
             // Get the current stage
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -100,7 +125,7 @@ public class LoginController {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Failed to load profil.fxml");
-        }
+        }*/
     }
 
     private void openAdminPage(User user, ActionEvent event) {
