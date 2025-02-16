@@ -23,8 +23,8 @@ public class TerrainListCellController extends ListCell<Terrain> {
 
         // 🔹 Initialiser les composants
         imageView = new ImageView();
-        imageView.setFitHeight(100); // Taille de l'image
-        imageView.setFitWidth(100);
+        imageView.setFitHeight(250); // Taille de l'image
+        imageView.setFitWidth(250);
         imageView.setPreserveRatio(true);
 
         nomLabel = new Label();

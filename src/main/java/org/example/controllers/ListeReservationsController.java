@@ -6,10 +6,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.example.entities.Reservation;
 import org.example.services.ServiceReservation;
+import org.example.services.ServiceTerrain;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -36,6 +39,7 @@ public class ListeReservationsController implements Initializable {
     private Button btnreturn;
 
     private final ServiceReservation serviceReservation = new ServiceReservation();
+    private final ServiceTerrain serviceTerrain = new ServiceTerrain();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -50,16 +54,42 @@ public class ListeReservationsController implements Initializable {
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    // Personnaliser l'affichage de chaque réservation
-                    setText("Date de Reservation : " + item.getDate_res() + ", USER ID: " + item.getId_user() + ", Terrain ID: " + item.getId_terrain());
+                    // Créer un HBox pour organiser les informations
+                    HBox hBox = new HBox(10); // Espacement entre les éléments
+                    hBox.setAlignment(Pos.CENTER_LEFT); // Alignement des éléments à gauche
+
+                    // Créer des Labels pour chaque information
+                    Label dateLabel = new Label("Date: " + item.getDate_res());
+                    Label userIdLabel = new Label("USER ID: " + item.getId_user());
+                    Label terrainIdLabel = new Label("Terrain ID: " + item.getId_terrain());
+                    Label nomTerrainLabel = new Label("Nom de Terrain: " + item.getNomTerrain());
+
+
+                    dateLabel.getStyleClass().add("reservation-date");
+                    userIdLabel.getStyleClass().add("reservation-user");
+                    terrainIdLabel.getStyleClass().add("reservation-terrain-id");
+                    nomTerrainLabel.getStyleClass().add("reservation-nom-terrain");
+
+
+                    hBox.getChildren().addAll(dateLabel, userIdLabel, terrainIdLabel, nomTerrainLabel);
+
+
+                    setGraphic(hBox);
                 }
             }
         });
     }
 
+
     private void chargerReservations() {
         try {
             List<Reservation> reservations = serviceReservation.afficher_t();
+            // Récupérer le nom du terrain pour chaque réservation
+            for (Reservation reservation : reservations) {
+                String nomTerrain = serviceTerrain.getTerrainById(reservation.getId_terrain()).getNom();
+                reservation.setNomTerrain(nomTerrain);  // Mettre à jour le nom du terrain dans la réservation
+            }
+
             ObservableList<Reservation> data = FXCollections.observableArrayList(reservations);
             listViewReservations.setItems(data);
         } catch (SQLException e) {
