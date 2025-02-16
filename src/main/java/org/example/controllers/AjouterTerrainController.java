@@ -118,7 +118,8 @@ public class AjouterTerrainController {
             serviceTerrain.ajouter_t(terrain);
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Terrain ajouté avec succès !");
             clearFields();
-
+            Stage stage = (Stage) ajouterbtn.getScene().getWindow();
+            stage.close();
             System.out.println("✅ Image copiée et sauvegardée avec succès : " + imgPath);
         } catch (IOException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de copier l'image : " + e.getMessage());

@@ -1,9 +1,8 @@
 package org.example.controllers;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -24,17 +23,6 @@ public class ListeReservationsController implements Initializable {
 
     @FXML
     private ListView<Reservation> listViewReservations;
-
-
-
-    @FXML
-    private TableColumn<Reservation, String> colDateRes;
-
-    @FXML
-    private TableColumn<Reservation, Integer> colIduser;
-
-    @FXML
-    private TableColumn<Reservation, Integer> colIdterrain;
     @FXML
     private Button btnreturn;
 
@@ -47,37 +35,30 @@ public class ListeReservationsController implements Initializable {
         chargerReservations();
 
         // Configurer le ListView pour afficher les réservations
-        listViewReservations.setCellFactory(param -> new ListCell<Reservation>() {
+        listViewReservations.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Reservation item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setText(null);
+                    setGraphic(null);
                 } else {
-                    // Créer un HBox pour organiser les informations
-                    HBox hBox = new HBox(10); // Espacement entre les éléments
-                    hBox.setAlignment(Pos.CENTER_LEFT); // Alignement des éléments à gauche
+                    Label dateLabel = new Label("📅 " + item.getDate_res());
+                    Label userLabel = new Label("👤 ID Utilisateur: " + item.getId_user());
+                    Label terrainLabel = new Label("🏟️ Terrain: " + item.getNomTerrain());
 
-                    // Créer des Labels pour chaque information
-                    Label dateLabel = new Label("Date: " + item.getDate_res());
-                    Label userIdLabel = new Label("USER ID: " + item.getId_user());
-                    Label terrainIdLabel = new Label("Terrain ID: " + item.getId_terrain());
-                    Label nomTerrainLabel = new Label("Nom de Terrain: " + item.getNomTerrain());
+                    dateLabel.getStyleClass().add("reservation-label");
+                    userLabel.getStyleClass().add("reservation-label");
+                    terrainLabel.getStyleClass().add("reservation-label");
 
-
-                    dateLabel.getStyleClass().add("reservation-date");
-                    userIdLabel.getStyleClass().add("reservation-user");
-                    terrainIdLabel.getStyleClass().add("reservation-terrain-id");
-                    nomTerrainLabel.getStyleClass().add("reservation-nom-terrain");
-
-
-                    hBox.getChildren().addAll(dateLabel, userIdLabel, terrainIdLabel, nomTerrainLabel);
-
+                    HBox hBox = new HBox(15, dateLabel, userLabel, terrainLabel);
+                    hBox.setAlignment(Pos.CENTER_LEFT);
 
                     setGraphic(hBox);
                 }
             }
         });
+
     }
 
 
@@ -108,7 +89,7 @@ public class ListeReservationsController implements Initializable {
     public void supprimerReservation() {
         Reservation reservationSelectionne = listViewReservations.getSelectionModel().getSelectedItem();
         if (reservationSelectionne == null) {
-            afficherAlerte(Alert.AlertType.WARNING, "Avertissement", "Veuillez sélectionner un reservation à supprimer.");
+            afficherAlerte("Avertissement", "Veuillez sélectionner un reservation à supprimer.");
             return;
         }
 
@@ -121,24 +102,35 @@ public class ListeReservationsController implements Initializable {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 serviceReservation.supprimer_t(reservationSelectionne.getId_res());
-                afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Reservation supprimé avec succès !");
+                afficherAlerte("Succès", "Reservation supprimé avec succès !");
                 rafraichirAffichage();
             } catch (SQLException e){
-                afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de supprimer le reservation : " + e.getMessage());
+                afficherAlerte("Erreur", "Impossible de supprimer le reservation : " + e.getMessage());
             }
         }
     }
 
     private void rafraichirAffichage() {
-        try {
-            List<Reservation> reservations = serviceReservation.afficher_t();
-            listViewReservations.setItems(FXCollections.observableArrayList(reservations));
-        } catch (SQLException e) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de rafraîchir l'affichage : " + e.getMessage());
-        }
+        Task<ObservableList<Reservation>> task = new Task<>() {
+            @Override
+            protected ObservableList<Reservation> call() throws SQLException {
+                List<Reservation> reservations = serviceReservation.afficher_t();
+                for (Reservation reservation : reservations) {
+                    String nomTerrain = serviceTerrain.getTerrainById(reservation.getId_terrain()).getNom();
+                    reservation.setNomTerrain(nomTerrain);
+                }
+                return FXCollections.observableArrayList(reservations);
+            }
+        };
+
+        task.setOnSucceeded(event -> listViewReservations.setItems(task.getValue()));
+        task.setOnFailed(event -> afficherAlerte("Erreur SQL", "Impossible de rafraîchir l'affichage"));
+
+        new Thread(task).start(); // Run in background thread
     }
 
-    private void afficherAlerte(Alert.AlertType alertType, String avertissement, String s) {
+
+    private void afficherAlerte(String avertissement, String s) {
     }
     @FXML
     private void handleReturnButtonClick() {

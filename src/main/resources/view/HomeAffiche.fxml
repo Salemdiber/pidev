@@ -44,12 +44,12 @@
                 <Font size="36.0" />
             </font>
         </Label>
-        <ScrollPane fx:id="coursesScrollPane" hbarPolicy="NEVER" layoutX="20.0" layoutY="276.0" prefHeight="596.0" prefWidth="1077.0" stylesheets="@../styles/style.css">
+        <ScrollPane fx:id="coursesScrollPane" hbarPolicy="NEVER" layoutX="20.0" layoutY="276.0" prefHeight="433.0" prefWidth="1077.0" stylesheets="@../styles/style.css">
             <styleClass>
                 <String fx:value="courses-scroll-pane" />
                 <String fx:value="TMScrollPane" />
             </styleClass>
-            <ListView fx:id="listViewTerrains" layoutX="20.0" layoutY="270.0" prefHeight="595.0" prefWidth="1077.0" styleClass="list-view">
+            <ListView fx:id="listViewTerrains" layoutX="20.0" layoutY="270.0" prefHeight="436.0" prefWidth="1077.0" styleClass="listviewhome" stylesheets="@../styles/style.css">
 
             </ListView>
         </ScrollPane>
@@ -90,7 +90,7 @@
                 <Font name="System Bold" size="11.773585319519043" />
             </font>
         </Button>
-        <Button fx:id="btnreserver" layoutX="501.0" layoutY="216.0" mnemonicParsing="false" onAction="#reserverTerrain" prefHeight="50" prefWidth="140" styleClass="add_terrain" text="Reserver Terrain" />
+
         <Button fx:id="btnreserver1" alignment="CENTER" contentDisplay="TOP" layoutX="1023.0" layoutY="216.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAfficherReservations" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
             <graphic>
                 <ImageView fx:id="btnlistreservation" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
