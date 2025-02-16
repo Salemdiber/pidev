@@ -3,7 +3,6 @@ package org.example.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,17 +42,13 @@ public class AjouterTerrainController {
 
     @FXML
     public void initialize() {
-
         btnChoisirImage.setOnAction(event -> choisirImage());
-
-
         ajouterbtn.setOnAction(event -> ajouterTerrain());
     }
     private void choisirImage() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg"));
         File selectedFile = fileChooser.showOpenDialog(new Stage());
-
         if (selectedFile != null) {
             // Sauvegarde uniquement le nom du fichier au lieu du chemin absolu
             imageFile = selectedFile;
@@ -78,7 +73,7 @@ public class AjouterTerrainController {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le nom doit comporter au moins 3 caractères.");
             return;
         }
-        if (lieu.length() > 0 && !Character.isUpperCase(lieu.charAt(0))) {
+        if (!Character.isUpperCase(lieu.charAt(0))) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le lieu doit commencer par une majuscule !");
             return;
         }

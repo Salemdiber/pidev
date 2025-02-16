@@ -37,7 +37,7 @@ public class HomeAfficheTerrainController {
     private Button btnsupprimer;
     @FXML
     private Button btnmodifier;
-   
+
     @FXML
     private Button btnreserver1;
 
@@ -131,6 +131,7 @@ public class HomeAfficheTerrainController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+
             System.err.println("Erreur lors du chargement de AddTerrain.fxml");
         }
     }

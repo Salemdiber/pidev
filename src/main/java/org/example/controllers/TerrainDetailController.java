@@ -1,15 +1,14 @@
 package org.example.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.example.entities.Terrain;
 import org.example.services.ServiceTerrain;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 
 public class TerrainDetailController {
@@ -23,6 +22,10 @@ public class TerrainDetailController {
     private ImageView terrainImageViewDetail;
     @FXML
     private Button btnreserver;
+    @FXML
+    private DatePicker datePicker; // Ajout du DatePicker
+    @FXML
+    private ComboBox<String> heureComboBox;
     private Terrain terrain;
     private final ServiceTerrain serviceTerrain = new ServiceTerrain();
     @FXML
@@ -51,19 +54,41 @@ public class TerrainDetailController {
             return;
         }
 
+        LocalDate dateReservation = datePicker.getValue();
+        String heureReservation = heureComboBox.getValue();
+
+        if (dateReservation == null || heureReservation == null) {
+            afficherAlerte(Alert.AlertType.WARNING, "Avertissement", "Veuillez sélectionner une date et une heure.");
+            return;
+        }
+
+        // Vérifier si la date est dans le passé
+        LocalDate today = LocalDate.now();
+        if (dateReservation.isBefore(today)) {
+            afficherAlerte(Alert.AlertType.WARNING, "Avertissement", "Vous ne pouvez pas réserver un terrain pour une date passée.");
+            return;
+        }
+
         int idTerrain = terrain.getId_terrain();
-        int idUser = getCurrentUserId(); // Remplace par la logique d'authentification
-        String dateReservation = java.time.LocalDate.now().toString();
+        int idUser = getCurrentUserId();
+        String dateHeureReservation = dateReservation.toString() + " " + heureReservation;
 
         try {
-            serviceTerrain.reserverTerrain(idTerrain, idUser, dateReservation);
+            // Vérifiez la disponibilité avant de réserver
+            if (!serviceTerrain.isTerrainAvailable(idTerrain, dateHeureReservation)) {
+                afficherAlerte(Alert.AlertType.WARNING, "Avertissement", "Le terrain est déjà réservé à cette date et heure.");
+                return;
+            }
+
+            serviceTerrain.reserverTerrain(idTerrain, idUser, dateHeureReservation);
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Terrain réservé avec succès !");
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de réserver le terrain : " + e.getMessage());
         }
     }
+
     private int getCurrentUserId() {
-        return 1; // Remplace cette valeur par la vraie logique de récupération de l'ID utilisateur
+        return 1;
     }
     private void afficherAlerte(Alert.AlertType type, String titre, String message) {
         Alert alert = new Alert(type);

@@ -12,9 +12,10 @@ import javafx.stage.Stage;
 import org.example.entities.Reservation;
 import org.example.services.ServiceReservation;
 import org.example.services.ServiceTerrain;
-
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -31,6 +32,7 @@ public class ListeReservationsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         // Charger les réservations
         chargerReservations();
 
@@ -43,9 +45,9 @@ public class ListeReservationsController implements Initializable {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    Label dateLabel = new Label("📅 " + item.getDate_res());
+                    Label dateLabel = new Label("📅 DATE RESERVATION" +item.getDate_res() );
                     Label userLabel = new Label("👤 ID Utilisateur: " + item.getId_user());
-                    Label terrainLabel = new Label("🏟️ Terrain: " + item.getNomTerrain());
+                    Label terrainLabel = new Label("🏟️  Terrain: " + item.getNomTerrain());
 
                     dateLabel.getStyleClass().add("reservation-label");
                     userLabel.getStyleClass().add("reservation-label");
@@ -57,6 +59,7 @@ public class ListeReservationsController implements Initializable {
                     setGraphic(hBox);
                 }
             }
+
         });
 
     }
@@ -138,4 +141,6 @@ public class ListeReservationsController implements Initializable {
         Stage stage = (Stage) btnreturn.getScene().getWindow();
         stage.close(); // Cela fermera la fenêtre actuelle
     }
+
+
 }
