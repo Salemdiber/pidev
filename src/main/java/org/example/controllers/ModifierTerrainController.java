@@ -95,7 +95,7 @@ public class ModifierTerrainController {
         }
 
         // Vérification que le lieu commence par une majuscule
-        if (lieu.length() > 0 && !Character.isUpperCase(lieu.charAt(0))) {
+        if (!Character.isUpperCase(lieu.charAt(0))) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le lieu doit commencer par une majuscule !");
             return;
         }

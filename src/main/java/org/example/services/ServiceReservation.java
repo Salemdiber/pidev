@@ -1,7 +1,6 @@
 package org.example.services;
 
 import org.example.entities.Reservation;
-import org.example.entities.Terrain;
 import org.example.utils.MyDataBase;
 
 import java.sql.*;
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceReservation implements IService<Reservation> {
-    private Connection connection;
+    private final Connection connection;
     public ServiceReservation() {connection = MyDataBase.getInstance().getConnection();
     }
     @Override
@@ -58,24 +57,6 @@ public class ServiceReservation implements IService<Reservation> {
         }
         return reservations;
     }
-    public List<Reservation> getReservations() throws SQLException {
-        List<Reservation> reservations = new ArrayList<>();
-        String query = "SELECT * FROM reservations"; // Replace with your actual query
 
-        try (PreparedStatement statement = connection.prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id_reservation");
-                int terrainId = resultSet.getInt("id_terrain");
-                int userId = resultSet.getInt("id_user");
-                Date reservationDate = resultSet.getDate("reservation_date"); // Assuming the column is named "reservation_date"
-
-                Reservation reservation = new Reservation(id, reservationDate, userId,terrainId );
-                reservations.add(reservation);
-            }
-        }
-        return reservations;
-    }
 
 }

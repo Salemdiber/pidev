@@ -98,4 +98,18 @@ ps.executeUpdate();
     }
 
 
+    public boolean isTerrainAvailable(int idTerrain, String dateHeureReservation) throws SQLException {
+        String query = "SELECT COUNT(*) FROM reservation WHERE id_terrain = ? AND date_res = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, idTerrain);
+            preparedStatement.setString(2, dateHeureReservation);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) == 0;
+                }
+            }
+        }
+        return false;
+    }
 }
