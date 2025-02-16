@@ -423,3 +423,50 @@ btnClearAdmin:hover,.btnAdminReports:hover,.btnCancel:hover,.btn-light:hover{
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 2, 2);
 }
+/* Style général pour les labels à l'intérieur de la ListView */
+.list-view .list-cell .label {
+    -fx-font-size: 18px; /* Taille de la police */
+    -fx-text-fill: #333333; /* Couleur du texte */
+    -fx-padding: 5px; /* Espacement autour du texte */
+    -fx-background-color: transparent; /* Couleur de fond transparente */
+}
+
+/* Style au survol des labels dans la ListView */
+.list-view .list-cell:hover .label {
+    -fx-text-fill: #ffffff; /* Couleur du texte au survol */
+    -fx-background-color: #4CAF50; /* Couleur de fond au survol */
+    -fx-cursor: hand; /* Curseur de main pour indiquer l'interaction */
+}
+
+/* Style du label sélectionné */
+.list-view .list-cell:selected .label {
+    -fx-text-fill: #ffffff; /* Couleur du texte lorsqu'un élément est sélectionné */
+    -fx-background-color: #007BFF; /* Couleur de fond lorsqu'un élément est sélectionné */
+}
+/* Style pour la date de réservation */
+.reservation-date {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4CAF50; /* Vert */
+}
+
+/* Style pour l'ID utilisateur */
+.reservation-user {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2196F3; /* Bleu */
+}
+
+/* Style pour l'ID du terrain */
+.reservation-terrain-id {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FF9800; /* Orange */
+}
+
+/* Style pour le nom du terrain */
+.reservation-nom-terrain {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FF5722; /* Rouge */
+}

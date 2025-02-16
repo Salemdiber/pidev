@@ -210,16 +210,20 @@ public class HomeAfficheTerrainController {
         }
 
         int idTerrain = terrainSelectionne.getId_terrain();
-        int idUser  = getCurrentUserId();
+        String nomTerrain = terrainSelectionne.getNom();
+        int idUser = getCurrentUserId();
         String dateReservation = java.time.LocalDate.now().toString();
 
         try {
-            serviceTerrain.reserverTerrain(idTerrain, idUser , dateReservation);
-            afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Terrain réservé avec succès !");
+            serviceTerrain.reserverTerrain(idTerrain, idUser, dateReservation);
+            afficherAlerte(Alert.AlertType.INFORMATION, "Succès",
+                    "Terrain '" + nomTerrain + "' réservé avec succès !");
         } catch (SQLException e) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de réserver le terrain : " + e.getMessage());
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL",
+                    "Impossible de réserver le terrain '" + nomTerrain + "' : " + e.getMessage());
         }
     }
+
 
     private int getCurrentUserId() {
         return 1; // Remplacez ceci par la logique pour obtenir l'ID de l'utilisateur actuel

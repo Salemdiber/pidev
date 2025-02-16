@@ -88,8 +88,26 @@ public class ModifierTerrainController {
         String description = desctxtfield.getText();
         String img = txtImgTerrain.getText();
 
+        // Vérifier si tous les champs sont remplis
         if (nom.isEmpty() || lieu.isEmpty() || description.isEmpty() || img.isEmpty()) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires !");
+            return;
+        }
+
+        // Vérification que le lieu commence par une majuscule
+        if (lieu.length() > 0 && !Character.isUpperCase(lieu.charAt(0))) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le lieu doit commencer par une majuscule !");
+            return;
+        }
+
+        // Vérification de la longueur du nom et de la description
+        if (nom.length() < 3) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le nom doit comporter au moins 3 caractères.");
+            return;
+        }
+
+        if (description.length() < 10) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "La description doit comporter au moins 10 caractères.");
             return;
         }
 
@@ -110,6 +128,7 @@ public class ModifierTerrainController {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de modifier le terrain : " + e.getMessage());
         }
     }
+
 
     private void afficherAlerte(Alert.AlertType type, String titre, String message) {
         Alert alert = new Alert(type);

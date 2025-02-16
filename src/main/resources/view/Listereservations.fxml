@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="987.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ListeReservationsController">
-    <AnchorPane prefHeight="616.0" prefWidth="979.0">
-        <VBox layoutX="20.0" layoutY="20.0" spacing="10.0">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ListeReservationsController">
+    <AnchorPane prefHeight="1080.0" prefWidth="1920.0">
+        <VBox layoutX="20.0" layoutY="49.0" prefHeight="631.0" prefWidth="1178.0" spacing="10.0">
             <Button fx:id="btnreturn" alignment="CENTER" contentDisplay="TOP" layoutX="39.0" layoutY="524.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleReturnButtonClick" prefHeight="50.0" prefWidth="52.0" styleClass="btnreturn" stylesheets="@../styles/style.css">
             <graphic>
          <ImageView fitHeight="64.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
@@ -27,11 +27,11 @@
                <Font size="7.0" />
             </font>
          </Label>
-            <ListView fx:id="listViewReservations" prefHeight="387.0" prefWidth="707.0">
+            <ListView fx:id="listViewReservations" prefHeight="446.0" prefWidth="1178.0" styleClass="list-cell" stylesheets="@../styles/style.css">
 
             </ListView>
         </VBox>
-         <Button fx:id="btnsupprimerreservation" alignment="CENTER" contentDisplay="TOP" layoutX="29.0" layoutY="577.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#supprimerReservation" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
+         <Button fx:id="btnsupprimerreservation" alignment="CENTER" contentDisplay="TOP" layoutX="27.0" layoutY="715.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#supprimerReservation" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
              <graphic>
                  <ImageView fx:id="btnsupprimerreservation1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
                      <image>

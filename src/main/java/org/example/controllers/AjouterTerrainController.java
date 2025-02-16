@@ -67,9 +67,31 @@ public class AjouterTerrainController {
         String lieu = lieutxtfield.getText();
         String description = desctxtfield.getText();
 
-        // Vérifier si une image a été sélectionnée
+        // Vérifier si tous les champs sont remplis
         if (nom.isEmpty() || lieu.isEmpty() || description.isEmpty() || imageFile == null) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires !");
+            return;
+        }
+
+        // Vérification de la longueur du nom et de la description
+        if (nom.length() < 3) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le nom doit comporter au moins 3 caractères.");
+            return;
+        }
+        if (lieu.length() > 0 && !Character.isUpperCase(lieu.charAt(0))) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le lieu doit commencer par une majuscule !");
+            return;
+        }
+
+        if (description.length() < 10) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "La description doit comporter au moins 10 caractères.");
+            return;
+        }
+
+        // Vérification de l'extension de l'image
+        String fileExtension = getFileExtension(imageFile);
+        if (!fileExtension.equals("png") && !fileExtension.equals("jpg") && !fileExtension.equals("jpeg")) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "L'image doit être au format PNG, JPG ou JPEG.");
             return;
         }
 
@@ -104,6 +126,13 @@ public class AjouterTerrainController {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible d'ajouter le terrain : " + e.getMessage());
         }
     }
+
+    private String getFileExtension(File file) {
+        String fileName = file.getName();
+        int dotIndex = fileName.lastIndexOf('.');
+        return dotIndex == -1 ? "" : fileName.substring(dotIndex + 1).toLowerCase();
+    }
+
     private void clearFields() {
         nametxtfield.clear();
         lieutxtfield.clear();

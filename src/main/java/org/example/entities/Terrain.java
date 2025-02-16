@@ -22,7 +22,9 @@ public Terrain() {}
         this.img = img;
 
     }
-
+    public void setId_terrain(int id_terrain) {
+        this.id_terrain = id_terrain;
+    }
     public String getNom() {
         return nom;
     }
