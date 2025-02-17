@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1500.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherPubController">
+    <HBox alignment="CENTER_RIGHT" layoutX="345.0" layoutY="20.0" prefHeight="60.0" prefWidth="797.0" styleClass="headerContainer" stylesheets="@../styles/style.css">
+        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="420.0" styleClass="search-bar-container" stylesheets="@../styles/style.css">
+            <padding>
+                <Insets left="-40.0" />
+            </padding>
+        </HBox>
+        <HBox prefHeight="50.0" prefWidth="80.0">
+            <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="37.0" styleClass="notif-btn" stylesheets="@../styles/style.css" translateY="8.0" />
+            <HBox fx:id="notifCount" alignment="CENTER" maxHeight="-Infinity" prefHeight="20.0" prefWidth="20.0" styleClass="notif-count" stylesheets="@../styles/style.css" translateX="-26.0" translateY="9.0" />
+        </HBox>
+    </HBox>
+    <Pane fx:id="mainPageContainer" layoutX="155.0" layoutY="3.0" prefHeight="967.0" prefWidth="1344.0" styleClass="main-content-container" stylesheets="@../styles/style.css">
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="153.0" layoutX="20.0" layoutY="23.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="welcome-container" width="628.0" />
+        <ImageView fitHeight="153.0" fitWidth="212.0" layoutX="451.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" styleClass="welcome-img">
+            <Image url="@../img/29516027-isolé-noir-blanc-joueur-de-football-vecteur-de-prise-de-vue-illustration-removebg-preview.png" />
+        </ImageView>
+        <Label fx:id="welcomeMsg" layoutX="43.0" layoutY="48.0" prefHeight="60.0" prefWidth="320.0" styleClass="welcome-msg" stylesheets="@../styles/style.css" text="Hello Salem !">
+            <font>
+                <Font name="Jost Regular" size="32.0" />
+            </font>
+        </Label>
+        <Label layoutX="32.0" layoutY="94.0" prefHeight="50.0" prefWidth="427.0" styleClass="second-welcome-msg" stylesheets="@../styles/style.css" text="Are you ready to transform your sports experience ?">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Label>
+        <ScrollPane fx:id="coursesScrollPane" hbarPolicy="NEVER" layoutX="20.0" layoutY="276.0" prefHeight="433.0" prefWidth="1077.0" stylesheets="@../styles/style.css">
+            <styleClass>
+                <String fx:value="courses-scroll-pane" />
+                <String fx:value="TMScrollPane" />
+            </styleClass>
+            <ListView fx:id="listviewPub" layoutX="20.0" layoutY="270.0" prefHeight="436.0" prefWidth="1077.0" styleClass="listviewhome" stylesheets="@../styles/style.css">
+
+            </ListView>
+        </ScrollPane>
+        <Label fx:id="courseTitle" layoutX="26.0" layoutY="193.0" prefHeight="71.0" prefWidth="356.0" styleClass="course-title" stylesheets="@../styles/style.css" text="Liste des publications">
+            <font>
+                <Font name="Jost Regular" size="32.0" />
+            </font>
+        </Label>
+
+
+        <Button fx:id="btnajouter" alignment="CENTER" contentDisplay="TOP" layoutX="671.0" layoutY="216.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAjouterTerrain" prefHeight="50.0" prefWidth="213.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css" text="Ajouter Publication">
+            <font>
+                <Font name="System Bold" size="11.773585319519043" />
+            </font>
+        </Button>
+        <Button fx:id="btnsupprimer" alignment="CENTER" contentDisplay="TOP" layoutX="898.0" layoutY="216.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#supprimerTerrain" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
+            <graphic>
+                <ImageView fx:id="btnsupprimer1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
+                    <Image url="@../img/deleteicon.png" />
+                </ImageView>
+            </graphic>
+            <font>
+                <Font name="System Bold" size="11.773585319519043" />
+            </font>
+        </Button>
+        <Button fx:id="btnmodifier" alignment="CENTER" contentDisplay="TOP" layoutX="961.0" layoutY="216.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ouvrirFenetreModification" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
+            <graphic>
+                <ImageView fx:id="btnmodifier1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
+                    <Image url="@../img/modifyicon.png" />
+                </ImageView>
+            </graphic>
+            <font>
+                <Font name="System Bold" size="11.773585319519043" />
+            </font>
+        </Button>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" layoutX="691.0" layoutY="58.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="search-bar" width="400.0" />
+        <TextField fx:id="searchInput" layoutX="725.0" layoutY="63.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="350.0" promptText="Search for any things ..." styleClass="search-input" stylesheets="@../styles/style.css" />
+        <ImageView fitHeight="30.0" fitWidth="34.0" layoutX="695.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true" styleClass="search-bar-icon">
+            <Image url="@../img/recherche.png" />
+        </ImageView>
+        <Circle fx:id="profilImgContainer" fill="DODGERBLUE" layoutX="1255.0" layoutY="9.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="profil-img-container" />
+    </Pane>
+    <VBox alignment="TOP_CENTER" layoutX="22.0" layoutY="117.0" prefHeight="894.0" prefWidth="140.0" styleClass="leftMenuContainer" stylesheets="@../styles/style.css">
+        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
+            <ImageView fitHeight="119.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true" styleClass="logoContainer">
+                <HBox.margin>
+                    <Insets top="4.0" />
+                </HBox.margin>
+                <Image url="@../img/logo-removebg-preview.png" />
+            </ImageView>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
+            <Button fx:id="homeBtn" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="HOME">
+                <graphic>
+                    <ImageView fx:id="homeBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
+                        <Image url="@../img/abri.png" />
+                    </ImageView>
+                </graphic>
+                <font>
+                    <Font name="System Bold" size="11.773585319519043" />
+                </font>
+            </Button>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
+            <Button fx:id="TeamsBtn" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="71.0" prefWidth="82.0" styleClass="menu-btn" stylesheets="@../styles/style.css" text="TEAMS">
+                <graphic>
+                    <ImageView fx:id="coursesBtnImg" fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../img/team-building.png" />
+                    </ImageView>
+                </graphic>
+                <font>
+                    <Font name="Jost Regular" size="12.0" />
+                </font>
+            </Button>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
+            <Button fx:id="eventsBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="70.0" prefWidth="84.0" styleClass="menu-btn" stylesheets="@../styles/style.css" text="STADIUM">
+                <graphic>
+                    <ImageView fx:id="eventsBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../img/terrain-de-football.png" />
+                    </ImageView>
+                </graphic>
+                <font>
+                    <Font name="Jost Regular" size="12.0" />
+                </font>
+            </Button>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
+            <Button fx:id="forumBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="EVENTS">
+                <graphic>
+                    <ImageView fx:id="forumBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../img/event-management.png" />
+                    </ImageView>
+                </graphic>
+                <font>
+                    <Font name="Jost Regular" size="12.0" />
+                </font>
+            </Button>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
+            <Button fx:id="productsBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="69.0" prefWidth="84.0" styleClass="menu-btn" stylesheets="@../styles/style.css" text="Forum">
+                <graphic>
+                    <ImageView fx:id="productsBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../img/bavarder.png" />
+                    </ImageView>
+                </graphic>
+                <font>
+                    <Font name="Jost Regular" size="12.0" />
+                </font>
+            </Button>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
+            <Button fx:id="collectsBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="GAMES">
+                <graphic>
+                    <ImageView fx:id="collectsBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../img/video-games.png" />
+                    </ImageView>
+                </graphic>
+                <font>
+                    <Font name="Jost Regular" size="12.0" />
+                </font>
+            </Button>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="85.0" prefWidth="103.0">
+            <VBox.margin>
+                <Insets top="20.0" />
+            </VBox.margin>
+            <Button fx:id="logoutBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="Logout">
+                <graphic>
+                    <ImageView fx:id="logoutBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../img/se-deconnecter.png" />
+                    </ImageView>
+                </graphic>
+                <font>
+                    <Font name="Jost Regular" size="12.0" />
+                </font>
+            </Button>
+        </HBox>
+    </VBox>
+    <AnchorPane fx:id="demandeJoinWBContainer" layoutX="458.0" layoutY="47.0" prefHeight="120.0" prefWidth="499.0" styleClass="demandeJoinWBContainer" stylesheets="@../styles/style.css" visible="false">
+        <Circle fx:id="demandeJoinWBImg" fill="DODGERBLUE" layoutX="53.0" layoutY="74.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+        <Label fx:id="courseWBJTitle" layoutX="102.0" layoutY="50.0" prefHeight="47.0" prefWidth="189.0" styleClass="most-progressed-course-title" stylesheets="@../styles/style.css" text="JavaScript Course">
+            <font>
+                <Font name="Jost Regular" size="32.0" />
+            </font>
+        </Label>
+        <Label layoutX="172.0" layoutY="1.0" prefHeight="47.0" prefWidth="150.0" styleClass="second-welcome-msg" stylesheets="@../styles/style.css" text="WhiteBoard Meeting">
+            <font>
+                <Font name="Jost Regular" size="12.0" />
+            </font>
+        </Label>
+    </AnchorPane>
+    <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="1138.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../img/actif.png" />
+    </ImageView>
+</AnchorPane>
