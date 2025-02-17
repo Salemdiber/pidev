@@ -61,11 +61,16 @@ public class ProfilController {
         }
 
     public void handleEditPassword(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/update_password.fxml"));
+        Parent root = loader.load();
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/update_password.fxml")));
+        // Get the controller and set the current user
+        UpdatePasswordController controller = loader.getController();
+        controller.setUserDetails(currentUser);
+
+        // Set the new scene
         Scene scene = ((Node) event.getSource()).getScene();
         scene.setRoot(root);
-
     }
 
 }
