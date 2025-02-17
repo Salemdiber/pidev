@@ -31,7 +31,7 @@
          </font>
       </Label>
       <Button fx:id="quitmatchbtn" layoutX="287.0" layoutY="572.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Quit" />
-      <Button fx:id="Deletematchbtn" layoutX="287.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Delete Match" />
+      <Button fx:id="Deletematchbtn" layoutX="287.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Delete Match"  />
       <Label layoutX="137.0" layoutY="216.0" prefHeight="31.0" prefWidth="84.0" text="TYPE:">
          <font>
             <Font name="System Bold" size="21.0" />

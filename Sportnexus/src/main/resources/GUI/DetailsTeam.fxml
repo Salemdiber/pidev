@@ -39,24 +39,24 @@
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="125.0" layoutY="329.0" prefHeight="31.0" prefWidth="155.0" text="DESCRIPTION:">
+      <Label layoutX="126.0" layoutY="429.0" prefHeight="31.0" prefWidth="155.0" text="DESCRIPTION:">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="125.0" layoutY="371.0" prefHeight="31.0" prefWidth="84.0" text="POINTS:">
+      <Label layoutX="126.0" layoutY="468.0" prefHeight="31.0" prefWidth="84.0" text="POINTS:">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Button fx:id="updteambtn" layoutX="269.0" layoutY="432.0" mnemonicParsing="false" onAction="#openUpdateTeamWindow" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Update Team" />
+      <Button fx:id="updteambtn" layoutX="644.0" layoutY="459.0" mnemonicParsing="false" onAction="#openUpdateTeamWindow" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Update Team" />
       <Label layoutX="184.0" layoutY="110.0" prefHeight="62.0" prefWidth="460.0" text="See your team Details and enjoy your experience !">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
-      <Button fx:id="quitteambtn" layoutX="268.0" layoutY="535.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Quit" onAction="#quitDetails" />
-      <Button fx:id="deleteteambtn" layoutX="269.0" layoutY="483.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Delete Team" />
+      <Button fx:id="quitteambtn" layoutX="644.0" layoutY="575.0" mnemonicParsing="false" onAction="#quitDetails" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Quit" />
+      <Button fx:id="deleteteambtn" layoutX="644.0" layoutY="513.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Delete Team" onAction="#deleteTeam" />
       <Label fx:id="namelabel" layoutX="288.0" layoutY="204.0" prefHeight="31.0" prefWidth="277.0" text="Name">
          <font>
             <Font size="24.0" />
@@ -67,20 +67,16 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="imagelabel" layoutX="288.0" layoutY="286.0" prefHeight="31.0" prefWidth="277.0" text="Image">
+      <Label fx:id="descriptionlabel" layoutX="288.0" layoutY="424.0" prefHeight="31.0" prefWidth="277.0" text="Description">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="descriptionlabel" layoutX="288.0" layoutY="327.0" prefHeight="31.0" prefWidth="277.0" text="Description">
+      <Label fx:id="pointslabel" layoutX="288.0" layoutY="466.0" prefHeight="31.0" prefWidth="277.0" text="Points">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="pointslabel" layoutX="288.0" layoutY="369.0" prefHeight="31.0" prefWidth="277.0" text="Points">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
+      <ImageView fx:id="imagelabel" fitHeight="150.0" fitWidth="200.0" layoutX="271.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </Pane>

@@ -10,17 +10,16 @@ public class Equipe {
     private String image;
     private String description;
     private int points;
-    private int idEntraineur;
+    private int idEntraineur = 1;
     private List<Partie> matchs = new ArrayList<>(); // Liste des matchs joués par l'équipe
 
-    public Equipe(int idEquipe, String nom, int classement, String image, String description, int points, int idEntraineur) {
+    public Equipe(int idEquipe, String nom, int classement, String image, String description, int points) {
         this.idEquipe = idEquipe;
         this.nom = nom;
         this.classement = classement;
         this.image = image;
         this.description = description;
         this.points = points;
-        this.idEntraineur = idEntraineur;
     }
 
     public Equipe(String nom, int classement, String image, String description, int points, int idEntraineur) {
@@ -30,6 +29,19 @@ public class Equipe {
         this.description = description;
         this.points = points;
         this.idEntraineur = idEntraineur;
+    }
+
+    public Equipe(String nom, int classement, String imgPath, String description, int points) {
+        this.nom = nom;
+        this.classement = classement;
+        this.image = imgPath;
+        this.description = description;
+        this.points = points;
+    }
+
+    public Equipe(int idEquipe, String nomEquipe) {
+        this.idEquipe = idEquipe;
+        this.nom = nomEquipe;
     }
 
     // Getters

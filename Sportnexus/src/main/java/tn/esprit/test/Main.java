@@ -1,4 +1,4 @@
-//package tn.esprit.test;
+package tn.esprit.test;//package tn.esprit.test;
 //
 //import tn.esprit.entities.Equipe;
 //import tn.esprit.entities.Partie;

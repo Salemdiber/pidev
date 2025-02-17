@@ -28,6 +28,14 @@ public class Partie {
         this.lieu = lieu;
     }
 
+    public Partie(TypeMatch type, String resultat, java.sql.Date dateMatch, String place, List<Equipe> listequipe) {
+        this.type = type;
+        this.resultat = resultat;
+        this.dateMatch = dateMatch;
+        this.lieu = place;
+        this.equipes.addAll(listequipe);
+    }
+
     // Getters
     public int getIdMatch() {
         return idMatch;

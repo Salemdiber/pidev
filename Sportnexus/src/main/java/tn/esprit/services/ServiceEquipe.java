@@ -76,8 +76,7 @@ public class ServiceEquipe implements Iservice<Equipe> {
                         rs.getInt("classement"),
                         rs.getString("image"),
                         rs.getString("description"),
-                        rs.getInt("points"),
-                        rs.getInt("id_entraineur")
+                        rs.getInt("points")
                 );
                 equipes.add(equipe);
             }

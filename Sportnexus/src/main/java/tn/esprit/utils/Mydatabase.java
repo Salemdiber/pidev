@@ -9,7 +9,7 @@ public class Mydatabase {
     private final String PWD ="";
     private static Mydatabase instance;
 
-    private Connection connection;
+    private static Connection connection;
 
     public Mydatabase() {
         try{
@@ -20,7 +20,7 @@ public class Mydatabase {
         }
     }
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         return connection;
     }
     public static Mydatabase getInstance() {

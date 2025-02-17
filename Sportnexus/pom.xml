@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>tn.esprit</groupId>
-    <artifactId>Sportnexus</artifactId>
+    <artifactId>sportnexuss</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -32,6 +32,7 @@
             <artifactId>javafx-fxml</artifactId>
             <version>21</version>
         </dependency>
+
     </dependencies>
     <build>
         <plugins>
@@ -45,5 +46,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>
