@@ -134,6 +134,8 @@ public class DetailTeamController
 
     @javafx.fxml.FXML
     public void quitDetails(ActionEvent actionEvent) {
+        Stage stage = (Stage) quitteambtn.getScene().getWindow();
+        stage.close();
     }
 }
 

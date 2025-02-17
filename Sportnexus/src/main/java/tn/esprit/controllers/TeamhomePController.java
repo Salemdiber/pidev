@@ -106,10 +106,10 @@ public class TeamhomePController
             return;
         }
         listViewMatchs.setCellFactory(param -> new MatchListController());
-        chargerMatchs();
-        listViewTeams.setCellFactory(param -> new TeamListController());
-        chargerTeams();
 
+        listViewTeams.setCellFactory(param -> new TeamListController());
+
+        allteamsBtnA(null);
 
     }
 
@@ -215,16 +215,22 @@ public class TeamhomePController
 
     @FXML
     public void allmatchsBtn(ActionEvent actionEvent) {
-        listViewMatchs.setVisible(true);  // Show the list of matches
-        listViewTeams.setVisible(false);   // Hide the list of teams
-        chargerMatchs();                   // Load the matches
+        listViewMatchs.setVisible(true);  // Afficher la liste des matchs
+        matchScrollPane.setVisible(true); // Afficher le ScrollPane des matchs
+        listViewTeams.setVisible(false);  // Cacher la liste des équipes
+        teamsScrollPane.setVisible(false); // Cacher le ScrollPane des équipes
+        chargerMatchs();                   // Charger les matchs
     }
+
     @FXML
     public void allteamsBtnA(ActionEvent actionEvent) {
         listViewTeams.setVisible(true);
-        listViewMatchs.setVisible(false);
-        chargerTeams();
+        teamsScrollPane.setVisible(true);
+        listViewMatchs.setVisible(false); // Cacher la liste des matchs
+        matchScrollPane.setVisible(false); // Cacher le ScrollPane des matchs
+        chargerTeams(); // Recharger les équipes
     }
+
 
     @javafx.fxml.FXML
     public void TeamsBtnClicked(Event event) {

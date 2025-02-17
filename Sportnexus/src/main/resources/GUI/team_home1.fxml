@@ -97,7 +97,11 @@
             </HBox>
             <Button fx:id="addteam" layoutX="691.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleAjouterTeam" prefHeight="71.0" prefWidth="113.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Add Team" />
             <Button fx:id="addmatch" layoutX="835.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleAjouterMatch" prefHeight="71.0" prefWidth="113.0" styleClass="add_match" stylesheets="@../styles/style.css" text="Add Match" />
-            <Button fx:id="btn" layoutX="622.0" layoutY="227.0" mnemonicParsing="false" text="Button" />
+            <ScrollPane fx:id="matchScrollPane" hbarPolicy="NEVER" layoutX="20.0" layoutY="316.0" prefHeight="255.0" prefWidth="829.0" styleClass="TMScrollPane" stylesheets="@../styles/style.css" visible="true">
+               <content>
+                  <ListView fx:id="listViewMatchs" prefHeight="293.0" prefWidth="1022.0" styleClass="TMScrollPane" stylesheets="@../styles/style.css" visible="true" />
+               </content>
+            </ScrollPane>
          </children>
       </Pane>
       <VBox alignment="TOP_CENTER" layoutX="28.0" layoutY="-6.0" prefHeight="720.0" prefWidth="130.0" styleClass="leftMenuContainer" stylesheets="@../styles/style.css">
@@ -231,11 +235,6 @@
             </HBox>
          </children>
       </VBox>
-      <ScrollPane fx:id="matchScrollPane" hbarPolicy="NEVER" layoutX="180.0" layoutY="400.0" prefHeight="255.0" prefWidth="829.0" styleClass="TMScrollPane" stylesheets="@../styles/style.css" visible="true">
-         <content>
-            <ListView fx:id="listViewMatchs" layoutX="20.0" layoutY="350.0" prefHeight="305.0" prefWidth="900.0" styleClass="TMScrollPane" stylesheets="@../styles/style.css" visible="true" />
-         </content>
-      </ScrollPane>
 
    </children>
 </AnchorPane>
