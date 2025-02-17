@@ -6,11 +6,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.example.model.SessionManager;
 import org.example.model.User;
+import org.example.dao.UserDAO;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class ProfilController {
@@ -24,41 +29,35 @@ public class ProfilController {
     @FXML
     private TextField emailField;
 
-
     @FXML
     private TextField roleField;
 
     private User currentUser;
+
     public void initialize() {
         currentUser = SessionManager.getCurrentUser();
 
         if (currentUser != null) {
-
             setUserDetails(currentUser);
-            // displayUserImage(currentUser);
-
+        } else {
+            System.out.println("No user is currently logged in.");
         }
     }
 
     public void setUserDetails(User currentUser) {
-        System.out.println("User is logged in: " + SessionManager.getCurrentUser().getEmail());
+        System.out.println("User is logged in: " + currentUser.getEmail());
 
         nomField.setText(currentUser.getNom());
         prenomField.setText(currentUser.getPrenom());
         emailField.setText(currentUser.getEmail());
         roleField.setText(currentUser.getRole());
-
     }
 
-
-
     public void handleEditProfil(ActionEvent event) throws IOException {
-
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/update.fxml")));
-            Scene scene = ((Node) event.getSource()).getScene();
-            scene.setRoot(root);
-
-        }
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/update.fxml")));
+        Scene scene = ((Node) event.getSource()).getScene();
+        scene.setRoot(root);
+    }
 
     public void handleEditPassword(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/update_password.fxml"));
@@ -73,4 +72,53 @@ public class ProfilController {
         scene.setRoot(root);
     }
 
+    @FXML
+    public void del(ActionEvent actionEvent) {
+        currentUser = SessionManager.getCurrentUser();
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirmation");
+        confirmationAlert.setHeaderText("Confirmation de la suppression");
+        confirmationAlert.setContentText("Êtes-vous sûr de vouloir supprimer votre compte ?");
+
+        confirmationAlert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                try {
+                    UserDAO userDAO = new UserDAO();
+                    userDAO.deleteUser(currentUser.getIdUser());
+
+                    // Show success message
+                    Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+                    infoAlert.setTitle("Suppression réussie");
+                    infoAlert.setHeaderText(null);
+                    infoAlert.setContentText("Votre compte a été supprimé avec succès !");
+                    infoAlert.showAndWait();
+
+                    // Navigate to login screen
+                    goToLogin(actionEvent);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    // Handle the error, possibly show an error message
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Erreur");
+                    errorAlert.setHeaderText("Erreur lors de la suppression du compte");
+                    errorAlert.setContentText("Une erreur est survenue lors de la suppression du compte. Veuillez réessayer.");
+                    errorAlert.showAndWait();
+                }
+            }
+        });
+    }
+
+    private void goToLogin(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/login.fxml")));
+            Scene scene = new Scene(root);
+            ((Node) event.getSource()).getScene().getWindow().hide(); // Close the current window
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Failed to load login scene.");
+        }
+    }
 }

@@ -14,8 +14,10 @@
         <VBox spacing="10.0" alignment="CENTER" styleClass="sidebar">
             <Button text="Edit Profil" styleClass="sidebar-button" onAction="#handleEditProfil"/>
             <Button text="Edit password" styleClass="sidebar-button" onAction="#handleEditPassword"/>
-            <Button text="Reclammation" styleClass="sidebar-button"/>
-            <Button text="Notification" styleClass="sidebar-button"/>
+            <Button text="Claim" styleClass="sidebar-button"/>
+            <Button text="Delete Profile" styleClass="sidebar-button" onAction="#del"/>
+
+
         </VBox>
     </left>
     <center>
