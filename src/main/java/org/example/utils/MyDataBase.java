@@ -1,4 +1,4 @@
-package org.example.utils;
+package org.example.utilis;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,9 +9,9 @@ public class MyDataBase {
     private final String USER ="root";
     private final String PSW ="";
 
-
     private Connection connection;
     private static MyDataBase instance;
+
     public MyDataBase() {
         try {
             connection = DriverManager.getConnection(URL,USER,PSW);
@@ -20,14 +20,14 @@ public class MyDataBase {
             System.out.println(e.getMessage());
         }
     }
-
-    public static MyDataBase getInstance() {
+    public Connection getConnection() {
+        return connection;
+    }
+    public static MyDataBase getInstance(){
         if(instance == null)
             instance = new MyDataBase();
         return instance;
     }
 
-    public Connection getConnection() {
-        return connection;
-    }
+
 }
