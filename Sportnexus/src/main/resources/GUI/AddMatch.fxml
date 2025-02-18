@@ -55,6 +55,8 @@
          </font>
       </Label>
       <TextField fx:id="resultxtfield" layoutX="276.0" layoutY="262.0" prefHeight="31.0" prefWidth="277.0" promptText="Your Team's result" />
+      <Label fx:id="errorResult" layoutX="570.0" layoutY="262.0" textFill="RED" />
+
       <Button fx:id="addmatchbtn" layoutX="277.0" layoutY="491.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Add Match" />
       <Label layoutX="184.0" layoutY="110.0" prefHeight="62.0" prefWidth="446.0" text="Add your match now and enjoy your experience!">
          <font>
@@ -65,6 +67,8 @@
       <Button fx:id="quitmatchbtn" layoutX="277.0" layoutY="553.0" mnemonicParsing="false" onMouseClicked="#quitter" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Quit" />
 
       <DatePicker fx:id="datedatepicker" layoutX="276.0" layoutY="318.0" prefHeight="31.0" prefWidth="277.0" promptText="Choose your Match's date" />
+      <Label fx:id="errorDate" layoutX="570.0" layoutY="320.0" textFill="RED" />
+
 
       <ComboBox fx:id="placecombobox" layoutX="276.0" layoutY="357.0" prefHeight="31.0" prefWidth="277.0">
          <items>
@@ -75,12 +79,15 @@
             </FXCollections>
          </items>
       </ComboBox>
+      <Label fx:id="errorPlace" layoutX="570.0" layoutY="360.0" textFill="RED" />
       <ComboBox fx:id="typecombobox" layoutX="277.0" layoutY="206.0" prefHeight="31.0" prefWidth="277.0" />
+      <Label fx:id="errorType" layoutX="570.0" layoutY="206.0" textFill="RED" />
       <ComboBox fx:id="cbteam1" layoutX="276.0" layoutY="403.0" prefHeight="31.0" prefWidth="277.0">
-
       </ComboBox>
+      <Label fx:id="errorTeam1" layoutX="570.0" layoutY="403.0" textFill="RED" />
       <ComboBox fx:id="cbteam2" layoutX="277.0" layoutY="448.0" prefHeight="31.0" prefWidth="277.0">
-
       </ComboBox>
+      <Label fx:id="errorTeam2" layoutX="570.0" layoutY="448.0" textFill="RED" />
+
    </children>
 </Pane>

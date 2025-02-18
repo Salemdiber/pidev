@@ -94,28 +94,39 @@ public class ServiceMatch  {
     }
 
 //    @Override
-    public List<Partie> afficher() throws SQLException {
-        List<Partie> matchs = new ArrayList<>();
-        String req = "SELECT * FROM partie";
-        try (Statement st = cnx.createStatement();
-             ResultSet rs = st.executeQuery(req)) {
-            while (rs.next()) {
-                // Mapper l'enum TypeMatch à partir de la base de données
-                TypeMatch type = TypeMatch.valueOf(rs.getString("type").toUpperCase());
-                Partie match = new Partie(
-                        rs.getInt("id_match"),
-                        TypeMatch.valueOf(rs.getString("type").toUpperCase()),  // Utilisation de l'enum TypeMatch
-                        rs.getString("resultat"),
-                        rs.getDate("date_match"),
-                        rs.getString("lieu")
-                );
-                matchs.add(match);
-            }
-        }
-        return matchs;
-    }
+public List<Partie> afficher() throws SQLException {
+    List<Partie> matchs = new ArrayList<>();
+    String req = "SELECT * FROM partie";
+    try (Statement st = cnx.createStatement();
+         ResultSet rs = st.executeQuery(req)) {
+        while (rs.next()) {
+            // Mapper l'enum TypeMatch à partir de la base de données
+            TypeMatch type = TypeMatch.valueOf(rs.getString("type").toUpperCase());
+            Partie match = new Partie(
+                    rs.getInt("id_match"),
+                    TypeMatch.valueOf(rs.getString("type").toUpperCase()),
+                    rs.getString("resultat"),
+                    rs.getDate("date_match"),
+                    rs.getString("lieu")
+            );
 
-//    @Override
+            // Retrieve associated teams
+            List<Equipe> equipes = new ArrayList<>();
+            List<Integer> equipeIds = getEquipesParMatch(match.getIdMatch());
+            for (int equipeId : equipeIds) {
+                Equipe equipe = new ServiceEquipe().getOne(equipeId); // Assuming ServiceEquipe has a getOne method to fetch teams by ID
+                equipes.add(equipe);
+            }
+
+            match.setEquipes(equipes); // Add teams to the match
+            matchs.add(match);
+        }
+    }
+    return matchs;
+}
+
+
+    //    @Override
     public void ajouterEquipeAMatch(int idMatch, int idEquipe) throws SQLException {
         String req = "INSERT INTO partie_equipe (id_match, id_equipe) VALUES (?, ?)";
         try (PreparedStatement pst = cnx.prepareStatement(req)) {

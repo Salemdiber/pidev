@@ -9,7 +9,6 @@ import tn.esprit.entities.Equipe;
 import tn.esprit.entities.Partie;
 import tn.esprit.entities.TypeMatch;
 import tn.esprit.services.ServiceMatch;
-
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.ZoneId;
@@ -138,7 +137,4 @@ public class UpdateMatchController {
         this.detailsMatchController = detailsMatchController;
     }
 
-    public void setHomeAfficheTerrainController(TeamhomePController controller) {
-        this.TeamhomePController = controller;
-    }
 }

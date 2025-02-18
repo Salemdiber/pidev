@@ -12,10 +12,16 @@ import tn.esprit.entities.Partie;
 import tn.esprit.entities.TypeMatch;
 import tn.esprit.services.ServiceEquipe;
 import tn.esprit.services.ServiceMatch;
-
+import java.time.LocalDate;
+import java.sql.Date;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
+import java.sql.Date;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 
 public class AddMatchController {
     @FXML
@@ -41,6 +47,8 @@ public class AddMatchController {
 
     @FXML
     private ComboBox<String> cbteam2;
+    @FXML
+    private Label errorType, errorResult, errorDate, errorPlace, errorTeam1, errorTeam2;
 
 
     @FXML
@@ -56,24 +64,74 @@ public class AddMatchController {
         chargerEquipes();
     }
     private void ajouterMatch() throws SQLException {
+        // Réinitialiser la visibilité des messages d'erreur
+        errorType.setText("");
+        errorResult.setText("");
+        errorDate.setText("");
+        errorPlace.setText("");
+        errorTeam1.setText("");
+        errorTeam2.setText("");
+
+        boolean isValid = true;
+
+        // Récupération des valeurs saisies
         TypeMatch type = typecombobox.getValue();
         String resultat = resultxtfield.getText();
-        Date date_match = java.sql.Date.valueOf(datedatepicker.getValue());
+        LocalDate selectedDate = datedatepicker.getValue();
         String place = placecombobox.getValue();
         String team1Name = cbteam1.getValue();
         String team2Name = cbteam2.getValue();
-        if (type == null || resultat.isEmpty() || date_match == null || place == null || team1Name == null || team2Name == null) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires !");
-            return;
+
+        // Vérification des champs obligatoires
+        if (type == null) {
+            errorType.setText("Le type est requis !");
+            isValid = false;
         }
-            Partie match = new Partie(type, resultat, date_match, place);
-            Equipe team1 = getEquipeByName(team1Name);
-            Equipe team2 = getEquipeByName(team2Name);
-            serviceMatch.ajouter(match,team1.getIdEquipe(),team2.getIdEquipe());
-            afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Match ajouté avec succès !");
-            clearFields();
+        if (resultat.isEmpty()) {
+            errorResult.setText("Le resultat est requis !");
+            isValid = false;
+        } else if (!resultat.matches("\\d+:\\d+")) {  // Validation du format "team1Result:team2Result"
+            errorResult.setText("Le format du résultat est invalide (ex: 1:0) !");
+            isValid = false;
+        }
 
+        if (selectedDate == null) {
+            errorDate.setText("* Champ obligatoire");
+            isValid = false;
+        } else if (selectedDate.isBefore(LocalDate.now())) {
+            errorDate.setText("* Date invalide");
+            isValid = false;
+        }
+        if (place == null) {
+            errorPlace.setText("La place est requis !");
+            isValid = false;
+        }
+        if (team1Name == null) {
+            errorTeam1.setText("Le nom d'equipe 1 est requis !");
+            isValid = false;
+        }
+        if (team2Name == null) {
+            errorTeam2.setText("Le nom d'equipe 2 est requis !");
+            isValid = false;
+        }
+        if (team1Name != null && team2Name != null && team1Name.equals(team2Name)) {
+            errorTeam2.setText("* Les équipes doivent être différentes");
+            isValid = false;
+        }
 
+        if (!isValid) return; // Arrêter l'exécution si les champs ne sont pas valides
+
+        // Convertir LocalDate en java.sql.Date
+        Date date_match = Date.valueOf(selectedDate);
+
+        // Création et ajout du match
+        Partie match = new Partie(type, resultat, date_match, place);
+        Equipe team1 = getEquipeByName(team1Name);
+        Equipe team2 = getEquipeByName(team2Name);
+        serviceMatch.ajouter(match, team1.getIdEquipe(), team2.getIdEquipe());
+
+        afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Match ajouté avec succès !");
+        clearFields();
     }
 
     private void clearFields() {
@@ -91,6 +149,7 @@ public class AddMatchController {
         }
         return null;
     }
+
     private void afficherAlerte(Alert.AlertType type, String titre, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(titre);
@@ -103,8 +162,6 @@ public class AddMatchController {
     public void quitter(Event event) {
         Stage stage = (Stage) quitmatchbtn.getScene().getWindow();
         stage.close();
-
-
     }
     private void chargerEquipes() {
             equipesList.clear();
@@ -122,6 +179,5 @@ public class AddMatchController {
             cbteam1.setItems(observableEquipeNames);
             cbteam2.setItems(observableEquipeNames);
         }
-
 
 }

@@ -6,11 +6,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import tn.esprit.entities.Equipe;
 import tn.esprit.entities.Partie;
 import tn.esprit.services.ServiceMatch;
 import javafx.geometry.Pos;
 
 import java.io.IOException;
+import java.util.List;
 
 public class MatchListController extends ListCell<Partie> {
     private final HBox content; // Conteneur principal pour la cellule
@@ -54,8 +56,17 @@ public class MatchListController extends ListCell<Partie> {
         if (empty || partie == null) {
             setGraphic(null);
         } else {
-            typeLabel.setText("Type : " + partie.getType());
-            resultatLabel.setText("Resultat : " + partie.getResultat());
+            // Display the teams instead of the match type
+            String teamNames = "";
+            List<Equipe> equipes = partie.getEquipes();
+            if (equipes.size() >= 2) {
+                teamNames = equipes.get(0).getNom() + " vs " + equipes.get(1).getNom();  // Assuming 'getNom()' is the method to get the team name
+            }
+            typeLabel.setText("Teams: " + teamNames);  // Display the teams in the type label
+
+            // Display the match type in place of the team names
+            resultatLabel.setText("Resultat: " + partie.getResultat() + " \nType: " + partie.getType());  // Display the type in the result label
+
             setGraphic(content);
         }
     }

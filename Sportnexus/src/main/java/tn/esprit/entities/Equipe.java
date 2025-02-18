@@ -1,5 +1,4 @@
 package tn.esprit.entities;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +13,6 @@ public class Equipe {
 
     private List<Partie> matchs = new ArrayList<>(); // Liste des matchs joués par l'équipe
 
-    public Equipe() {
-    }
 
     public Equipe(int idEquipe, String nom, int classement, String image, String description, int points) {
         this.idEquipe = idEquipe;
@@ -46,6 +43,10 @@ public class Equipe {
     public Equipe(int idEquipe, String nomEquipe) {
         this.idEquipe = idEquipe;
         this.nom = nomEquipe;
+    }
+
+    public Equipe() {
+
     }
 
     // Getters

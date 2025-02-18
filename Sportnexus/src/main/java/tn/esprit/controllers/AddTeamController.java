@@ -1,14 +1,11 @@
 package tn.esprit.controllers;
 
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import tn.esprit.entities.Equipe;
 import tn.esprit.services.ServiceEquipe;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -45,6 +42,8 @@ public class AddTeamController {
     private TeamListController teamListController;
     @FXML
     private Button quitAteambtn;
+    @FXML
+    private Label errorNom, errorClassement, errorDescription, errorPoints, errorImage;
 
     public void setTeamListController(TeamListController teamListController) {
         this.teamListController = teamListController;
@@ -66,51 +65,124 @@ public class AddTeamController {
         // typecombobox.setItems(FXCollections.observableArrayList(TypeMatch.values()));
     }
     // Action when the "Add Team" button is clicked
+
+
     @FXML
     public void handleAddTeam() {
-        // Get input data from the user
-        String nom = nametxtfield.getText();
-        int classement = Integer.parseInt(classementtxtfield.getText());
-        String description = desctxtfield.getText();
-        int points = Integer.parseInt(ptstxtfield.getText());
+        // Réinitialisation des messages d'erreur
+        errorNom.setText("");
+        errorClassement.setText("");
+        errorDescription.setText("");
+        errorPoints.setText("");
+        errorImage.setText("");
 
-        // Validate input
-        if (nom.isEmpty() ||  description.isEmpty() ||imageFile==null) {
-            showAlert("Error", "Please fill in all fields and select an image.");
-            return;
+        // Récupération des données
+        String nom = nametxtfield.getText().trim();
+        String classementStr = classementtxtfield.getText().trim();
+        String description = desctxtfield.getText().trim();
+        String pointsStr = ptstxtfield.getText().trim();
+
+        boolean isValid = true;
+
+        // Vérification du nom (ne doit pas être vide ou un nombre)
+        if (nom.isEmpty()) {
+            errorNom.setText("Le nom est requis !");
+            isValid = false;
+        } else if (nom.matches("\\d+")) {
+            errorNom.setText("Le nom ne peut pas être un nombre !");
+            isValid = false;
         }
 
-        // 📂 Définir le dossier de destination des images
+        // Vérification de la description (ne doit pas être vide ou un nombre)
+        if (description.isEmpty()) {
+            errorDescription.setText("La description est requise !");
+            isValid = false;
+        } else if (description.matches("\\d+")) {
+            errorDescription.setText("La description ne peut pas être un nombre !");
+            isValid = false;
+        }
+
+        int classement = 0, points = 0;
+
+        // Vérification du classement (doit être un entier positif)
+        if (classementStr.isEmpty()) {
+            errorClassement.setText("Classement requis !");
+            isValid = false;
+        } else {
+            try {
+                classement = Integer.parseInt(classementStr);
+                if (classement < 0) {
+                    errorClassement.setText("Doit être un nombre positif !");
+                    isValid = false;
+                }
+            } catch (NumberFormatException e) {
+                errorClassement.setText("Valeur invalide !");
+                isValid = false;
+            }
+        }
+
+        // Vérification des points (doit être un entier positif)
+        if (pointsStr.isEmpty()) {
+            errorPoints.setText("Points requis !");
+            isValid = false;
+        } else {
+            try {
+                points = Integer.parseInt(pointsStr);
+                if (points < 0) {
+                    errorPoints.setText("Doit être un nombre positif !");
+                    isValid = false;
+                }
+            } catch (NumberFormatException e) {
+                errorPoints.setText("Valeur invalide !");
+                isValid = false;
+            }
+        }
+
+        // Vérification de l’image
+        if (imageFile == null) {
+            errorImage.setText("Veuillez sélectionner une image !");
+            isValid = false;
+        } else {
+            String fileName = imageFile.getName().toLowerCase();
+            if (!(fileName.endsWith(".jpg") || fileName.endsWith(".png") || fileName.endsWith(".jpeg"))) {
+                errorImage.setText("Format d'image invalide !");
+                isValid = false;
+            }
+        }
+
+        // Si une erreur est détectée, on arrête l'exécution
+        if (!isValid) return;
+
+        // Gestion du fichier image
         File destinationDir = new File("img/");
         if (!destinationDir.exists()) {
-            destinationDir.mkdirs(); // Crée le dossier s'il n'existe pas
+            destinationDir.mkdirs();
         }
 
-        // 🎯 Nom de fichier unique pour éviter les conflits
         String newFileName = System.currentTimeMillis() + "_" + imageFile.getName();
         File destinationFile = new File(destinationDir, newFileName);
 
         try {
-            // 📥 Copier l'image sélectionnée vers le dossier des uploads
             Files.copy(imageFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
-            // 📌 Enregistrer uniquement le nom du fichier dans la base de données
             String imgPath = "img/" + newFileName;
 
-            Equipe equipe = new Equipe(nom,classement,imgPath,description,points);
+            // Création de l'objet Equipe
+            Equipe equipe = new Equipe(nom, classement, imgPath, description, points);
 
-            // 📤 Enregistrement en base de données
+            // Enregistrement en base de données
             serviceEquipe.ajouter(equipe);
-            afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Equipe ajouté avec succès !");
+            afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Équipe ajoutée avec succès !");
             clearFields();
 
             System.out.println("✅ Image copiée et sauvegardée avec succès : " + imgPath);
         } catch (IOException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de copier l'image : " + e.getMessage());
         } catch (SQLException e) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible d'ajouter l'equipe : " + e.getMessage());
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible d'ajouter l'équipe : " + e.getMessage());
         }
     }
+
+
 
     // Action when the "Quit" button is clicked
     @FXML

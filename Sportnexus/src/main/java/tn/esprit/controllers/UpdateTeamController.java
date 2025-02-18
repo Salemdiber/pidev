@@ -180,18 +180,5 @@ public class UpdateTeamController
     }
 
 
-//    @FXML
-//    public void updateTeam(ActionEvent actionEvent) {
-//        if (currentEquipe != null) {
-//            currentEquipe.setNom(Updnametxtfield.getText());
-//            currentEquipe.setDescription(Upddesctxtfield.getText());
-//            currentEquipe.setClassement(Integer.parseInt(Updclassementtxtfield.getText()));
-//            currentEquipe.setPoints(Integer.parseInt(Updptstxtfield.getText()));
-//
-//            // Fermer la fenêtre après mise à jour
-//            ((Stage) Updnametxtfield.getScene().getWindow()).close();
-//        }
-//    }
-
 
 }
