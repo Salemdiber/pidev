@@ -6,22 +6,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/HomeAffiche.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-
-            primaryStage.setTitle("Gestion des Terrains");
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/gameHome.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1450, 720);
+            primaryStage.setTitle("SportNexus");
             primaryStage.setScene(scene);
-
-            // Activer le plein écran fenêtré
-            primaryStage.setMaximized(true);  // Fenêtre maximisée
-            primaryStage.setResizable(false); // Désactive le redimensionnement de la fenêtre
-
             primaryStage.show();
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement du fichier FXML : " + e.getMessage());
@@ -33,3 +26,5 @@ public class Main extends Application {
         launch(args);
     }
 }
+
+

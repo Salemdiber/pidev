@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ModifierTerrainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="987.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ModifierTerrainController">
     <AnchorPane prefHeight="100.0" prefWidth="258.0">
         <ImageView fitHeight="97.0" fitWidth="124.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../img/ajouter-de-la-musique.png" />
@@ -43,14 +43,14 @@
     <Button fx:id="btnChoisirImage" layoutX="263.0" layoutY="374.0" prefHeight="25.0" prefWidth="277.0" text="Choisir Image" />
 
 
-    <ImageView fx:id="terrainImage" fitHeight="100.0" fitWidth="150.0" layoutX="313.0" layoutY="414.0" preserveRatio="true" />
-    <Button fx:id="btnModifierTerrain" layoutX="259.0" layoutY="528.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Modifier" />
+    <ImageView fx:id="terrainImage" fitHeight="100.0" fitWidth="150.0" layoutX="313.0" layoutY="374.0" preserveRatio="true" />
+    <Button fx:id="btnModifierTerrain" layoutX="259.0" layoutY="484.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Modifier" />
     <Label layoutX="115.0" layoutY="100.0" prefHeight="62.0" prefWidth="600.0" text="Modifier votre terrain maintenant et profitez de votre expérience !">
         <font>
             <Font name="Century Gothic Bold Italic" size="19.0" />
         </font>
     </Label>
-    <Button fx:id="annulerbtn" layoutX="258.0" layoutY="576.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="ANNULER" />
+    <Button fx:id="annulerbtn" layoutX="258.0" layoutY="533.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="ANNULER" />
     <Label layoutX="46.0" layoutY="319.0" prefHeight="31.0" prefWidth="155.0" text="Entrer image">
         <font>
             <Font name="System Bold" size="21.0" />
