@@ -1,5 +1,6 @@
 package tn.esprit.controllers;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -103,7 +104,7 @@ public class TeamListController extends ListCell<Equipe> {
 
             DetailTeamController controller = loader.getController();
             controller.setTeams(equipe);
-
+            controller.setTeamListController(this);
             // Créer une nouvelle fenêtre pour AjouterTerrain
             Stage stage = new Stage();
             stage.setTitle("details Team");
@@ -115,4 +116,10 @@ public class TeamListController extends ListCell<Equipe> {
             System.err.println("Erreur lors du chargement de AddTeam.fxml");
         }
     }
+    public Equipe rafraichirAffichage(int id) {
+        ServiceEquipe serviceEquipe = new ServiceEquipe();
+        updateItem(serviceEquipe.getOne(id),false);
+        return serviceEquipe.getOne(id);
+    }
+
 }

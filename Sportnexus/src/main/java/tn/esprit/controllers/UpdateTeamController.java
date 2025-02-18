@@ -12,11 +12,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import tn.esprit.entities.Equipe;
 import tn.esprit.services.ServiceEquipe;
-
 import java.io.File;
 import java.sql.SQLException;
-
-import static tn.esprit.controllers.TeamhomePController.afficherAlerte;
 
 public class UpdateTeamController
 {

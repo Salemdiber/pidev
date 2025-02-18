@@ -3,114 +3,84 @@ package tn.esprit.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import tn.esprit.entities.Equipe;
 import tn.esprit.entities.Partie;
 import tn.esprit.entities.TypeMatch;
+import tn.esprit.services.ServiceEquipe;
 import tn.esprit.services.ServiceMatch;
-import tn.esprit.utils.Mydatabase;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddMatchController {
-    @javafx.fxml.FXML
+    @FXML
     private Pane AddMatchpane;
-    @javafx.fxml.FXML
+    @FXML
     private Button quitmatchbtn;
-    @javafx.fxml.FXML
+    @FXML
     private DatePicker datedatepicker;
-    @javafx.fxml.FXML
+    @FXML
     private Button addmatchbtn;
-    private ObservableList<Equipe> equipesList = FXCollections.observableArrayList();
-    @javafx.fxml.FXML
+    private List<Equipe> equipesList = new ArrayList<>();
+    @FXML
     private TextField resultxtfield;
-    @javafx.fxml.FXML
+    @FXML
     private ComboBox<String> placecombobox; // Spécifiez le type pour le ComboBox
-    @javafx.fxml.FXML
+    @FXML
     private ComboBox<TypeMatch> typecombobox;
 
     private final ServiceMatch serviceMatch = new ServiceMatch();
 
-    @javafx.fxml.FXML
+    @FXML
     private ComboBox<String> cbteam1;
 
-    @javafx.fxml.FXML
+    @FXML
     private ComboBox<String> cbteam2;
 
 
-    @javafx.fxml.FXML
+    @FXML
     public void initialize() {
         typecombobox.setItems(FXCollections.observableArrayList(TypeMatch.values()));
-        addmatchbtn.setOnAction(event -> ajouterMatch());
+        addmatchbtn.setOnMouseClicked(e-> {
+            try {
+                this.ajouterMatch();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         chargerEquipes();
     }
-
-//    private void chargerEquipes() {
-//        equipesList.clear();
-//        String req = "SELECT * FROM equipe"; // Remplace par ta requête correcte
-//
-//        try (Connection cnx = Mydatabase.getInstance().getConnection();
-//             Statement st = cnx.createStatement();
-//             ResultSet rs = st.executeQuery(req)) {
-//            while (rs.next()) {
-//                Equipe equipe = new Equipe(
-//                        rs.getInt("id_equipe"),
-//                        rs.getString("nom_equipe")
-//                );
-//                equipesList.add(equipe);
-//            }
-//            equipeListView.setItems(equipesList);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-    private void ajouterMatch() {
-        // Récupération des valeurs des champs
+    private void ajouterMatch() throws SQLException {
         TypeMatch type = typecombobox.getValue();
         String resultat = resultxtfield.getText();
         Date date_match = java.sql.Date.valueOf(datedatepicker.getValue());
         String place = placecombobox.getValue();
-
-        // Récupérer les équipes sélectionnées (elles sont de type String)
         String team1Name = cbteam1.getValue();
         String team2Name = cbteam2.getValue();
-
-        // Vérification si un des champs est vide
         if (type == null || resultat.isEmpty() || date_match == null || place == null || team1Name == null || team2Name == null) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires !");
             return;
         }
-
-        try {
-            // Créer un nouvel objet Match
             Partie match = new Partie(type, resultat, date_match, place);
-            // Enregistrer le match en base de données
-            serviceMatch.ajouter(match);
-
-            // Récupérer les IDs des équipes sélectionnées
             Equipe team1 = getEquipeByName(team1Name);
             Equipe team2 = getEquipeByName(team2Name);
-
-            // Ajouter les équipes au match
-            serviceMatch.ajouterEquipeAMatch(match.getIdMatch(), team1.getIdEquipe());
-            serviceMatch.ajouterEquipeAMatch(match.getIdMatch(), team2.getIdEquipe());
-
+            serviceMatch.ajouter(match,team1.getIdEquipe(),team2.getIdEquipe());
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Match ajouté avec succès !");
             clearFields();
 
-        } catch (SQLException e) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible d'ajouter le match : " + e.getMessage());
-        }
+
     }
 
     private void clearFields() {
-        typecombobox.setValue(null); // Réinitialiser le ComboBox
-        resultxtfield.clear(); // Effacer le texte du TextField
-        datedatepicker.setValue(null); // Réinitialiser le DatePicker
-        placecombobox.setValue(null); // Réinitialiser un autre ComboBox
+        typecombobox.setValue(null);
+        resultxtfield.clear();
+        datedatepicker.setValue(null);
+        placecombobox.setValue(null);
 
     }
     private Equipe getEquipeByName(String name) {
@@ -119,7 +89,7 @@ public class AddMatchController {
                 return equipe;
             }
         }
-        return null; // Retourne null si aucune équipe n'a été trouvée
+        return null;
     }
     private void afficherAlerte(Alert.AlertType type, String titre, String message) {
         Alert alert = new Alert(type);
@@ -129,39 +99,29 @@ public class AddMatchController {
         alert.showAndWait();
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void quitter(Event event) {
-        // Logique pour quitter ou fermer la fenêtre
-        // Par exemple, vous pouvez fermer la fenêtre actuelle
+        Stage stage = (Stage) quitmatchbtn.getScene().getWindow();
+        stage.close();
+
 
     }
     private void chargerEquipes() {
-        equipesList.clear();
-        String req = "SELECT * FROM equipe"; // Remplace par ta requête correcte
-
-        try (Connection cnx = Mydatabase.getInstance().getConnection();
-             Statement st = cnx.createStatement();
-             ResultSet rs = st.executeQuery(req)) {
-            while (rs.next()) {
-                Equipe equipe = new Equipe(
-                        rs.getInt("id_equipe"),
-                        rs.getString("nom_equipe")
-                );
-                equipesList.add(equipe);
-            }
-
-            // Peupler les ComboBoxes avec les noms des équipes (String)
-            ObservableList<String> equipeNames = FXCollections.observableArrayList();
+            equipesList.clear();
+            ServiceEquipe serviceEquipe = new ServiceEquipe();
+        try {
+            equipesList = serviceEquipe.afficher();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        List<String> equipeNames = new ArrayList<>();
             for (Equipe equipe : equipesList) {
                 equipeNames.add(equipe.getNom());
             }
-
-            cbteam1.setItems(equipeNames);
-            cbteam2.setItems(equipeNames);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        ObservableList<String> observableEquipeNames = FXCollections.observableArrayList(equipeNames);
+            cbteam1.setItems(observableEquipeNames);
+            cbteam2.setItems(observableEquipeNames);
         }
-    }
+
 
 }

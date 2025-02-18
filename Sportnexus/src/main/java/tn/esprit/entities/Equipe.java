@@ -14,9 +14,8 @@ public class Equipe {
 
     private List<Partie> matchs = new ArrayList<>(); // Liste des matchs joués par l'équipe
 
-
-
-
+    public Equipe() {
+    }
 
     public Equipe(int idEquipe, String nom, int classement, String image, String description, int points) {
         this.idEquipe = idEquipe;

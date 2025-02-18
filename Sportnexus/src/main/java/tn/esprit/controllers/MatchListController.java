@@ -1,27 +1,16 @@
 package tn.esprit.controllers;
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import tn.esprit.entities.Equipe;
 import tn.esprit.entities.Partie;
-import tn.esprit.services.ServiceEquipe;
-import tn.esprit.utils.Mydatabase;
+import tn.esprit.services.ServiceMatch;
 import javafx.geometry.Pos;
-import java.io.File;
+
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
 
 public class MatchListController extends ListCell<Partie> {
     private final HBox content; // Conteneur principal pour la cellule
@@ -80,7 +69,8 @@ public class MatchListController extends ListCell<Partie> {
 
 
             DetailsMatchController controller = loader.getController();
-            controller.setTeams(partie);
+            controller.setMatch(partie);
+            controller.setSelectedPartie(partie);
 
             // Créer une nouvelle fenêtre pour AjouterTerrain
             Stage stage = new Stage();
@@ -92,5 +82,11 @@ public class MatchListController extends ListCell<Partie> {
             e.printStackTrace();
             System.err.println("Erreur lors du chargement de AddTeam.fxml");
         }
+    }
+
+    public Partie rafraichirAffichage(int id) {
+        ServiceMatch serviceMatch = new ServiceMatch();
+        updateItem(serviceMatch.getOne(id),false);
+        return serviceMatch.getOne(id);
     }
 }

@@ -25,7 +25,10 @@ import tn.esprit.utils.Mydatabase;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
+
+import static tn.esprit.entities.TypeMatch.AMICAL;
 
 public class TeamhomePController
 {
@@ -96,7 +99,7 @@ public class TeamhomePController
 
 
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException {
         if (listViewTeams == null) {
             System.out.println("❌ ERREUR : listViewEquipes est NULL dans initialize()");
             return;
@@ -155,8 +158,6 @@ public class TeamhomePController
     }
 
 
-
-
     static void afficherAlerte(Alert.AlertType type, String titre, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(titre);
@@ -170,14 +171,10 @@ public class TeamhomePController
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/AddTeam.fxml"));
             Parent root = loader.load();
-
             // Créer une nouvelle fenêtre pour Ajouter Team
             Stage stage = new Stage();
             stage.setTitle("Ajouter Team");
             stage.setScene(new Scene(root));
-
-
-
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -190,15 +187,12 @@ public class TeamhomePController
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/AddMatch.fxml"));
             Parent root = loader.load();
-
             // Créer une nouvelle fenêtre pour AjouterTerrain
             Stage stage = new Stage();
             stage.setTitle("Ajouter Match");
             stage.setScene(new Scene(root));
-
             // Ajouter un écouteur pour détecter la fermeture de la fenêtre et rafraîchir la ListView
             stage.setOnHidden((WindowEvent e) -> rafraichirAffichage());
-
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -206,13 +200,10 @@ public class TeamhomePController
         }
     }
 
-
     @FXML
     private void handleRefresh() {
         rafraichirAffichage();
     }
-
-
     @FXML
     public void allmatchsBtn(ActionEvent actionEvent) {
         listViewMatchs.setVisible(true);  // Afficher la liste des matchs

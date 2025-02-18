@@ -1,5 +1,6 @@
 package tn.esprit.services;
 import tn.esprit.entities.Equipe;
+import tn.esprit.utils.MyDB;
 import tn.esprit.utils.Mydatabase;
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,10 +9,10 @@ import java.util.List;
 
 public class ServiceEquipe implements Iservice<Equipe> {
 
-    private Connection cnx;
+    private final Connection cnx;
 
     public ServiceEquipe() {
-        cnx = Mydatabase.getInstance().getConnection();
+        cnx = MyDB.getInstance().getCon();
     }
 
     @Override
@@ -137,6 +138,32 @@ public class ServiceEquipe implements Iservice<Equipe> {
             }
         }
         return equipes;
+    }
+    public Equipe getOne(int id){
+        String query = "SELECT * FROM equipe WHERE id_equipe = ?";
+        Equipe equipe = new Equipe();
+        try{
+            PreparedStatement stm = cnx.prepareStatement(query);
+            stm.setInt(1,id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()){
+                 equipe = new Equipe(
+                        rs.getInt("id_equipe"),
+                        rs.getString("nom_equipe"),
+                        rs.getInt("classement"),
+                        rs.getString("image"),
+                        rs.getString("description"),
+                        rs.getInt("points")
+                );
+
+
+
+            }
+            stm.close();
+        }catch (SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        return equipe;
     }
 
 }

@@ -13,9 +13,9 @@ public class Mydatabase {
 
     public Mydatabase() {
         try{
-        connection = DriverManager.getConnection(URL,USER,PWD);
+            connection = DriverManager.getConnection(URL,USER,PWD);
             System.out.println("connected");
-    }catch(SQLException e){
+        }catch(SQLException e){
             System.out.println(e.getMessage());
         }
     }
@@ -32,3 +32,4 @@ public class Mydatabase {
 
 
 }
+

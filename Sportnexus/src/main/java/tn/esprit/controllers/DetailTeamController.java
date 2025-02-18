@@ -42,6 +42,11 @@ public class DetailTeamController
     @FXML
     private ImageView imagelabel;
     private Equipe selectedEquipe;
+    private TeamListController teamListController;
+
+    public void setTeamListController(TeamListController teamListController) {
+        this.teamListController = teamListController;
+    }
 
     @javafx.fxml.FXML
     public void initialize() {
@@ -121,19 +126,12 @@ public class DetailTeamController
     private void fermerFenetre() {
         Stage stage = (Stage) namelabel.getScene().getWindow();
         stage.close();
-
-        if (TeamhomePController != null) {
-            TeamhomePController.rafraichirAffichage();
-        }
-
     }
-    private TeamhomePController TeamhomePController;
-
-
 
 
     @javafx.fxml.FXML
     public void quitDetails(ActionEvent actionEvent) {
+        this.teamListController.rafraichirAffichage(selectedEquipe.getIdEquipe());
         Stage stage = (Stage) quitteambtn.getScene().getWindow();
         stage.close();
     }

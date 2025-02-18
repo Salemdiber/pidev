@@ -34,8 +34,6 @@ public class AddTeamController {
     @FXML
     private Button addteambtn;
     @FXML
-    private Button quitteambtn;
-    @FXML
     private Button chooseimagebtn;
     @FXML
     private ImageView teamImage;
@@ -44,6 +42,13 @@ public class AddTeamController {
     private ServiceEquipe serviceEquipe = new ServiceEquipe(); // create an instance of ServiceEquipe
     @FXML
     private Pane addteampane;
+    private TeamListController teamListController;
+    @FXML
+    private Button quitAteambtn;
+
+    public void setTeamListController(TeamListController teamListController) {
+        this.teamListController = teamListController;
+    }
 
     @FXML
     public void initialize() {
@@ -51,7 +56,7 @@ public class AddTeamController {
         addteambtn.setOnAction(event -> handleAddTeam());
 
         // Set default action for the "Quit" button
-        quitteambtn.setOnAction(event -> handleQuit());
+        quitAteambtn.setOnAction(event -> handleQuit());
 
         // Set default action for the "Choose Image" button
         chooseimagebtn.setOnAction(event -> choisirImage());
@@ -110,7 +115,7 @@ public class AddTeamController {
     // Action when the "Quit" button is clicked
     @FXML
     public void handleQuit() {
-        Stage stage = (Stage) quitteambtn.getScene().getWindow();
+        Stage stage = (Stage) quitAteambtn.getScene().getWindow();
         stage.close();
     }
 

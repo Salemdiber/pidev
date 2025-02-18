@@ -9,10 +9,6 @@ public class Partie {
     private String resultat;
     private Date dateMatch;
     private String lieu;
-    private int idEquipe1;
-
-
-    private int idEquipe2;
     private List<Equipe> equipes = new ArrayList<>(); // Liste des équipes participant à la partie
 
     // Constructeur avec Enum TypeMatch
@@ -24,30 +20,14 @@ public class Partie {
         this.lieu = lieu;
     }
 
-    public int getIdEquipe1() {
-        return idEquipe1;
-    }
 
-    public void setIdEquipe1(int idEquipe1) {
-        this.idEquipe1 = idEquipe1;
-    }
-
-    public int getIdEquipe2() {
-        return idEquipe2;
-    }
-
-    public void setIdEquipe2(int idEquipe2) {
-        this.idEquipe2 = idEquipe2;
-    }
-
-    public Partie(int idMatch, TypeMatch type, String resultat, Date dateMatch, String lieu, int idEquipe1, int idEquipe2, List<Equipe> equipes) {
+    public Partie(int idMatch, TypeMatch type, String resultat, Date dateMatch, String lieu, List<Equipe> equipes) {
         this.idMatch = idMatch;
         this.type = type;
         this.resultat = resultat;
         this.dateMatch = dateMatch;
         this.lieu = lieu;
-        this.idEquipe1 = idEquipe1;
-        this.idEquipe2 = idEquipe2;
+
         this.equipes = equipes;
     }
 
@@ -65,6 +45,10 @@ public class Partie {
         this.dateMatch = dateMatch;
         this.lieu = place;
         this.equipes.addAll(listequipe);
+    }
+
+    public Partie() {
+
     }
 
     // Getters
@@ -137,4 +121,3 @@ public class Partie {
                 '}';
     }
 }
-

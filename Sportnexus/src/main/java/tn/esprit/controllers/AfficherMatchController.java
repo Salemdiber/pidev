@@ -1,5 +1,7 @@
 package tn.esprit.controllers;
 
+
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -7,19 +9,19 @@ import javafx.scene.shape.Circle;
 
 public class AfficherMatchController
 {
-    @javafx.fxml.FXML
+    @FXML
     private Label team2namematchitem;
-    @javafx.fxml.FXML
+    @FXML
     private Label team1namematchitem;
-    @javafx.fxml.FXML
+    @FXML
     private Circle imgteam1matchitem;
-    @javafx.fxml.FXML
+    @FXML
     private AnchorPane matchhomeitemAnchpane;
-    @javafx.fxml.FXML
+    @FXML
     private Button viewdetailsMbtn;
-    @javafx.fxml.FXML
+    @FXML
     private Circle imgteam2matchitem;
 
-    @javafx.fxml.FXML
+    @FXML
     public void initialize() {
     }}
