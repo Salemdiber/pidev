@@ -1,6 +1,7 @@
 package services;
 
 import entities.Event;
+import entities.Participant;
 import utils.MyDataBase;
 
 import java.sql.*;
@@ -51,24 +52,29 @@ public class ServiceEvent implements IService<Event> {
             System.out.println("bien supprimer");
         }
 
-        public List<Event> afficher() throws SQLException {
-            List<Event> events = new ArrayList();
-            String sql = "SELECT * FROM `event`";
-            Statement statement = this.connection.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
+    public List<Event> afficher() throws SQLException {
+        List<Event> events = new ArrayList<>();
+        String sql = "SELECT * FROM event";
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
 
-            while(rs.next()) {
-                int idEvent = rs.getInt("id_event");
-                String nom = rs.getString("nom");
-                String image = rs.getString("image");
-                String descEvent = rs.getString("desc_event");
-                String lieu = rs.getString("lieu");
-                LocalDateTime date = rs.getTimestamp("date").toLocalDateTime();
-                events.add(new Event(idEvent, nom, image, descEvent, lieu, date));
-            }
+        while (rs.next()) {
+            int idEvent = rs.getInt("id_event");  // Vérifie bien que tu prends id_event
+            String nom = rs.getString("nom");
+            String image = rs.getString("image");
+            String descEvent = rs.getString("desc_event");
+            String lieu = rs.getString("lieu");
+            LocalDateTime date = rs.getTimestamp("date").toLocalDateTime();
 
-            return events;
+            Event event = new Event(idEvent, nom, image, descEvent, lieu, date);
+            events.add(event);
+
+            System.out.println("📌 Chargé depuis DB : ID = " + idEvent + ", Nom = " + nom);
         }
+
+        return events;
+    }
+
     public void participer(int idUser, int idEvent) throws SQLException {
         // Vérifier si l'utilisateur existe
         String checkUserSql = "SELECT COUNT(*) FROM user WHERE id_user = ?";
@@ -121,6 +127,20 @@ public class ServiceEvent implements IService<Event> {
 
         return event;
     }
+    public List<Participant> getParticipantsByEvent(int idEvent) throws SQLException {
+        List<Participant> participants = new ArrayList<>();
+        String sql = "SELECT * FROM participant WHERE id_event = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, idEvent);
+        ResultSet rs = statement.executeQuery();
+
+        while (rs.next()) {
+            int idUser = rs.getInt("id_user");
+            participants.add(new Participant(idUser)); // Remplace par ton constructeur complet
+        }
+        return participants;
+    }
+
 
 }
 

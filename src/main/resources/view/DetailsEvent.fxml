@@ -22,7 +22,7 @@
             <font>
                 <Font size="24.0" />
             </font></Label>
-        <ImageView fx:id="ImageViewDetail" fitHeight="246.0" fitWidth="422.0" layoutX="452.0" layoutY="49.0" preserveRatio="true" />
+        <ImageView fx:id="ImageViewDetail" fitHeight="246.0" fitWidth="422.0" layoutX="530.0" layoutY="26.0" preserveRatio="true" />
         <Label layoutX="20.0" layoutY="91.0" prefHeight="17.0" prefWidth="218.0" text="Nom Evenement" textFill="#0c510c">
             <font>
                 <Font name="Modern No. 20" size="29.0" />
@@ -78,6 +78,18 @@
       <Button fx:id="btnparticiper" alignment="CENTER" contentDisplay="TOP" layoutX="33.0" layoutY="483.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Participer" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
          <graphic>
             <ImageView fx:id="btnparticiper1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
+               <image>
+                  <Image url="@../img/modifyicon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="System Bold" size="11.773585319519043" />
+         </font>
+      </Button>
+      <Button fx:id="btnpart" alignment="CENTER" contentDisplay="TOP" layoutX="888.0" layoutY="502.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#afficherListeParticipants" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
+         <graphic>
+            <ImageView fx:id="btnpart1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
                <image>
                   <Image url="@../img/modifyicon.png" />
                </image>

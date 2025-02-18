@@ -17,6 +17,10 @@ public class Participant {
         this.id_event = id_event;
     }
 
+    public Participant(int idUser) {
+        this.id_user = idUser;
+    }
+
     public int getId_part() {
         return this.id_part;
     }

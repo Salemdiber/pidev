@@ -46,7 +46,6 @@ public class listeParticipantControlle implements Initializable {
         // Charger les réservations
         chargerEvents();
 
-        // Configurer le ListView pour afficher les réservations
         listViewParticipant.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Participant item, boolean empty) {
@@ -55,23 +54,58 @@ public class listeParticipantControlle implements Initializable {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    Label userLabel = new Label("👤 ID Utilisateur: " + item.getId_user());
-                    Label eventLabel = new Label("  event: " + item.getId_event());
+                    try {
+                        // 🔹 Récupérer le nom de l'utilisateur à partir de l'ID
+                        String userName = serviceparticipant.getUserNameById(item.getId_user());
 
-                    userLabel.getStyleClass().add("event-label");
-                    eventLabel.getStyleClass().add("event-label");
+                        Label userLabel = new Label("👤 Utilisateur: " + userName);
+                        userLabel.getStyleClass().add("event-label");
 
-                    HBox hBox = new HBox(15, userLabel, eventLabel);
-                    hBox.setAlignment(Pos.CENTER_LEFT);
+                        HBox hBox = new HBox(15, userLabel);
+                        hBox.setAlignment(Pos.CENTER_LEFT);
 
-                    setGraphic(hBox);
+                        setGraphic(hBox);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        setText("Erreur chargement nom utilisateur");
+                    }
                 }
             }
-
         });
 
+
+    }
+    private Event event;
+
+    public void setEvent(Event event) {
+        if (event == null) {
+            System.out.println("❌ `setEvent()` reçu un `null` !");
+            return;
+        }
+
+        this.event = event;
+        System.out.println("✅ Événement reçu avec ID : " + event.getId_event()); // Debug
+
+        chargerParticipants(); // Charger les participants
     }
 
+
+    private void chargerParticipants() {
+        if (listViewParticipant == null) {
+            System.out.println("❌ ERREUR : listViewParticipant est NULL");
+            return;
+        }
+
+        try {
+            List<Participant> participants = serviceevent.getParticipantsByEvent(event.getId_event());
+            ObservableList<Participant> data = FXCollections.observableArrayList(participants);
+            listViewParticipant.setItems(data);
+            System.out.println("✅ Participants chargés !");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            afficherAlerte("Impossible de charger les participants : " + e.getMessage());
+        }
+    }
 
     private void chargerEvents() {
         try {
@@ -96,7 +130,7 @@ public class listeParticipantControlle implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-    public void suppeimerParticipant() {
+    public void supprimerParticipant() {
         Participant participantSelectionne = listViewParticipant.getSelectionModel().getSelectedItem();
         if (participantSelectionne == null) {
             afficherAlerte("Avertissement", "Veuillez sélectionner une participation à supprimer.");

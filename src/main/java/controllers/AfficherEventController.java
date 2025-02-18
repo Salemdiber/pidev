@@ -188,27 +188,4 @@ public class AfficherEventController {
 
 
 
-
-
-    private int getCurrentUserId() {
-        return 1; // Remplacez ceci par la logique pour obtenir l'ID de l'utilisateur actuel
-    }
-
-    @FXML
-    private void handleAfficherParticipant() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/listeParticipants.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Liste des participants");
-            stage.setScene(new Scene(root));
-            stage.show();
-            stage.setMaximized(true);
-            stage.setResizable(false);
-        } catch (IOException e) {
-            e.printStackTrace();
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la fenêtre des participants : " + e.getMessage());
-        }
-    }
 }

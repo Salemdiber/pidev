@@ -52,5 +52,17 @@ public class ServiceParticipant implements IService<Participant> {
 
         return participants;
     }
+    public String getUserNameById(int idUser) throws SQLException {
+        String sql = "SELECT nom FROM user WHERE id_user = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, idUser);
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            return resultSet.getString("nom");
+        }
+        return "Utilisateur inconnu"; // Si l'ID n'existe pas
+    }
+
 }
 

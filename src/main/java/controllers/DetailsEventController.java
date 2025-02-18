@@ -47,6 +47,8 @@ public class DetailsEventController {
     private Button btnmodifier;
     @FXML
     private ImageView btnmodifier1;
+    @FXML
+    private Button btnpart;
 
     @FXML
     public void initialize() {
@@ -59,6 +61,8 @@ public class DetailsEventController {
 
     public void setEvent(Event event) {
         this.event = event;
+        System.out.println("✅ Détails mis à jour pour l'événement ID : " + event.getId_event());
+
         if (event != null) {
             nomLabelDetail.setText(event.getNom());
             lieuLabelDetail.setText(event.getLieu());
@@ -175,6 +179,32 @@ public class DetailsEventController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void afficherListeParticipants() {
+        if (event == null) {
+            afficherAlerte(Alert.AlertType.WARNING, "Avertissement", "Aucun événement sélectionné.");
+            return;
+        }
+
+        System.out.println("🔹 ID de l'événement envoyé : " + event.getId_event()); // Debug
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/listeParticipants.fxml"));
+            Parent root = loader.load();
+
+            listeParticipantControlle controller = loader.getController();
+            controller.setEvent(event); // Passer l'événement sélectionné
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Liste des Participants de " + event.getNom());
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible d'afficher la liste des participants.");
         }
     }
 

@@ -22,7 +22,7 @@
 
             </ListView>
         </VBox>
-        <Button fx:id="btnsupprimerParticipants" alignment="CENTER" contentDisplay="TOP" layoutX="40.0" layoutY="460.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#suppeimerParticipant" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
+        <Button fx:id="btnsupprimerParticipants" alignment="CENTER" contentDisplay="TOP" layoutX="40.0" layoutY="460.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#supprimerParticipant" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
             <graphic>
                 <ImageView fx:id="btnsupprimerParticipant1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
                     <image>
