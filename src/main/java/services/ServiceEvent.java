@@ -1,7 +1,6 @@
 package services;
 
 import entities.Event;
-import entities.Participant;
 import utils.MyDataBase;
 
 import java.sql.*;
@@ -69,6 +68,14 @@ public class ServiceEvent implements IService<Event> {
             }
 
             return events;
+        }
+    public void participer(int idEvent, int idUser) throws SQLException {
+        String sql = "INSERT INTO participant (id_user,id_event) VALUES ( ?, ?)";
+        PreparedStatement statement = this.connection.prepareStatement(sql);
+        statement.setInt(1, idUser);
+        statement.setInt(2, idEvent);
+        statement.executeUpdate();
+        System.out.println("bien ajouté");
         }
     }
 

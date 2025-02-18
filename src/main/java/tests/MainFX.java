@@ -8,6 +8,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
+
 public class MainFX extends Application {
 
     public static void main(String[] args) {
@@ -16,12 +20,12 @@ public class MainFX extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AjouterPersonne.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/AfficherEvent.fxml"));
         try {
             Parent root =fxmlLoader.load();
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Ajouter ");
+            primaryStage.setTitle("Ajouter");
             primaryStage.show();
         } catch (IOException e) {
             System.out.println(e.getMessage());
