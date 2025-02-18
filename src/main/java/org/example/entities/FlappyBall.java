@@ -22,6 +22,7 @@ public class FlappyBall extends MiniGame implements ActionListener, KeyListener 
     private int W=360;
     private int H=640;
     private int test=0;
+    public boolean start=false;
     private boolean isPaused = false;
     private Image background=new ImageIcon("src/main/resources/images/background.png").getImage();
     private Image ballImg=new ImageIcon("src/main/resources/images/ball.png").getImage();
@@ -65,15 +66,7 @@ public class FlappyBall extends MiniGame implements ActionListener, KeyListener 
         setPreferredSize(new Dimension(W,H));
         ball = new Ball(ballImg);
         pipes = new ArrayList<Pipe>();
-        pipeTimer = new Timer(1500,new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                placePipes();
-            }
-        });
-        pipeTimer.start();
-        gameLoop=new Timer(1000/60,this);
-        gameLoop.start();
+       
 
     }
     public void paint(Graphics g) {
@@ -284,7 +277,22 @@ public class FlappyBall extends MiniGame implements ActionListener, KeyListener 
     public void keyPressed(KeyEvent e) {
         if  (e.getKeyCode()==KeyEvent.VK_SPACE)
         {
-            volY=-10;
+            if (start)
+            {
+                volY=-11;
+            }
+            else
+            {
+                            pipeTimer = new Timer(1500,new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            placePipes();
+                        }
+                    });
+                    pipeTimer.start();
+                    gameLoop=new Timer(1000/60,this);
+                    gameLoop.start();
+            }
         }
         if (e.getKeyCode()==KeyEvent.VK_P)
         {
