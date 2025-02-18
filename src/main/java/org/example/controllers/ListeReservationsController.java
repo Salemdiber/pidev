@@ -4,16 +4,23 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.example.entities.Reservation;
 import org.example.services.ServiceReservation;
 import org.example.services.ServiceTerrain;
+
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -26,6 +33,8 @@ public class ListeReservationsController implements Initializable {
     private ListView<Reservation> listViewReservations;
     @FXML
     private Button btnreturn;
+    @FXML
+    private Button btnmodifierreservation;
 
     private final ServiceReservation serviceReservation = new ServiceReservation();
     private final ServiceTerrain serviceTerrain = new ServiceTerrain();
@@ -35,7 +44,7 @@ public class ListeReservationsController implements Initializable {
 
         // Charger les réservations
         chargerReservations();
-
+        btnmodifierreservation.setOnAction(event -> handleModifierButtonClick());
         // Configurer le ListView pour afficher les réservations
         listViewReservations.setCellFactory(param -> new ListCell<>() {
             @Override
@@ -81,6 +90,7 @@ public class ListeReservationsController implements Initializable {
             afficherAlerte("Impossible de charger les réservations : " + e.getMessage());
         }
     }
+
 
     private void afficherAlerte(String message) {
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
@@ -142,5 +152,31 @@ public class ListeReservationsController implements Initializable {
         stage.close(); // Cela fermera la fenêtre actuelle
     }
 
+    @FXML
+    private void handleModifierButtonClick() {
+        Reservation reservationSelectionne = listViewReservations.getSelectionModel().getSelectedItem();
+        if (reservationSelectionne == null) {
+            afficherAlerte("Avertissement", "Veuillez sélectionner une réservation à modifier.");
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/UpdateReservation.fxml"));
+            Parent root = loader.load();
+
+            ModifierReservationController modifierController = loader.getController();
+            modifierController.setReservation(reservationSelectionne);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Modifier Réservation");
+            stage.showAndWait(); // Wait for the window to close before proceeding
+
+            rafraichirAffichage(); // Refresh the list after the window is closed
+        } catch (IOException e) {
+            e.printStackTrace();
+            afficherAlerte("Erreur", "Impossible d'ouvrir la page de modification.");
+        }
+    }
 
 }

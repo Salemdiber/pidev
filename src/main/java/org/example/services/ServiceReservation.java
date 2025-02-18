@@ -15,7 +15,7 @@ public class ServiceReservation implements IService<Reservation> {
     public void ajouter_t(Reservation reservation) throws SQLException {
         String sql = "INSERT INTO reservation (date_res, id_user, id_terrain) VALUES (?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setDate(1, reservation.getDate_res());
+        ps.setTimestamp(1, reservation.getDate_res());
         ps.setInt(2, reservation.getId_user());
         ps.setInt(3, reservation.getId_terrain());
         ps.executeUpdate();
@@ -34,7 +34,7 @@ public class ServiceReservation implements IService<Reservation> {
     public void modifier_t(Reservation reservation) throws SQLException {
         String sql = "UPDATE reservation SET date_res = ?, id_user = ?, id_terrain = ? WHERE id_res = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setDate(1, reservation.getDate_res());
+        ps.setTimestamp(1, reservation.getDate_res());
         ps.setInt(2, reservation.getId_user());
         ps.setInt(3, reservation.getId_terrain());
         ps.setInt(4, reservation.getId_res());
@@ -50,13 +50,14 @@ public class ServiceReservation implements IService<Reservation> {
         while (rs.next()) {
             reservations.add(new Reservation(
                     rs.getInt("id_res"),
-                    rs.getDate("date_res"),
+                    rs.getTimestamp("date_res"),
                     rs.getInt("id_user"),
                     rs.getInt("id_terrain")
             ));
         }
         return reservations;
     }
+
 
 
 }

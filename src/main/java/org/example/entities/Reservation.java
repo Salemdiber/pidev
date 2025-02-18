@@ -1,22 +1,23 @@
 package org.example.entities;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Reservation {
     int id_res,id_user,id_terrain;
     String nomTerrain;
-    Date date_res;
+    Timestamp date_res;
 
 
 
-    public Reservation(int id_res, Date date_res, int id_user, int id_terrain) {
+    public Reservation(int id_res, Timestamp date_res, int id_user, int id_terrain) {
         this.id_res = id_res;
         this.date_res = date_res;
         this.id_user = id_user;
         this.id_terrain = id_terrain;
 
     }
-    public Reservation(Date date_res, int id_user, int id_terrain, String nom_terrain) {
+    public Reservation(Timestamp date_res, int id_user, int id_terrain, String nom_terrain) {
         this.date_res = date_res;
         this.id_user = id_user;
         this.id_terrain = id_terrain;
@@ -48,11 +49,11 @@ public class Reservation {
         this.id_terrain = id_terrain;
     }
 
-    public Date getDate_res() {
+    public Timestamp getDate_res() {
         return date_res;
     }
 
-    public void setDate_res(Date date_res) {
+    public void setDate_res(Timestamp date_res) {
         this.date_res = date_res;
     }
 

@@ -96,6 +96,17 @@ ps.executeUpdate();
 
         return terrain;
     }
+    public List<String> getAllTerrainNames() throws SQLException {
+        List<String> terrainNames = new ArrayList<>();
+        String query = "SELECT nom FROM terrain"; // Use the correct table name
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                terrainNames.add(resultSet.getString("nom"));
+            }
+        }
+        return terrainNames;
+    }
 
 
     public boolean isTerrainAvailable(int idTerrain, String dateHeureReservation) throws SQLException {
@@ -111,5 +122,17 @@ ps.executeUpdate();
             }
         }
         return false;
+    }
+    public int getTerrainIdByName(String nomTerrain) throws SQLException {
+        String sql = "SELECT id_terrain FROM terrain WHERE nom = ?"; // Correction ici
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, nomTerrain);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id_terrain");
+            } else {
+                throw new SQLException("Aucun terrain trouvé avec le nom : " + nomTerrain);
+            }
+        }
     }
 }

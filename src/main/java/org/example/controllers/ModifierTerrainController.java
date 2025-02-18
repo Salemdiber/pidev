@@ -140,13 +140,11 @@ public class ModifierTerrainController {
     private void fermerFenetre() {
         Stage stage = (Stage) nametxtfield.getScene().getWindow();
         stage.close();
-
         if (homeAfficheTerrainController != null) {
             homeAfficheTerrainController.rafraichirAffichage();
         }
     }
     private HomeAfficheTerrainController homeAfficheTerrainController;
-
     public void setHomeAfficheTerrainController(HomeAfficheTerrainController controller) {
         this.homeAfficheTerrainController = controller;
     }

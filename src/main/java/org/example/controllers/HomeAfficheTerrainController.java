@@ -37,7 +37,8 @@ public class HomeAfficheTerrainController {
     private Button btnsupprimer;
     @FXML
     private Button btnmodifier;
-
+    @FXML
+    private Button forumBtn;
     @FXML
     private Button btnreserver1;
 
@@ -57,6 +58,7 @@ public class HomeAfficheTerrainController {
         // Ajouter des actions aux boutons
         btnmodifier.setOnAction(event -> ouvrirFenetreModification());
         btnsupprimer.setOnAction(event -> supprimerTerrain());
+        forumBtn.setOnAction(event -> handleOuvrirForum());
 
         btnreserver1.setOnAction(event -> handleAfficherReservations());
         listViewTerrains.setOnMouseClicked(event -> {
@@ -215,6 +217,23 @@ public class HomeAfficheTerrainController {
         } catch (IOException e) {
             e.printStackTrace();
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la fenêtre des réservations : " + e.getMessage());
+        }
+    }
+    @FXML
+    private void handleOuvrirForum() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/afficherPub.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Forum des Publications");
+            stage.setScene(new Scene(root));
+            stage.setMaximized(true); // Ouvre en plein écran
+            stage.setResizable(false); // Empêche le redimensionnement
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page du forum : " + e.getMessage());
         }
     }
 }
