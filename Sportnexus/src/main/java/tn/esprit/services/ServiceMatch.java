@@ -17,13 +17,17 @@ public class ServiceMatch implements Iservice<Partie> {
 
     @Override
     public void ajouter(Partie match) throws SQLException {
-        String req = "INSERT INTO partie (type, resultat, date_match, lieu) VALUES (?, ?, ?, ?)";
+        String req = "INSERT INTO partie (type, resultat, date_match, lieu,idEquipe1,idEquipe2) VALUES (?, ?, ?, ?,?,?)";
         try (PreparedStatement pst = cnx.prepareStatement(req, Statement.RETURN_GENERATED_KEYS)) {
             // En utilisant l'enum TypeMatch et la méthode toString()
             pst.setString(1, match.getType().toString());
             pst.setString(2, match.getResultat());
             pst.setDate(3, new java.sql.Date(match.getDateMatch().getTime()));
             pst.setString(4, match.getLieu());
+            pst.setString(5, String.valueOf(match.getIdEquipe1()));
+            pst.setString(6, String.valueOf(match.getIdEquipe2()));
+
+
             pst.executeUpdate();
 
             // Récupérer l'ID généré pour le match

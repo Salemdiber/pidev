@@ -6,7 +6,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -63,8 +62,6 @@
          </font>
       </Label>
 
-      <ListView fx:id="equipeListView" layoutX="277.0" layoutY="397.0" prefHeight="60.0" prefWidth="277.0" />
-
       <Button fx:id="quitmatchbtn" layoutX="277.0" layoutY="553.0" mnemonicParsing="false" onMouseClicked="#quitter" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Quit" />
 
       <DatePicker fx:id="datedatepicker" layoutX="276.0" layoutY="318.0" prefHeight="31.0" prefWidth="277.0" promptText="Choose your Match's date" />
@@ -79,5 +76,11 @@
          </items>
       </ComboBox>
       <ComboBox fx:id="typecombobox" layoutX="277.0" layoutY="206.0" prefHeight="31.0" prefWidth="277.0" />
+      <ComboBox fx:id="cbteam1" layoutX="276.0" layoutY="403.0" prefHeight="31.0" prefWidth="277.0">
+
+      </ComboBox>
+      <ComboBox fx:id="cbteam2" layoutX="277.0" layoutY="448.0" prefHeight="31.0" prefWidth="277.0">
+
+      </ComboBox>
    </children>
 </Pane>

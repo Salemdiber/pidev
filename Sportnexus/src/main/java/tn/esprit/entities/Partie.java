@@ -9,6 +9,10 @@ public class Partie {
     private String resultat;
     private Date dateMatch;
     private String lieu;
+    private int idEquipe1;
+
+
+    private int idEquipe2;
     private List<Equipe> equipes = new ArrayList<>(); // Liste des équipes participant à la partie
 
     // Constructeur avec Enum TypeMatch
@@ -18,6 +22,33 @@ public class Partie {
         this.resultat = resultat;
         this.dateMatch = dateMatch;
         this.lieu = lieu;
+    }
+
+    public int getIdEquipe1() {
+        return idEquipe1;
+    }
+
+    public void setIdEquipe1(int idEquipe1) {
+        this.idEquipe1 = idEquipe1;
+    }
+
+    public int getIdEquipe2() {
+        return idEquipe2;
+    }
+
+    public void setIdEquipe2(int idEquipe2) {
+        this.idEquipe2 = idEquipe2;
+    }
+
+    public Partie(int idMatch, TypeMatch type, String resultat, Date dateMatch, String lieu, int idEquipe1, int idEquipe2, List<Equipe> equipes) {
+        this.idMatch = idMatch;
+        this.type = type;
+        this.resultat = resultat;
+        this.dateMatch = dateMatch;
+        this.lieu = lieu;
+        this.idEquipe1 = idEquipe1;
+        this.idEquipe2 = idEquipe2;
+        this.equipes = equipes;
     }
 
     // Constructeur avec Enum TypeMatch
@@ -68,6 +99,7 @@ public class Partie {
     public List<Equipe> getEquipes() {
         return equipes;
     }
+
 
     // Setters
     public void setType(TypeMatch type) {

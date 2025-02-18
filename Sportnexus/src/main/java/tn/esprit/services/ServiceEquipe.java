@@ -24,6 +24,7 @@ public class ServiceEquipe implements Iservice<Equipe> {
             pst.setString(4, equipe.getDescription());
             pst.setInt(5, equipe.getPoints());
             pst.setInt(6, equipe.getIdEntraineur());
+
             pst.executeUpdate();
             System.out.println("✅ Équipe ajoutée avec succès !");
         }

@@ -11,7 +11,12 @@ public class Equipe {
     private String description;
     private int points;
     private int idEntraineur = 1;
+
     private List<Partie> matchs = new ArrayList<>(); // Liste des matchs joués par l'équipe
+
+
+
+
 
     public Equipe(int idEquipe, String nom, int classement, String image, String description, int points) {
         this.idEquipe = idEquipe;
@@ -72,6 +77,7 @@ public class Equipe {
     public int getIdEntraineur() {
         return idEntraineur;
     }
+
 
     public List<Partie> getMatchs() {
         return matchs;
