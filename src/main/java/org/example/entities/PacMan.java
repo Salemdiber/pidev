@@ -1,4 +1,5 @@
 package org.example.entities;
+import org.example.services.ServiceCarte;
 import org.example.services.ServiceMiniGame;
 import javax.swing.*;
 import java.awt.*;
@@ -16,59 +17,10 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
     public void setServiceMiniGame(ServiceMiniGame serviceMiniGame) {
         this.serviceMiniGame = serviceMiniGame;
     }
-
-    class Block {
-        int x;
-        int y;
-        int width;
-        int height;
-        int sx;
-        int sy;
-        Image image;
-        char direction='U';
-        int velX=0;
-        int velY=0;
-
-        Block(int x, int y, int width, int height, Image image) {
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-            this.image = image;
-            sx = x;
-            sy = y;
-
-        }
-        void updateDirection(char direction) {
-            this.direction = direction;
-            if (this.direction == 'U') {
-                this.velX = 0;
-                this.velY = -10;
-            }
-            else if (this.direction == 'D') {
-                this.velX = 0;
-                this.velY = 10;
-            }
-            else if (this.direction == 'L') {
-                this.velX = -10;
-                this.velY = 0;
-            }
-            else if (this.direction == 'R') {
-                this.velX = 10;
-                this.velY = 0;
-            }
-
-
-        }
-        public void reset()
-        {
-            this.x=sx;
-            this.y=sy;
-
-        }
-    }
+    private int pcon=0;
+    private int isDeleted=0;
     private ServiceMiniGame serviceMiniGame = new ServiceMiniGame();
-
+    private ServiceCarte serviceCarte = new ServiceCarte();
     private int row = 19;
     private int col = 19;
     private int tileSize = 30;
@@ -78,9 +30,9 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
     private Image pinkGhost = new ImageIcon("src/main/resources/images/Haland.png").getImage();
     private Image blueGhost = new ImageIcon("src/main/resources/images/Messi.png").getImage();
     private Image foodimg = new ImageIcon("src/main/resources/images/food.png").getImage();
-
-
-
+    private boolean isPaused = false;
+    private boolean isInactive = false;
+    private int test=0;
     private HashSet<Block> walls;
     private HashSet<Block> ghosts;
     private HashSet<Block> foods;
@@ -113,8 +65,10 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
 
     };
 
+
     public boolean getGameloop()
     {
+
         return gameLoop.isRunning();
     }
     public PacMan() {
@@ -132,6 +86,40 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
         setFocusable(true);
 
     }
+    public void simplePauseTimer() {
+        // Set up a timer to check every 100 milliseconds
+        int pauseDuration = 60000; // 1 minute in milliseconds
+        Timer timer = new Timer(100, new ActionListener() {
+            private long startTime = System.currentTimeMillis();
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                long elapsedTime = System.currentTimeMillis() - startTime;
+
+                if (!isPaused) {
+                    System.out.println("Game resumed before timer ended");
+                    ((Timer) e.getSource()).stop();
+                    return;
+                }
+                if (elapsedTime >= pauseDuration) {
+                    try {
+                        ServiceMiniGame s = new ServiceMiniGame();
+                        int id = s.lastSavedGame();
+                        s.supprimer(id);
+                        System.out.println("sayey tfaskht");
+                        isDeleted=1;
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    ((Timer) e.getSource()).stop();
+                }
+            }
+        });
+
+        timer.start();
+    }
+
+
     public void loadMap() {
         walls = new HashSet<>();
         ghosts = new HashSet<>();
@@ -141,26 +129,26 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
                 String row = Map[r];
                 char mapChar = row.charAt(c);
                 if (mapChar == 'X') {
-                    Block wall = new Block(c * tileSize, r * tileSize, tileSize, tileSize, wallImage);
+                    Block wall = new Block(c * tileSize, r * tileSize, tileSize, tileSize, wallImage,0);
                     walls.add(wall);
                 }
                 if (mapChar == 'b') {
-                    Block ghost = new Block(c * tileSize, r * tileSize, tileSize, tileSize, blueGhost);
+                    Block ghost = new Block(c * tileSize, r * tileSize, tileSize, tileSize, blueGhost,1);
                     ghosts.add(ghost);
                 }
                 if (mapChar == 'o') {
-                    Block ghost = new Block(c * tileSize, r * tileSize, tileSize, tileSize, orangeGhost);
+                    Block ghost = new Block(c * tileSize, r * tileSize, tileSize, tileSize, orangeGhost,2);
                     ghosts.add(ghost);
                 }
                 if (mapChar == 'p') {
-                    Block ghost = new Block(c * tileSize, r * tileSize, tileSize, tileSize, pinkGhost);
+                    Block ghost = new Block(c * tileSize, r * tileSize, tileSize, tileSize, pinkGhost,3);
                     ghosts.add(ghost);
                 }
                 if (mapChar == 'P') {
-                    pacman = new Block(c * tileSize, r * tileSize, tileSize, tileSize, ball);
+                    pacman = new Block(c * tileSize, r * tileSize, tileSize, tileSize, ball,0);
                 }
                 if (mapChar == ' ') {
-                    Block food = new Block(c * tileSize, r * tileSize, tileSize, tileSize, foodimg);
+                    Block food = new Block(c * tileSize, r * tileSize, tileSize, tileSize, foodimg,0);
                     foods.add(food);
                 }
             }
@@ -191,6 +179,36 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
     public void paint(Graphics g) {
         super.paint(g);
         draw(g);
+    }
+    public void checkAndCreateReward(MiniGame miniGame) throws SQLException {
+
+        if (score>10 && serviceCarte.VerifierCarte("commune",this.user) )
+        {
+            Carte carte=new Carte(1000,1,"commune","");
+            try{
+                serviceCarte.ajouter(carte);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        if (score>1000 && serviceCarte.VerifierCarte("rare",this.user) )
+        {
+            Carte carte=new Carte(2000,1,"rare","");
+            try{
+                serviceCarte.ajouter(carte);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        if (score>2500 && serviceCarte.VerifierCarte("legandaire",this.user))
+        {
+            Carte carte=new Carte(3000,1,"legandaire","");
+            try{
+                serviceCarte.ajouter(carte);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
     }
     public void move()
     {
@@ -251,6 +269,14 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
             ghost.updateDirection(direction);
         }
     }
+    public void ResumeGhosts()
+    {
+        for (Block ghost : ghosts) {
+            ghost.reset();
+            char direction = directions[random.nextInt(4)];
+            ghost.updateDirection(direction);
+        }
+    }
     public boolean collision(Block a, Block b) {
         return  a.x < b.x + b.width &&
                 a.x + a.width > b.x &&
@@ -267,6 +293,18 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
             ex.printStackTrace();
         }
     }
+    public void updateGameResult() {
+
+        try {
+            int id = serviceMiniGame.lastSavedGame();
+            String data = convertDataString();
+            this.data=data;
+            serviceMiniGame.modifier(this,id);
+            System.out.println("JAWEK BHI tupdata");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
     public String convertDataString() {
         StringBuilder data = new StringBuilder();
         data.append("PacMan,")
@@ -277,7 +315,7 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
             data.append("Ghost,")
                     .append(ghost.x).append(",")
                     .append(ghost.y).append(",")
-                    .append(ghost.direction).append(";");
+                    .append(ghost.type).append(";");
         }
         for (Block food : foods) {
             data.append("Food,")
@@ -287,79 +325,102 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
         data.append("Lives,").append(lives).append(";");
         return data.toString();
     }
+    public Image getGhostImage(int type) {
+        switch (type)
+
+        {
+            case 1:
+                return blueGhost;
+            case 3:
+                return pinkGhost;
+            case 2:
+                return orangeGhost;
+        }
+        return null;
+    }
+
+
     public void resumeGame(String data) {
-        ghosts.clear();
-        foods.clear();
-        String[] parts = data.split(";");
 
-        for (String part : parts) {
-            String[] elements = part.split(",");
+            ghosts.clear();
+            foods.clear();
+            String[] parts = data.split(";");
 
-            if (elements.length > 0) {
-                switch (elements[0]) {
-                    case "PacMan":
-                        pacman.x = Integer.parseInt(elements[1]);
-                        pacman.y = Integer.parseInt(elements[2]);
-                        pacman.direction = elements[3].charAt(0);
-                        break;
+            for (String part : parts) {
+                String[] elements = part.split(",");
 
-                    case "Ghost":
-                        Block ghost = new Block(
-                                Integer.parseInt(elements[1]),
-                                Integer.parseInt(elements[2]),
-                                tileSize, tileSize,
-                                getGhostImage(elements[3].charAt(0))
-                        );
-                        ghost.direction = elements[3].charAt(0);
-                        ghosts.add(ghost);
-                        break;
+                if (elements.length > 0) {
+                    switch (elements[0]) {
+                        case "PacMan":
+                            pacman.x = Integer.parseInt(elements[1]);
+                            pacman.y = Integer.parseInt(elements[2]);
+                            pacman.direction = elements[3].charAt(0);
+                            pacman.type=0;
+                            break;
 
-                    case "Food":
-                        Block food = new Block(
-                                Integer.parseInt(elements[1]),
-                                Integer.parseInt(elements[2]),
-                                tileSize, tileSize,
-                                foodimg
-                        );
-                        foods.add(food);
-                        break;
+                        case "Ghost":
+                            Block ghost = new Block(
+                                    Integer.parseInt(elements[1]),
+                                    Integer.parseInt(elements[2]),
+                                    tileSize, tileSize,
+                                    getGhostImage(Integer.parseInt(elements[3])),
+                                    Integer.parseInt(elements[3])
+                            );
+                            ghost.direction = 'U';
+                            ghosts.add(ghost);
+                            break;
 
-                    case "Lives":
-                        lives = Integer.parseInt(elements[1]);
-                        break;
+                        case "Food":
+                            Block food = new Block(
+                                    Integer.parseInt(elements[1]),
+                                    Integer.parseInt(elements[2]),
+                                    tileSize, tileSize,
+                                    foodimg,
+                                    0
+                            );
+                            foods.add(food);
+                            break;
+
+                        case "Lives":
+                            lives = Integer.parseInt(elements[1]);
+                            break;
+                    }
                 }
             }
+
+            ResumeGhosts();
+            gameLoop.start();
+            repaint();
+            move();
+
         }
-        gameLoop.start();
-        repaint();
-        move();
-    }
-    private Image getGhostImage(char type) {
-        switch (type) {
-            case 'b':
-                return blueGhost;
-            case 'o':
-                return orangeGhost;
-            case 'p':
-                return pinkGhost;
-            default:
-                return blueGhost;
-        }
-    }
-
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
         move();
         repaint();
-        if(go)
+        if(go && test==0)
         {
-            System.out.println(this);
+            //System.out.println(this);
             gameLoop.stop();
+            try{
+                checkAndCreateReward(this);
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
             saveGameResult();
+        } else if (go && test==1) {
+            gameLoop.stop();
+            try{
+                checkAndCreateReward(this);
+            }catch(SQLException ex){
+                ex.printStackTrace();
+            }
+            updateGameResult();
+
         }
+
+
     }
     @Override
     public void keyTyped(KeyEvent e) {
@@ -370,29 +431,44 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
     }
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_M)
+        if (e.getKeyCode() == KeyEvent.VK_R)
         {
+            isPaused = false;
+            if(isDeleted==0)
+            {
             try {
                 int lastGameId = serviceMiniGame.lastSavedGame();
                 if (lastGameId != -1)
                 {
                     String data = serviceMiniGame.getGameDataById(lastGameId);
+                    test=1;
                     resumeGame(data);
                 } else
                 {
-                    System.out.println("No saved games found.");
+                    System.out.println("famech");
                 }
             }catch(SQLException ex) {
                 ex.printStackTrace();
             }
+            }
 
         }
         if (e.getKeyCode() == KeyEvent.VK_P) {
+            isPaused = true;
             gameLoop.stop();
             saveGameResult();
+            simplePauseTimer();
+
+
+
 
         }
+
+
         if (e.getKeyCode() == KeyEvent.VK_UP) {
+            pacman.updateDirection('U');
+        }
+        if (e.getKeyCode() == KeyEvent.VK_W) {
             pacman.updateDirection('U');
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {

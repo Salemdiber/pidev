@@ -1,38 +1,30 @@
 package org.example.test;
 
-import org.example.entities.PacMan;
-import org.example.entities.MiniGame;
-import org.example.services.ServiceMiniGame;
-import javax.swing.JFrame;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
+import java.io.IOException;
+public class Main extends Application {
 
-    public static void main(String[] args) throws SQLException {
-        List<MiniGame> miniGames = new ArrayList<>();
-        ServiceMiniGame s = new ServiceMiniGame();
-        JFrame frame =new JFrame("MiniGame_PacMan");
-        //frame.setVisible(true);
-        //frame.setSize(row*tileSize,col*tileSize);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        PacMan pacmanGame = new PacMan();
-        frame.add(pacmanGame);
-        frame.pack();
-        pacmanGame.requestFocus();
-        frame.setVisible(true);
+    @Override
+    public void start(Stage primaryStage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/gameHome.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1450, 720);
+            primaryStage.setTitle("SportNexus");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement du fichier FXML : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
-        /*try{
-            MiniGame miniGame = new MiniGame(3,1333,1,"winner",null);
-            s.ajouter(pacmanGame);
-            //s.modifier(miniGame,10);
-           // s.supprimer(1);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }*/
+    public static void main(String[] args) {
+        launch(args);
     }
 }
+
+

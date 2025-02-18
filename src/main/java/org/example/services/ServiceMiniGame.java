@@ -66,16 +66,36 @@ public class ServiceMiniGame implements IService<MiniGame> {
         }
         return miniGames;
     }
+    public List<MiniGame> afficher(int id) throws SQLException {
+        Statement st = connection.createStatement();
+        List<MiniGame> miniGames = new ArrayList<>();
+        String sql = "SELECT * FROM `minigame` WHERE `userid` = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            MiniGame miniGame = new MiniGame();
+            miniGame.setId(rs.getInt("id"));
+            miniGame.setType(rs.getInt("type"));
+            miniGame.setScore(rs.getInt("score"));
+            miniGame.setUser(rs.getInt("userId"));
+            miniGame.setResult(rs.getString("result"));
+            miniGame.setData(rs.getString("data"));
+            miniGames.add(miniGame);
+        }
+        return miniGames;
+    }
     public int lastSavedGame() throws SQLException {
         System.out.println("lastSavedGame");
         int lastGameId = -1;
         Statement st=connection.createStatement();
         String query = "SELECT id FROM minigame ORDER BY id DESC LIMIT 1";  // Modify column and table names
-            ResultSet rs = st.executeQuery(query);
-            if (rs.next()) {
-                System.out.println("lastSavedGame");
-                lastGameId = rs.getInt("id");
-            }
+        ResultSet rs = st.executeQuery(query);
+        if (rs.next()) {
+            System.out.println("lastSavedGame");
+            lastGameId = rs.getInt("id");
+        }
 
         return lastGameId;
     }

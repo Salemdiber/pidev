@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controllers.ModifierTerrainController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <children>
+        <VBox alignment="CENTER" spacing="10" layoutX="50" layoutY="50">
+            <Label text="Modifier Terrain" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+            <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+
+                <!-- Nom du Terrain -->
+                <Label text="Nom:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtNomTerrain" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <!-- Lieu du Terrain -->
+                <Label text="Lieu:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtLieuTerrain" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <!-- Description -->
+                <Label text="Description:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtDescTerrain" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <!-- Image -->
+                <Label text="Image:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtImgTerrain" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <Button fx:id="btnParcourirImg" text="Parcourir" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+
+            </GridPane>
+
+            <!-- Bouton Modifier -->
+            <Button fx:id="btnModifierTerrain" text="Modifier" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        </VBox>
+    </children>
+</AnchorPane>
+

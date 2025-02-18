@@ -9,7 +9,7 @@ public class MiniGame extends JPanel {
     protected int id, type,score,user;
     protected String result;
     protected String data;
-    
+
     public MiniGame( int type, int score, int user, String result, String data) {
         this.type = type;
         this.score = score;
@@ -67,6 +67,7 @@ public class MiniGame extends JPanel {
     public void setData(String data) {
         this.data = data;
     }
+
     @Override
     public String toString() {
         return "MiniGame{" +"id=" + id +", score=" + score +", user=" + user +", result='" + result + '\'' +", data=" + data;

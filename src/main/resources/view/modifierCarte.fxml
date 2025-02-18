@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="987.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.modifierCarteController">
+    <AnchorPane prefHeight="100.0" prefWidth="258.0">
+        <ImageView fitHeight="97.0" fitWidth="124.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../img/ajouter-de-la-musique.png" />
+        </ImageView>
+        <Label layoutX="112.0" layoutY="12.0" prefHeight="74.0" prefWidth="349.0" styleClass="title_page" stylesheets="@../styles/style.css" text="Modifier Carte">
+            <font>
+                <Font name="Century Gothic Bold" size="26.0" />
+            </font>
+        </Label>
+    </AnchorPane>
+    <Label layoutX="46.0" layoutY="196.0" prefHeight="31.0" prefWidth="176.0" text="Rarité Du Carte">
+        <font>
+            <Font name="System Bold" size="21.0" />
+        </font>
+    </Label>
+    <Label layoutX="46.0" layoutY="236.0" prefHeight="31.0" prefWidth="155.0" text="Score Du Carte">
+        <font>
+            <Font name="System Bold" size="21.0" />
+        </font>
+    </Label>
+    <Label layoutX="46.0" layoutY="277.0" prefHeight="31.0" prefWidth="155.0" text="User Id">
+        <font>
+            <Font name="System Bold" size="21.0" />
+        </font>
+    </Label>
+    <TextField fx:id="nametxtfield" layoutX="258.0" layoutY="196.0" prefHeight="31.0" prefWidth="277.0" promptText="ENTRER RARITER DU CARTE" />
+    <TextField fx:id="lieutxtfield" layoutX="258.0" layoutY="236.0" prefHeight="31.0" prefWidth="277.0" promptText="ENTRER SCORE DU CARTE" />
+    <TextField fx:id="desctxtfield" layoutX="258.0" layoutY="277.0" prefHeight="31.0" prefWidth="277.0" promptText="ENTRER ID DU UTILISATEUR" />
+
+    <TextField fx:id="cheminImage" layoutX="258.0" layoutY="320.0" prefHeight="31.0" prefWidth="277.0" />
+    <Button fx:id="btnImage" layoutX="263.0" layoutY="374.0" onAction="#choisirImage" prefHeight="25.0" prefWidth="277.0" text="Choisir Image" />
+    <Button fx:id="btnModifierCarte" layoutX="259.0" layoutY="484.0" mnemonicParsing="false" onAction="#modifierCarte" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Modifier" />
+    <Button fx:id="annulerbtn" layoutX="258.0" layoutY="533.0" mnemonicParsing="false" onAction="#back" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="ANNULER" />
+    <Label layoutX="46.0" layoutY="319.0" prefHeight="31.0" prefWidth="155.0" text="Entrer image">
+        <font>
+            <Font name="System Bold" size="21.0" />
+        </font>
+    </Label>
+   <Label layoutX="39.0" layoutY="155.0" prefHeight="31.0" prefWidth="190.0" text=" Carte Id">
+      <font>
+         <Font name="System Bold" size="21.0" />
+      </font>
+   </Label>
+   <TextField fx:id="idCarte" layoutX="258.0" layoutY="155.0" prefHeight="31.0" prefWidth="277.0" promptText="ENTRER ID DU CARTE" />
+   <ImageView fx:id="img" fitHeight="239.0" fitWidth="200.0" layoutX="589.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" />
+</Pane>
