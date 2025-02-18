@@ -25,8 +25,9 @@ public class MainFX extends Application {
             Parent root =fxmlLoader.load();
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Ajouter");
+            primaryStage.setTitle("liste des events");
             primaryStage.show();
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

@@ -58,10 +58,10 @@ public class listeParticipantControlle implements Initializable {
                         // 🔹 Récupérer le nom de l'utilisateur à partir de l'ID
                         String userName = serviceparticipant.getUserNameById(item.getId_user());
 
-                        Label userLabel = new Label("👤 Utilisateur: " + userName);
+                        Label userLabel = new Label("👤 participant: " + userName);
                         userLabel.getStyleClass().add("event-label");
 
-                        HBox hBox = new HBox(15, userLabel);
+                        HBox hBox = new HBox(25, userLabel);
                         hBox.setAlignment(Pos.CENTER_LEFT);
 
                         setGraphic(hBox);

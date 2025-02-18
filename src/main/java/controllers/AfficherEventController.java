@@ -83,8 +83,6 @@ public class AfficherEventController {
     private ImageView coursesBtnImg;
     @FXML
     private Button productsBtn;
-    @FXML
-    private ImageView btnmodifier1;
 
     @FXML
     public void initialize() {
@@ -121,7 +119,7 @@ public class AfficherEventController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Détails de l'Événement");
-            stage.setResizable(false);
+            stage.setResizable(true);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -166,7 +164,7 @@ public class AfficherEventController {
             stage.setTitle("Ajouter un event");
             stage.setScene(new Scene(root));
             //stage.setMaximized(true);
-            stage.setResizable(false);
+            stage.setResizable(true);
             // Ajouter un écouteur pour détecter la fermeture de la fenêtre et rafraîchir la ListView
             stage.setOnHidden((WindowEvent e) -> rafraichirAffichage());
 

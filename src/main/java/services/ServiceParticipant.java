@@ -57,17 +57,17 @@ public class ServiceParticipant implements IService<Participant> {
     }
 
     public String getUserNameById(int idUser) throws SQLException {
-        String sql = "SELECT nom FROM user WHERE id_user = ?";
+        String sql = "SELECT nom, prenom FROM user WHERE id_user = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, idUser);
         ResultSet resultSet = statement.executeQuery();
 
         if (resultSet.next()) {
-            return resultSet.getString("nom");
+            String nom = resultSet.getString("nom");
+            String prenom = resultSet.getString("prenom");
+            return nom + " " + prenom;
         }
         return "Utilisateur inconnu"; // Si l'ID n'existe pas
     }
-
-
 }
 

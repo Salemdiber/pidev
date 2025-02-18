@@ -49,6 +49,14 @@ public class DetailsEventController {
     private ImageView btnmodifier1;
     @FXML
     private Button btnpart;
+    @FXML
+    private ImageView btnparticiper1;
+    @FXML
+    private ImageView btnpart1;
+    @FXML
+    private Button btnparticiper;
+    @FXML
+    private Button btnreturn;
 
     @FXML
     public void initialize() {
@@ -206,6 +214,12 @@ public class DetailsEventController {
             e.printStackTrace();
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible d'afficher la liste des participants.");
         }
+    }
+    @FXML
+    private void handleReturnButtonClick() {
+        // Fermer la fenêtre actuelle
+        Stage stage = (Stage) btnreturn.getScene().getWindow();
+        stage.close(); // Cela fermera la fenêtre actuelle
     }
 
 

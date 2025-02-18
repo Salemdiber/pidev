@@ -39,6 +39,8 @@ public class ModifierEventController {
     private AfficherEventController afficherEventController;
     @FXML
     private TextField txtImg;
+    @FXML
+    private Button btnreturn;
 
     public void setAfficherEventController(AfficherEventController controller) {
         this.afficherEventController = controller;
@@ -187,6 +189,12 @@ public class ModifierEventController {
     }
     public void setDetailsEventController(DetailsEventController controller) {
         this.detailsEventController = controller;
+    }
+    @FXML
+    private void handleReturnButtonClick() {
+        // Fermer la fenêtre actuelle
+        Stage stage = (Stage) btnreturn.getScene().getWindow();
+        stage.close(); // Cela fermera la fenêtre actuelle
     }
 
 }

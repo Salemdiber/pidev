@@ -31,9 +31,9 @@
                 </ImageView>
             </graphic>
         </Button>
-         <Button fx:id="btnreturn" alignment="CENTER" contentDisplay="TOP" layoutX="14.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleReturnButtonClick" prefHeight="26.0" prefWidth="32.0" styleClass="btnreturn" stylesheets="@../styles/style.css">
+         <Button fx:id="btnreturn" alignment="CENTER" contentDisplay="TOP" layoutX="14.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleReturnButtonClick" prefHeight="36.0" prefWidth="41.0" styleClass="btnreturn" stylesheets="@../styles/style.css">
              <graphic>
-                 <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                 <ImageView fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                          <Image url="@../img/return-104.png" />
                      </image>

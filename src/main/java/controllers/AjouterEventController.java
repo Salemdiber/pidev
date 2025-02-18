@@ -47,6 +47,8 @@ public class AjouterEventController {
     private ImageView imageview;
     @FXML
     private Button ajouterbtn;
+    @FXML
+    private Button btnreturn;
 
     @FXML
     public void initialize() {
@@ -169,6 +171,13 @@ public class AjouterEventController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void handleReturnButtonClick() {
+        // Fermer la fenêtre actuelle
+        Stage stage = (Stage) btnreturn.getScene().getWindow();
+        stage.close(); // Cela fermera la fenêtre actuelle
     }
 }
 
