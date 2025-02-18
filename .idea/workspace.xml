@@ -15,6 +15,7 @@
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AjouterTerrainController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/HomeAfficheTerrainController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ListeReservationsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ModifierReservationController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ModifierTerrainController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/SupprimerReservationController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/SupprimerTerrainController.java" afterDir="false" />
@@ -52,6 +53,7 @@
       <change afterPath="$PROJECT_DIR$/src/main/resources/view/HomeAffiche.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/view/Listereservations.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/view/TerrainDetail.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/UpdateReservation.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/view/UpdateTerrain.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -168,7 +170,10 @@
       <workItem from="1739569822769" duration="9836000" />
       <workItem from="1739629441883" duration="1614000" />
       <workItem from="1739645262081" duration="16574000" />
-      <workItem from="1739715931252" duration="15091000" />
+      <workItem from="1739715931252" duration="21416000" />
+      <workItem from="1739748082025" duration="140000" />
+      <workItem from="1739799360552" duration="72000" />
+      <workItem from="1739810621748" duration="12427000" />
     </task>
     <servers />
   </component>

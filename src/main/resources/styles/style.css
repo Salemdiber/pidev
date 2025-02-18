@@ -508,3 +508,62 @@ btnClearAdmin:hover,.btnAdminReports:hover,.btnCancel:hover,.btn-light:hover{
     -fx-background-color: #d3d3d3; /* Gris plus foncé pour la sélection */
     -fx-text-fill: black;
 }
+/* Style général pour les composants */
+.combo-box {
+    -fx-background-color: #cef8d6; /* Couleur de fond */
+    -fx-border-color: #3d9034; /* Couleur de bordure */
+    -fx-border-radius: 5; /* Coins arrondis */
+    -fx-padding: 5; /* Espacement interne */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-text-fill: #333; /* Couleur du texte */
+}
+
+.combo-box .list-view {
+    -fx-background-color: #cef8d6; /* Couleur de fond de la liste */
+    -fx-border-color: #3d9034; /* Couleur de bordure de la liste */
+    -fx-border-radius: 5; /* Coins arrondis */
+}
+
+.combo-box .list-view .list-cell {
+    -fx-background-color: #cef8d6; /* Couleur de fond des cellules */
+    -fx-text-fill: #333; /* Couleur du texte des cellules */
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color: #cef8d6; /* Couleur de fond au survol */
+}
+
+.date-picker {
+    -fx-background-color: #cef8d6; /* Couleur de fond */
+    -fx-border-color: #3d9034; /* Couleur de bordure */
+    -fx-border-radius: 5; /* Coins arrondis */
+    -fx-padding: 5; /* Espacement interne */
+    -fx-font-size: 14px; /* Taille de la police */
+    -fx-text-fill: #333; /* Couleur du texte */
+}
+
+.date-picker .text-field {
+    -fx-background-color: transparent; /* Fond transparent pour le champ de texte */
+    -fx-border-color: transparent; /* Pas de bordure */
+    -fx-text-fill: #333; /* Couleur du texte */
+}
+
+.date-picker .calendar-popup {
+    -fx-background-color: #cef8d6; /* Couleur de fond du calendrier */
+    -fx-border-color: #3d9034; /* Couleur de bordure du calendrier */
+    -fx-border-radius: 5; /* Coins arrondis */
+}
+
+.date-picker .calendar-popup .day-cell {
+    -fx-background-color: #cef8d6; /* Couleur de fond des cellules de jour */
+    -fx-text-fill: #cef8d6; /* Couleur du texte des cellules de jour */
+}
+
+.date-picker .calendar-popup .day-cell:hover {
+    -fx-background-color: #cef8d6; /* Couleur de fond au survol des cellules de jour */
+}
+
+.date-picker .calendar-popup .day-cell.selected {
+    -fx-background-color: #3d9034; /* Couleur de fond pour le jour sélectionné */
+    -fx-text-fill: #cef8d6; /* Couleur du texte pour le jour sélectionné */
+}
