@@ -99,9 +99,8 @@ public class AfficherPubController {
         // Charger les données
         chargerTerrains();
 
-        // Ajouter des actions aux boutons
-        //btnmodifier.setOnAction(event -> ouvrirFenetreModification());
-        btnsupprimer.setOnAction(event -> supprimerTerrain());
+
+
 
         listviewPub.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) { // Vérifiez si c'est un double-clic
@@ -118,7 +117,7 @@ public class AfficherPubController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DetailsPub.fxml"));
             Parent root = loader.load();
 
-           DetailsPubController controller = loader.getController();
+            DetailsPubController controller = loader.getController();
             controller.setPublication(selectedPub);
             controller.setAfficherPubController(this); // Pass reference for refreshing
 
@@ -224,7 +223,6 @@ public class AfficherPubController {
     @FXML
     public void ouvrirFenetreModification(ActionEvent actionEvent) {
     }
-
 
 
 

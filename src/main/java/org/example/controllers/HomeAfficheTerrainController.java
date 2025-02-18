@@ -2,8 +2,10 @@ package org.example.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -58,9 +60,9 @@ public class HomeAfficheTerrainController {
         // Ajouter des actions aux boutons
         btnmodifier.setOnAction(event -> ouvrirFenetreModification());
         btnsupprimer.setOnAction(event -> supprimerTerrain());
-        forumBtn.setOnAction(event -> handleOuvrirForum());
+       // forumBtn.setOnAction(event -> handleOuvrirForum(ActionEvent event));
 
-        btnreserver1.setOnAction(event -> handleAfficherReservations());
+       // btnreserver1.setOnAction(event -> handleAfficherReservations());
         listViewTerrains.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) { // Vérifiez si c'est un double-clic
                 Terrain selectedTerrain = listViewTerrains.getSelectionModel().getSelectedItem();
@@ -201,7 +203,7 @@ public class HomeAfficheTerrainController {
     }
 
 
-
+/*
     @FXML
     private void handleAfficherReservations() {
         try {
@@ -218,11 +220,25 @@ public class HomeAfficheTerrainController {
             e.printStackTrace();
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la fenêtre des réservations : " + e.getMessage());
         }
+    }  */
+@FXML
+private void handleAfficherReservations(ActionEvent event)throws IOException {
+    try {
+        Parent reservationsPage = FXMLLoader.load(getClass().getResource("/view/Listereservations.fxml"));
+        Scene scene = new Scene(reservationsPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+        afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la fenêtre des réservations : " + e.getMessage());
     }
-    @FXML
+}
+
+    /*  @FXML
     private void handleOuvrirForum() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/afficherPub.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AfficherPub.fxml"));
             Parent root = loader.load();
 
             Stage stage = new Stage();
@@ -235,5 +251,13 @@ public class HomeAfficheTerrainController {
             e.printStackTrace();
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page du forum : " + e.getMessage());
         }
+    }*/
+    @FXML
+    private void handleOuvrirForum(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/AfficherPub.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 }

@@ -23,9 +23,11 @@ import java.util.Optional;
 public class DetailsPubController {
 
     @FXML
-    private Label nomLabelDetail;
+    private Label nomLabelDetail; // User's name
     @FXML
-    private Label desLabelDetail;
+    private Label titreLabelDetail; // Publication title
+    @FXML
+    private Label desLabelDetail; // Publication description
     @FXML
     private Button btnsupp;
     @FXML
@@ -35,7 +37,7 @@ public class DetailsPubController {
     @FXML
     private Pane mainPageContainer;
     @FXML
-    private ListView<String> listcom; // ListView to display comments as strings
+    private ListView<String> listcom; // ListView to display comments with names
 
     private Publication publication;
     private final ServicePublication servicePublication = new ServicePublication();
@@ -48,9 +50,8 @@ public class DetailsPubController {
         btnsupp.setOnAction(event -> supprimerPublication());
         ajoutcom.setOnAction(event -> ouvrirAjoutCommentaire());
 
-        // Detect double click on a comment in the list
         listcom.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) { // Double click
+            if (event.getClickCount() == 2) { // Double-click event
                 String selectedComment = listcom.getSelectionModel().getSelectedItem();
                 if (selectedComment != null) {
                     ouvrirDetailsCommentaire(selectedComment);
@@ -63,12 +64,12 @@ public class DetailsPubController {
         }
     }
 
-
     public void setPublication(Publication publication) {
         this.publication = publication;
         if (publication != null) {
-            nomLabelDetail.setText(publication.getTitre());
-            desLabelDetail.setText(publication.getDescrib());
+            nomLabelDetail.setText( publication.getNom()); // Show user’s name
+            titreLabelDetail.setText(publication.getTitre()); // Show title
+            desLabelDetail.setText(publication.getDescrib()); // Show description
             chargerCommentaires();
         }
     }
@@ -78,7 +79,7 @@ public class DetailsPubController {
     }
 
     /**
-     * Loads comments for the selected publication.
+     * Loads comments for the selected publication, including user names.
      */
     public void chargerCommentaires() {
         if (publication == null) return;
@@ -89,7 +90,7 @@ public class DetailsPubController {
 
             for (Commentaire commentaire : commentaires) {
                 if (commentaire.getIdPub() == publication.getIdPub()) {
-                    commentList.add(commentaire.getDesc()); // Show only comment text
+                    commentList.add(commentaire.getNom() + " : " + commentaire.getDesc()); // Show name and comment
                 }
             }
 
@@ -132,9 +133,6 @@ public class DetailsPubController {
     /**
      * Opens the comment details window when a comment is double-clicked.
      */
-    /**
-     * Opens the comment details window when a comment is double-clicked.
-     */
     private void ouvrirDetailsCommentaire(String commentText) {
         if (publication == null) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Aucune publication sélectionnée !");
@@ -142,12 +140,12 @@ public class DetailsPubController {
         }
 
         try {
-            // Retrieve the actual Commentaire object from the service using the comment text
             List<Commentaire> commentaires = serviceCommentaire.afficher_t();
             Commentaire selectedCommentaire = null;
 
             for (Commentaire commentaire : commentaires) {
-                if (commentaire.getDesc().equals(commentText) && commentaire.getIdPub() == publication.getIdPub()) {
+                if ((commentaire.getNom() + " : " + commentaire.getDesc()).equals(commentText)
+                        && commentaire.getIdPub() == publication.getIdPub()) {
                     selectedCommentaire = commentaire;
                     break;
                 }
@@ -162,7 +160,7 @@ public class DetailsPubController {
             Parent root = loader.load();
 
             DetailsComController controller = loader.getController();
-            controller.setCommentaire(selectedCommentaire); // Now passing a `Commentaire` object
+            controller.setCommentaire(selectedCommentaire);
             controller.setDetailsPubController(this);
 
             Stage stage = new Stage();

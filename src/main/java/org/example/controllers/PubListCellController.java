@@ -7,13 +7,16 @@ import javafx.scene.layout.VBox;
 import org.example.entities.Publication;
 
 public class PubListCellController extends ListCell<Publication> {
-
     private final HBox content;
+    private final Label userLabel; // New Label for user's name
     private final Label titreLabel;
     private final Label descriptionLabel;
 
     public PubListCellController() {
         super();
+        userLabel = new Label();
+        userLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: blue;");
+
         titreLabel = new Label();
         titreLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
@@ -21,11 +24,11 @@ public class PubListCellController extends ListCell<Publication> {
         descriptionLabel.setWrapText(true);
         descriptionLabel.setMaxWidth(300);
 
-        VBox textContainer = new VBox(titreLabel, descriptionLabel);
+        VBox textContainer = new VBox(userLabel, titreLabel, descriptionLabel); // Show nom above titre
         textContainer.setSpacing(5);
 
         content = new HBox(textContainer);
-        setGraphic(content); // Ensure the custom cell is displayed
+        setGraphic(content);
     }
 
     @Override
@@ -34,9 +37,10 @@ public class PubListCellController extends ListCell<Publication> {
         if (empty || publication == null) {
             setGraphic(null);
         } else {
+            userLabel.setText("Posté par : " + publication.getNom()); // Display user's name
             titreLabel.setText(publication.getTitre());
             descriptionLabel.setText(publication.getDescrib());
-            setGraphic(content); // Ensure the content is correctly displayed
+            setGraphic(content);
         }
     }
 }

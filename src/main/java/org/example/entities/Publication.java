@@ -5,18 +5,22 @@ public class Publication {
     private String titre;
     private String describ;
     private int idUser;
+    private String nom;
 
-    public Publication(int idPub, String titre, String describ, int idUser) {
+
+    public Publication(int idPub, String titre, String describ, int idUser, String nom) {
         this.idPub = idPub;
         this.titre = titre;
         this.describ = describ;
         this.idUser = idUser;
+        this.nom = nom;
     }
 
     public Publication(String titre, String describ, int idUser) {
         this.titre = titre;
         this.describ = describ;
         this.idUser = idUser;
+        this.nom = nom;
     }
     public Publication(String titre, String describ) {
         this.titre = titre;
@@ -41,6 +45,7 @@ public class Publication {
     public int getIdUser() {
         return idUser;
     }
+    public String getNom() { return nom; }
 
     public void setIdPub(int idPub) {
         this.idPub = idPub;
@@ -57,6 +62,7 @@ public class Publication {
     public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
+    public void setNom(String nom) { this.nom = nom; }
 
     @Override
     public String toString() {
@@ -65,6 +71,7 @@ public class Publication {
                 ", titre='" + titre + '\'' +
                 ", describ='" + describ + '\'' +
                 ", idUser=" + idUser +
+                ", nom='" + nom + '\'' + // Display nom
                 '}';
     }
 }

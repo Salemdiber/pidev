@@ -3,6 +3,7 @@ package org.example.test;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,9 +19,10 @@ public class Main extends Application {
             primaryStage.setTitle("Gestion des Terrains");
             primaryStage.setScene(scene);
 
-            // Activer le plein écran fenêtré
-            primaryStage.setMaximized(true);  // Fenêtre maximisée
-            primaryStage.setResizable(false); // Désactive le redimensionnement de la fenêtre
+            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo-removebg-preview1.png")));
+
+            primaryStage.setMaximized(true);
+            primaryStage.setResizable(false);
 
             primaryStage.show();
         } catch (IOException e) {

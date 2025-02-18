@@ -102,14 +102,14 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/KF7/IdeaProjects/pidev-pub",
+    "last_opened_file_path": "C:/Users/KF7/IdeaProjects/sportnexusTest",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/KF7/IdeaProjects/sportnexus/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Libraries",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.lookFeel",
@@ -175,6 +175,8 @@
       <workItem from="1739799360552" duration="72000" />
       <workItem from="1739810621748" duration="12614000" />
       <workItem from="1739866491004" duration="3243000" />
+      <workItem from="1739870188562" duration="2715000" />
+      <workItem from="1739873534265" duration="9827000" />
     </task>
     <servers />
   </component>

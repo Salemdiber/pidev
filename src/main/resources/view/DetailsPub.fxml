@@ -13,7 +13,7 @@
     <Pane fx:id="mainPageContainer" layoutX="20.0" layoutY="10.0" prefHeight="683.0" prefWidth="964.0"
           styleClass="main-content-container">
 
-        <!-- Titre Principal -->
+        <!-- Main Title -->
         <Label fx:id="TerrainDetailLabel" layoutX="20.0" layoutY="20.0" prefHeight="52.0" prefWidth="512.0"
                styleClass="course-title" text="Détail de la Publication" textFill="#2E7D32">
             <font>
@@ -21,48 +21,70 @@
             </font>
         </Label>
 
-        <!-- Informations de la Publication -->
-        <Label layoutX="20.0" layoutY="100.0" text="Titre Publication" textFill="#1B5E20">
+        <!-- User's Name (Nom) -->
+        <Label layoutX="20.0" layoutY="80.0" text="Posté par :" textFill="#1B5E20">
             <font>
-                <Font name="Poppins Medium" size="24.0" />
+                <Font name="Poppins Medium" size="22.0" />
             </font>
         </Label>
-        <Label fx:id="nomLabelDetail" layoutX="250.0" layoutY="100.0" prefWidth="700.0"
-               text="Label" textFill="#388E3C">
-            <font>
-                <Font name="Poppins Regular" size="24.0" />
-            </font>
-        </Label>
-
-        <Label layoutX="20.0" layoutY="160.0" text="Description" textFill="#1B5E20">
-            <font>
-                <Font name="Poppins Medium" size="24.0" />
-            </font>
-        </Label>
-        <Label fx:id="desLabelDetail" layoutX="250.0" layoutY="160.0" prefWidth="700.0"
-               text="Label" wrapText="true" textFill="#388E3C">
+        <Label fx:id="nomLabelDetail" layoutX="250.0" layoutY="80.0" prefWidth="700.0"
+               text="Nom de l'utilisateur" textFill="#1976D2">
             <font>
                 <Font name="Poppins Regular" size="22.0" />
             </font>
         </Label>
 
-        <!-- Boutons d'action -->
-        <HBox layoutX="250.0" layoutY="210.0" spacing="20.0">
+        <!-- Publication Title -->
+        <Label layoutX="20.0" layoutY="120.0" text="Titre Publication" textFill="#1B5E20">
+            <font>
+                <Font name="Poppins Medium" size="24.0" />
+            </font>
+        </Label>
+        <Label fx:id="titreLabelDetail" layoutX="250.0" layoutY="120.0" prefWidth="700.0"
+               text="Titre de la publication" textFill="#388E3C">
+            <font>
+                <Font name="Poppins Regular" size="24.0" />
+            </font>
+        </Label>
+
+        <!-- Description -->
+        <Label layoutX="20.0" layoutY="180.0" text="Description" textFill="#1B5E20">
+            <font>
+                <Font name="Poppins Medium" size="24.0" />
+            </font>
+        </Label>
+        <Label fx:id="desLabelDetail" layoutX="250.0" layoutY="180.0" prefWidth="700.0"
+               text="Description de la publication" wrapText="true" textFill="#388E3C">
+            <font>
+                <Font name="Poppins Regular" size="22.0" />
+            </font>
+        </Label>
+
+        <!-- Action Buttons -->
+        <HBox layoutX="250.0" layoutY="240.0" spacing="20.0">
             <Button fx:id="btnmodifier" mnemonicParsing="false" text="Modifier" styleClass="btn-primary" />
             <Button fx:id="btnsupp" mnemonicParsing="false" text="Supprimer" styleClass="btn-danger" />
             <Button fx:id="ajoutcom" mnemonicParsing="false" text="Ajouter Commentaire" styleClass="btn-success" />
         </HBox>
 
-        <!-- Liste des Commentaires -->
-        <Label layoutX="20.0" layoutY="270.0" text="Commentaires" textFill="#1B5E20">
+        <!-- Comments Section -->
+        <Label layoutX="20.0" layoutY="300.0" text="Commentaires" textFill="#1B5E20">
             <font>
                 <Font name="Poppins Medium" size="24.0" />
             </font>
         </Label>
 
-        <ScrollPane layoutX="20.0" layoutY="310.0" prefHeight="300.0" prefWidth="800.0">
+        <ScrollPane layoutX="20.0" layoutY="340.0" prefHeight="300.0" prefWidth="800.0">
             <content>
-                <ListView fx:id="listcom" prefHeight="300.0" prefWidth="800.0" styleClass="listview-home" />
+                <ListView fx:id="listcom" prefHeight="300.0" prefWidth="800.0" styleClass="listview-home">
+                    <VBox>
+                        <!-- User's Name in Comment -->
+                        <Label fx:id="nomCommentLabel" text="Posté par :" textFill="#1976D2"
+                               style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+                        <Label fx:id="descCommentLabel" text="Texte du commentaire" wrapText="true"
+                               style="-fx-font-size: 14px; -fx-text-fill: black;" />
+                    </VBox>
+                </ListView>
             </content>
         </ScrollPane>
 

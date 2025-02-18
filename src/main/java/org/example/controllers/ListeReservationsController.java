@@ -3,10 +3,12 @@ package org.example.controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -146,11 +148,22 @@ public class ListeReservationsController implements Initializable {
     private void afficherAlerte(String avertissement, String s) {
     }
     @FXML
-    private void handleReturnButtonClick() {
-        // Fermer la fenêtre actuelle
-        Stage stage = (Stage) btnreturn.getScene().getWindow();
-        stage.close(); // Cela fermera la fenêtre actuelle
+    private void handleReturnButtonClick(ActionEvent event) {
+        try {
+            // Charger la nouvelle scène pour homeAffiche.fxml
+            Parent homePage = FXMLLoader.load(getClass().getResource("/view/homeAffiche.fxml"));
+            Scene homeScene = new Scene(homePage);
+
+            // Obtenir le stage actuel et définir la nouvelle scène
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(homeScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+        }
     }
+
+
 
     @FXML
     private void handleModifierButtonClick() {

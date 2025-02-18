@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.services.ServiceCommentaire;
+import org.example.services.ServicePublication;
 
 import java.sql.SQLException;
 
@@ -24,27 +25,28 @@ public class AjoutComController {
     private TextField descCom;
 
     private final ServiceCommentaire serviceCommentaire = new ServiceCommentaire();
+    private final ServicePublication servicePublication = new ServicePublication(); // Added to fetch user name
     private DetailsPubController detailsPubController;
     private int idPub;
+    private int idUser = 1; // Default user ID (Change this based on logged-in user)
 
     public void setIdPub(int idPub) {
         this.idPub = idPub;
     }
 
-
-    //Publication pourcommentaire
+    // Set publication ID for the comment
     public void setPublication(Publication publication) {
         if (publication != null) {
             this.idPub = publication.getIdPub();
         }
     }
 
-    //rafraichit com apres ajout
+    // Refresh comments after adding a comment
     public void setDetailsPubController(DetailsPubController detailsPubController) {
         this.detailsPubController = detailsPubController;
     }
 
-    //Ajout nouveau com
+    // Add a new comment
     @FXML
     public void ajouterCommentaire(ActionEvent actionEvent) {
         String description = descCom.getText().trim();
@@ -61,8 +63,11 @@ public class AjoutComController {
             return;
         }
 
-        // Creating the comment with user_id = 1
-        Commentaire commentaire = new Commentaire(description, 1, idPub);
+        // Fetch the user name from the publication
+        String userName = servicePublication.getUserNameById(idUser); // Retrieve user name by ID
+
+        // Creating the comment with user_id and user_name
+        Commentaire commentaire = new Commentaire(description, idUser, idPub, userName);
 
         try {
             serviceCommentaire.ajouter_t(commentaire);
