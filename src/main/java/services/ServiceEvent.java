@@ -127,16 +127,23 @@ public class ServiceEvent implements IService<Event> {
 
         return event;
     }
-    public List<Participant> getParticipantsByEvent(int idEvent) throws SQLException {
+    public List<Participant> getParticipantsByEvent(int id_event) throws SQLException {
         List<Participant> participants = new ArrayList<>();
-        String sql = "SELECT * FROM participant WHERE id_event = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, idEvent);
-        ResultSet rs = statement.executeQuery();
+        String sql = "SELECT id_part, id_user, id_event FROM participant WHERE id_event = ?";
 
-        while (rs.next()) {
-            int idUser = rs.getInt("id_user");
-            participants.add(new Participant(idUser)); // Remplace par ton constructeur complet
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, id_event);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id_part = rs.getInt("id_part");  // Vérification que 'id_part' est bien récupéré
+                int id_user = rs.getInt("id_user");
+                int id_event_fetched = rs.getInt("id_event");
+
+                System.out.println("🔍 Chargé depuis DB (par Event) : ID = " + id_part);
+
+                participants.add(new Participant(id_part, id_user, id_event_fetched));
+            }
         }
         return participants;
     }

@@ -71,6 +71,7 @@ public class listeParticipantControlle implements Initializable {
                     }
                 }
             }
+
         });
 
 
@@ -91,15 +92,17 @@ public class listeParticipantControlle implements Initializable {
 
 
     private void chargerParticipants() {
-        if (listViewParticipant == null) {
-            System.out.println("❌ ERREUR : listViewParticipant est NULL");
-            return;
-        }
-
         try {
             List<Participant> participants = serviceevent.getParticipantsByEvent(event.getId_event());
             ObservableList<Participant> data = FXCollections.observableArrayList(participants);
             listViewParticipant.setItems(data);
+
+            // Vérification du contenu réel de ListView
+            System.out.println("📌 Vérification ListView après chargement :");
+            for (Participant p : listViewParticipant.getItems()) {
+                System.out.println("🔹 Participant dans ListView : " + p);
+            }
+
             System.out.println("✅ Participants chargés !");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -107,12 +110,14 @@ public class listeParticipantControlle implements Initializable {
         }
     }
 
+
     private void chargerEvents() {
         try {
             List<Participant> participants = serviceparticipant.afficher();
             // Récupérer le nom  pour chaque participation
             for (Participant participant : participants) {
                 String nomEvent = serviceevent.getEventById(participant.getId_event()).getNom();
+                System.out.println("📌 Participant chargé : ID = " + participant.getId_part());
             }
 
             ObservableList<Participant> data = FXCollections.observableArrayList(participants);
@@ -132,8 +137,16 @@ public class listeParticipantControlle implements Initializable {
     }
     public void supprimerParticipant() {
         Participant participantSelectionne = listViewParticipant.getSelectionModel().getSelectedItem();
+
         if (participantSelectionne == null) {
-            afficherAlerte("Avertissement", "Veuillez sélectionner une participation à supprimer.");
+            afficherAlerte("Avertissement", "Veuillez sélectionner un participant valide.");
+            return;
+        }
+
+        System.out.println("🔹 ID sélectionné pour suppression : " + participantSelectionne.getId_part());
+
+        if (participantSelectionne.getId_part() <= 0) {
+            afficherAlerte("Erreur", "L'ID du participant est invalide.");
             return;
         }
 
@@ -145,20 +158,22 @@ public class listeParticipantControlle implements Initializable {
         Optional<ButtonType> result = confirmation.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                serviceparticipant.supprimer(participantSelectionne.getId_part());
-                afficherAlerte("Succès", "participant supprimé avec succès !");
+                serviceparticipant.supprimer(participantSelectionne.getId_part()); // Suppression par ID
+                afficherAlerte("Succès", "Participant supprimé avec succès !");
+                listViewParticipant.getItems().remove(participantSelectionne); // Supprimer de la liste immédiatement
                 rafraichirAffichage();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 afficherAlerte("Erreur", "Impossible de supprimer le participant : " + e.getMessage());
             }
         }
     }
 
+
     private void rafraichirAffichage() {
         Task<ObservableList<Participant>> task = new Task<>() {
             @Override
             protected ObservableList<Participant> call() throws SQLException {
-                List<Participant> participants = serviceparticipant.afficher();
+                List<Participant> participants = serviceevent.getParticipantsByEvent(event.getId_event());
                 for (Participant participant : participants) {
                     String nomEvant = serviceevent.getEventById(participant.getId_event()).getNom();
                 }

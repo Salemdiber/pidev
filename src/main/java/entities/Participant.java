@@ -15,6 +15,7 @@ public class Participant {
         this.id_part = id_part;
         this.id_user = id_user;
         this.id_event = id_event;
+        System.out.println("🔹 Constructeur Participant : ID = " + id_part);
     }
 
     public Participant(int idUser) {
@@ -45,7 +46,9 @@ public class Participant {
         this.id_event = id_event;
     }
 
+    @Override
     public String toString() {
-        return "participant{id_part=" + this.id_part + ", id_user=" + this.id_user + ", id_event=" + this.id_event + "}";
+        return "Participant ID: " + id_part + ", User ID: " + id_user + ", Event ID: " + id_event;
     }
+
 }

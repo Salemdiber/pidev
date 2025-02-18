@@ -79,7 +79,7 @@
          <graphic>
             <ImageView fx:id="btnparticiper1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
                <image>
-                  <Image url="@../img/modifyicon.png" />
+                  <Image url="@../img/participer.png" />
                </image>
             </ImageView>
          </graphic>
@@ -91,7 +91,7 @@
          <graphic>
             <ImageView fx:id="btnpart1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
                <image>
-                  <Image url="@../img/modifyicon.png" />
+                  <Image url="@../img/team-building.png" />
                </image>
             </ImageView>
          </graphic>

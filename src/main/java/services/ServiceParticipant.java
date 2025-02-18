@@ -41,17 +41,21 @@ public class ServiceParticipant implements IService<Participant> {
     }
 
     public List<Participant> afficher() throws SQLException {
-        List<Participant> participants = new ArrayList();
-        String sql = " SELECT * FROM `participant`";
-        Statement statement = this.connection.createStatement();
-        ResultSet rs = statement.executeQuery(sql);
-
-        while(rs.next()) {
-            participants.add(new Participant(rs.getInt("id_part"), rs.getInt("id_user"), rs.getInt("id_event")));
+        List<Participant> participants = new ArrayList<>();
+        String sql = "SELECT id_part, id_user, id_event FROM participant";
+        try (Statement st = connection.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                int id_part = rs.getInt("id_part");
+                int id_user = rs.getInt("id_user");
+                int id_event = rs.getInt("id_event");
+                System.out.println("🔍 Chargé depuis DB : ID = " + id_part);
+                participants.add(new Participant(id_part, id_user, id_event));
+            }
         }
-
         return participants;
     }
+
     public String getUserNameById(int idUser) throws SQLException {
         String sql = "SELECT nom FROM user WHERE id_user = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -63,6 +67,7 @@ public class ServiceParticipant implements IService<Participant> {
         }
         return "Utilisateur inconnu"; // Si l'ID n'existe pas
     }
+
 
 }
 
