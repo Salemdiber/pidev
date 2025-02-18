@@ -79,6 +79,18 @@
    </ImageView>
    <Circle fx:id="profilImgContainer" fill="DODGERBLUE" layoutX="725.0" layoutY="36.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="profil-img-container" />
      <HBox fx:id="notifCount" alignment="CENTER" layoutX="533.0" layoutY="3.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="20.0" styleClass="notif-count" stylesheets="@../styles/style.css" />
+      <Button fx:id="btnaff" alignment="CENTER" contentDisplay="TOP" layoutX="725.0" layoutY="216.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAfficherParticipant" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
+         <graphic>
+            <ImageView fx:id="btnajouter11" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
+               <image>
+                  <Image url="@../img/ajouter.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="System Bold" size="11.773585319519043" />
+         </font>
+      </Button>
 </Pane>
 <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="15.0" prefHeight="578.0" prefWidth="129.0" styleClass="leftMenuContainer" stylesheets="@../styles/style.css">
     <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">

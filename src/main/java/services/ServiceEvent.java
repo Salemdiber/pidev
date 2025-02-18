@@ -69,14 +69,59 @@ public class ServiceEvent implements IService<Event> {
 
             return events;
         }
-    public void participer(int idEvent, int idUser) throws SQLException {
-        String sql = "INSERT INTO participant (id_user,id_event) VALUES ( ?, ?)";
+    public void participer(int idUser, int idEvent) throws SQLException {
+        // Vérifier si l'utilisateur existe
+        String checkUserSql = "SELECT COUNT(*) FROM user WHERE id_user = ?";
+        PreparedStatement checkUserStmt = this.connection.prepareStatement(checkUserSql);
+        checkUserStmt.setInt(1, idUser);
+        ResultSet userResult = checkUserStmt.executeQuery();
+        userResult.next();
+        if (userResult.getInt(1) == 0) {
+            throw new SQLException("Erreur : L'utilisateur avec id_user = " + idUser + " n'existe pas !");
+        }
+
+        // Vérifier si l'événement existe
+        String checkEventSql = "SELECT COUNT(*) FROM event WHERE id_event = ?";
+        PreparedStatement checkEventStmt = this.connection.prepareStatement(checkEventSql);
+        checkEventStmt.setInt(1, idEvent);
+        ResultSet eventResult = checkEventStmt.executeQuery();
+        eventResult.next();
+        if (eventResult.getInt(1) == 0) {
+            throw new SQLException("Erreur : L'événement avec id_event = " + idEvent + " n'existe pas !");
+        }
+
+        // Insérer la participation
+        String sql = "INSERT INTO participant (id_user, id_event) VALUES (?, ?)";
         PreparedStatement statement = this.connection.prepareStatement(sql);
         statement.setInt(1, idUser);
         statement.setInt(2, idEvent);
         statement.executeUpdate();
-        System.out.println("bien ajouté");
-        }
+        System.out.println("Participation ajoutée avec succès !");
     }
+
+    public Event getEventById(int idEvent) {
+        Event event = null;
+        String query = "SELECT * FROM event WHERE id_event = ?";  // Requête pour récupérer le terrain par ID
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            stmt.setInt(1, idEvent);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    event = new Event();
+                    event.setId_event(rs.getInt("id_event"));
+                    event.setNom(rs.getString("nom"));
+
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return event;
+    }
+
+}
 
 
