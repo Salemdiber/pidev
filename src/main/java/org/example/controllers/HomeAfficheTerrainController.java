@@ -277,4 +277,12 @@ private void handleAfficherReservations(ActionEvent event)throws IOException {
         stage.setScene(scene);
         stage.show();
     }
+    @FXML
+    private void handleOuvrirEvent(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/AfficherEvent.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 }
