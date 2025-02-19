@@ -22,17 +22,13 @@ public class ServiceMatch  {
         if (cnx == null || cnx.isClosed()) {
             throw new SQLException("La connexion à la base de données est fermée !");
         }
-        String req = "INSERT INTO partie (type, resultat, date_match, lieu) VALUES (?, ?, ?, ?)";
+        String req = "INSERT INTO partie (type, resultat, lieu) VALUES (?, ?, ?)";
         String req2 = "INSERT INTO partie_equipe  VALUES (?,?)";
         try (PreparedStatement pst = cnx.prepareStatement(req, Statement.RETURN_GENERATED_KEYS)) {
             // En utilisant l'enum TypeMatch et la méthode toString()
             pst.setString(1, match.getType().toString());
             pst.setString(2, match.getResultat());
-            pst.setDate(3, new java.sql.Date(match.getDateMatch().getTime()));
-            pst.setString(4, match.getLieu());
-
-
-
+            pst.setString(3, match.getLieu());
             pst.executeUpdate();
 
             // Récupérer l'ID généré pour le match
@@ -53,7 +49,6 @@ public class ServiceMatch  {
                 }
 
             }
-
             System.out.println("✅ Match ajouté avec succès !");
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -76,14 +71,13 @@ public class ServiceMatch  {
 
 //    @Override
     public void modifier(Partie match) throws SQLException {
-        String req = "UPDATE partie SET type=?, resultat=?, date_match=?, lieu=? WHERE id_match=?";
+        String req = "UPDATE partie SET type=?, resultat=?, lieu=? WHERE id_match=?";
         try (PreparedStatement pst = cnx.prepareStatement(req)) {
             // En utilisant l'enum TypeMatch et la méthode toString()
             pst.setString(1, match.getType().toString());
             pst.setString(2, match.getResultat());
-            pst.setDate(3, new java.sql.Date(match.getDateMatch().getTime()));
-            pst.setString(4, match.getLieu());
-            pst.setInt(5, match.getIdMatch());
+            pst.setString(3, match.getLieu());
+            pst.setInt(4, match.getIdMatch());
             int rowsAffected = pst.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("✅ Match mis à jour avec succès !");
@@ -131,10 +125,8 @@ public List<Partie> afficher() throws SQLException {
                     rs.getInt("id_match"),
                     TypeMatch.valueOf(rs.getString("type").toUpperCase()),
                     rs.getString("resultat"),
-                    rs.getDate("date_match"),
                     rs.getString("lieu")
             );
-
             // Retrieve associated teams
             List<Equipe> equipes = new ArrayList<>();
             List<Integer> equipeIds = getEquipesParMatch(match.getIdMatch());
@@ -142,7 +134,6 @@ public List<Partie> afficher() throws SQLException {
                 Equipe equipe = new ServiceEquipe().getOne(equipeId); // Assuming ServiceEquipe has a getOne method to fetch teams by ID
                 equipes.add(equipe);
             }
-
             match.setEquipes(equipes); // Add teams to the match
             matchs.add(match);
         }
@@ -219,7 +210,6 @@ public List<Partie> afficher() throws SQLException {
                         rs.getInt("id_match"),
                         TypeMatch.valueOf(rs.getString("type").toUpperCase()),  // Utilisation de l'enum TypeMatch
                         rs.getString("resultat"),
-                        rs.getDate("date_match"),
                         rs.getString("lieu")
                 );
 

@@ -28,8 +28,7 @@ public class AddMatchController {
     private Pane AddMatchpane;
     @FXML
     private Button quitmatchbtn;
-    @FXML
-    private DatePicker datedatepicker;
+
     @FXML
     private Button addmatchbtn;
     private List<Equipe> equipesList = new ArrayList<>();
@@ -48,7 +47,7 @@ public class AddMatchController {
     @FXML
     private ComboBox<String> cbteam2;
     @FXML
-    private Label errorType, errorResult, errorDate, errorPlace, errorTeam1, errorTeam2;
+    private Label errorType, errorResult, errorPlace, errorTeam1, errorTeam2;
 
 
     @FXML
@@ -67,7 +66,6 @@ public class AddMatchController {
         // Réinitialiser la visibilité des messages d'erreur
         errorType.setText("");
         errorResult.setText("");
-        errorDate.setText("");
         errorPlace.setText("");
         errorTeam1.setText("");
         errorTeam2.setText("");
@@ -77,7 +75,6 @@ public class AddMatchController {
         // Récupération des valeurs saisies
         TypeMatch type = typecombobox.getValue();
         String resultat = resultxtfield.getText();
-        LocalDate selectedDate = datedatepicker.getValue();
         String place = placecombobox.getValue();
         String team1Name = cbteam1.getValue();
         String team2Name = cbteam2.getValue();
@@ -92,14 +89,6 @@ public class AddMatchController {
             isValid = false;
         } else if (!resultat.matches("\\d+:\\d+")) {  // Validation du format "team1Result:team2Result"
             errorResult.setText("Le format du résultat est invalide (ex: 1:0) !");
-            isValid = false;
-        }
-
-        if (selectedDate == null) {
-            errorDate.setText("* Champ obligatoire");
-            isValid = false;
-        } else if (selectedDate.isBefore(LocalDate.now())) {
-            errorDate.setText("* Date invalide");
             isValid = false;
         }
         if (place == null) {
@@ -122,10 +111,10 @@ public class AddMatchController {
         if (!isValid) return; // Arrêter l'exécution si les champs ne sont pas valides
 
         // Convertir LocalDate en java.sql.Date
-        Date date_match = Date.valueOf(selectedDate);
+
 
         // Création et ajout du match
-        Partie match = new Partie(type, resultat, date_match, place);
+        Partie match = new Partie(type, resultat,place);
         Equipe team1 = getEquipeByName(team1Name);
         Equipe team2 = getEquipeByName(team2Name);
         serviceMatch.ajouter(match, team1.getIdEquipe(), team2.getIdEquipe());
@@ -137,7 +126,6 @@ public class AddMatchController {
     private void clearFields() {
         typecombobox.setValue(null);
         resultxtfield.clear();
-        datedatepicker.setValue(null);
         placecombobox.setValue(null);
 
     }

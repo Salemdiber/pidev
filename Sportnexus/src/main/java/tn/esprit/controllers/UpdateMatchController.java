@@ -15,6 +15,7 @@ import tn.esprit.services.ServiceEquipe;
 import tn.esprit.services.ServiceMatch;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -42,8 +43,6 @@ public class UpdateMatchController {
     @FXML
     private ComboBox<String> updplacecombobox;
     @FXML
-    private DatePicker upddatedatepicker;
-    @FXML
     private ComboBox<TypeMatch> updtypecombobox; // Type sécurisé avec TypeMatch
 
 
@@ -69,7 +68,6 @@ public class UpdateMatchController {
 
             updtypecombobox.setValue(partie.getType());
             updresultxtfield.setText(partie.getResultat());
-//            upddatedatepicker.setValue(convert(partie.getDateMatch()));
             updplacecombobox.setValue(partie.getLieu());
 
             // Assurez-vous que les équipes existent bien dans la liste avant de les sélectionner
@@ -87,8 +85,8 @@ public class UpdateMatchController {
         }
 
         // Vérification des champs obligatoires
-        if (updtypecombobox.getValue() == null || updresultxtfield.getText().isEmpty() /*||
-                upddatedatepicker.getValue() == null */ || updplacecombobox.getValue() == null ||
+        if (updtypecombobox.getValue() == null || updresultxtfield.getText().isEmpty() ||
+                updplacecombobox.getValue() == null ||
                 updcbteam1.getValue() == null || updcbteam2.getValue() == null) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires !");
             return;
@@ -97,7 +95,6 @@ public class UpdateMatchController {
         // Mise à jour des données
         selectedPartie.setType(updtypecombobox.getValue());
         selectedPartie.setResultat(updresultxtfield.getText());
-        //Date date = Date.valueOf(upddatedatepicker.getValue());
         selectedPartie.setLieu(updplacecombobox.getValue());
 
         // Ajout des équipes
@@ -105,7 +102,7 @@ public class UpdateMatchController {
             ServiceMatch serviceMatch = new ServiceMatch();
             serviceMatch.modifier(selectedPartie);
             serviceMatch.modifierPartieEquipes(selectedPartie.getIdMatch(), oldEq1ID , equipesList.stream().filter(p-> p.getNom().equals(updcbteam1.getValue()) ).map(Equipe::getIdEquipe).findFirst().get(),oldEq2ID, equipesList.stream().filter(p-> p.getNom().equals(updcbteam2.getValue()) ).map(Equipe::getIdEquipe).findFirst().get() );
-//            serviceMatch.modifierPartieEquipe(selectedPartie.getIdMatch(), oldEq2ID, equipesList.stream().filter(p-> p.getNom().equals(updcbteam2.getValue()) ).map(Equipe::getIdEquipe).findFirst().get());
+//          serviceMatch.modifierPartieEquipe(selectedPartie.getIdMatch(), oldEq2ID, equipesList.stream().filter(p-> p.getNom().equals(updcbteam2.getValue()) ).map(Equipe::getIdEquipe).findFirst().get());
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Match modifié avec succès !");
 
             // ✅ Rafraîchir les détails du match
@@ -116,11 +113,9 @@ public class UpdateMatchController {
             }
 
             // ✅ Rafraîchir la liste des matchs
-            if (TeamhomePController != null) {
+            if (TeamhomePController != null)
                 TeamhomePController.rafraichirAffichage();
-            } else {
-                System.out.println("❌ `TeamhomePController` est NULL");
-            }
+
 
             // ✅ Fermer la fenêtre
             fermerFenetre();

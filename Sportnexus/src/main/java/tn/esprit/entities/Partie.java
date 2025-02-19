@@ -1,4 +1,5 @@
 package tn.esprit.entities;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,42 +8,36 @@ public class Partie {
     private int idMatch;
     private TypeMatch type; // Changement de String à TypeMatch
     private String resultat;
-    private Date dateMatch;
     private String lieu;
     private List<Equipe> equipes = new ArrayList<>(); // Liste des équipes participant à la partie
 
     // Constructeur avec Enum TypeMatch
-    public Partie(int idMatch, TypeMatch type, String resultat, Date dateMatch, String lieu) {
+    public Partie(int idMatch, TypeMatch type, String resultat, String lieu) {
         this.idMatch = idMatch;
         this.type = type;
         this.resultat = resultat;
-        this.dateMatch = dateMatch;
         this.lieu = lieu;
     }
 
 
-    public Partie(int idMatch, TypeMatch type, String resultat, Date dateMatch, String lieu, List<Equipe> equipes) {
+    public Partie(int idMatch, TypeMatch type, String resultat, String lieu, List<Equipe> equipes) {
         this.idMatch = idMatch;
         this.type = type;
         this.resultat = resultat;
-        this.dateMatch = dateMatch;
         this.lieu = lieu;
-
         this.equipes = equipes;
     }
 
     // Constructeur avec Enum TypeMatch
-    public Partie(TypeMatch type, String resultat, Date dateMatch, String lieu) {
+    public Partie(TypeMatch type, String resultat, String lieu) {
         this.type = type;
         this.resultat = resultat;
-        this.dateMatch = dateMatch;
         this.lieu = lieu;
     }
 
-    public Partie(TypeMatch type, String resultat, java.sql.Date dateMatch, String place, List<Equipe> listequipe) {
+    public Partie(TypeMatch type, String resultat, String place, List<Equipe> listequipe) {
         this.type = type;
         this.resultat = resultat;
-        this.dateMatch = dateMatch;
         this.lieu = place;
         this.equipes.addAll(listequipe);
     }
@@ -62,10 +57,6 @@ public class Partie {
 
     public String getResultat() {
         return resultat;
-    }
-
-    public Date getDateMatch() {
-        return dateMatch;
     }
 
     public void setIdMatch(int idMatch) {
@@ -94,10 +85,6 @@ public class Partie {
         this.resultat = resultat;
     }
 
-    public void setDateMatch(Date dateMatch) {
-        this.dateMatch = dateMatch;
-    }
-
     public void setLieu(String lieu) {
         this.lieu = lieu;
     }
@@ -116,7 +103,6 @@ public class Partie {
                 "idMatch=" + idMatch +
                 ", type=" + type + // Affichage de l'Enum
                 ", resultat='" + resultat + '\'' +
-                ", dateMatch=" + dateMatch +
                 ", lieu='" + lieu + '\'' +
                 '}';
     }

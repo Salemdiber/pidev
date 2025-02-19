@@ -41,8 +41,6 @@ public class DetailsMatchController
     private Label team1label;
     @javafx.fxml.FXML
     private Button Updmatchbtn;
-    @javafx.fxml.FXML
-    private Label datelabel;
     private Partie selectedPartie;
     private MatchListController matchListController;
 
@@ -64,7 +62,6 @@ public class DetailsMatchController
         if (partie != null) {
             typelabel.setText(String.valueOf(partie.getType()));
             resultlabel.setText(String.valueOf(partie.getResultat()));
-            datelabel.setText(String.valueOf(partie.getDateMatch()));
             placelabel.setText(String.valueOf(partie.getLieu()));
 
         }
@@ -123,7 +120,6 @@ public class DetailsMatchController
         Stage stage = (Stage) quitmatchbtn.getScene().getWindow();
         stage.close();
     }
-
 
 
 }
