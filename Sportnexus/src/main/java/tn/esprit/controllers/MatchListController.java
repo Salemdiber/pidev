@@ -82,6 +82,7 @@ public class MatchListController extends ListCell<Partie> {
             DetailsMatchController controller = loader.getController();
             controller.setMatch(partie);
             controller.setSelectedPartie(partie);
+            controller.setMatchListController(this);
 
             // Créer une nouvelle fenêtre pour AjouterTerrain
             Stage stage = new Stage();

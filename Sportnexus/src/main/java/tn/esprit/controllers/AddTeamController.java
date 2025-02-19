@@ -174,6 +174,7 @@ public class AddTeamController {
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Équipe ajoutée avec succès !");
             clearFields();
 
+
             System.out.println("✅ Image copiée et sauvegardée avec succès : " + imgPath);
         } catch (IOException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de copier l'image : " + e.getMessage());

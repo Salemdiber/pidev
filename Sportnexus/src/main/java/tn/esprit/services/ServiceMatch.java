@@ -92,8 +92,33 @@ public class ServiceMatch  {
             }
         }
     }
+    public void modifierPartieEquipes(int idMatch, int oldEquipe1Id, int newEquipe1Id, int oldEquipe2Id, int newEquipe2Id) throws SQLException {
+        String req = "UPDATE partie_equipe SET id_equipe = CASE " +
+                "WHEN id_equipe = ? THEN ? " +
+                "WHEN id_equipe = ? THEN ? " +
+                "ELSE id_equipe END " +
+                "WHERE id_match = ? AND (id_equipe = ? OR id_equipe = ?)";
 
-//    @Override
+        try (PreparedStatement pst = cnx.prepareStatement(req)) {
+            pst.setInt(1, oldEquipe1Id);
+            pst.setInt(2, newEquipe1Id);
+            pst.setInt(3, oldEquipe2Id);
+            pst.setInt(4, newEquipe2Id);
+            pst.setInt(5, idMatch);
+            pst.setInt(6, oldEquipe1Id);
+            pst.setInt(7, oldEquipe2Id);
+
+            int rowsAffected = pst.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("✅ Match mis à jour avec succès !");
+            } else {
+                System.out.println("⚠️ Aucun match trouvé avec ces IDs.");
+            }
+        }
+    }
+
+
+    //    @Override
 public List<Partie> afficher() throws SQLException {
     List<Partie> matchs = new ArrayList<>();
     String req = "SELECT * FROM partie";

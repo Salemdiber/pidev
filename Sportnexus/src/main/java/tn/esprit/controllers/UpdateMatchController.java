@@ -1,5 +1,8 @@
 package tn.esprit.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -8,10 +11,19 @@ import javafx.stage.Stage;
 import tn.esprit.entities.Equipe;
 import tn.esprit.entities.Partie;
 import tn.esprit.entities.TypeMatch;
+import tn.esprit.services.ServiceEquipe;
 import tn.esprit.services.ServiceMatch;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class UpdateMatchController {
 
@@ -34,15 +46,21 @@ public class UpdateMatchController {
     @FXML
     private ComboBox<TypeMatch> updtypecombobox; // Type sécurisé avec TypeMatch
 
+
     //private Partie currentPartie;
     private Partie selectedPartie;
     private DetailsMatchController detailsMatchController;
     private TeamhomePController TeamhomePController;
+    private List<Equipe> equipesList = new ArrayList<>();
+    private int oldEq1ID;
+    private int oldEq2ID;
 
     @FXML
     public void initialize() {
         Updmatchbtn.setOnAction(event -> modifierMatch());
         quitmatchbtn.setOnAction(event -> annulerModification());
+        updtypecombobox.setItems( FXCollections.observableArrayList(TypeMatch.values()));
+        this.chargerEquipes();
     }
 
     public void setMatchData(Partie partie) {
@@ -51,15 +69,14 @@ public class UpdateMatchController {
 
             updtypecombobox.setValue(partie.getType());
             updresultxtfield.setText(partie.getResultat());
-//            if (partie.getDateMatch() != null) {
-//                java.sql.Date sqlDate = new java.sql.Date(partie.getDateMatch().getTime());
-//                upddatedatepicker.setValue(sqlDate.toLocalDate());
-//            }
+//            upddatedatepicker.setValue(convert(partie.getDateMatch()));
             updplacecombobox.setValue(partie.getLieu());
 
             // Assurez-vous que les équipes existent bien dans la liste avant de les sélectionner
             updcbteam1.setValue(partie.getEquipes().get(0).getNom());
             updcbteam2.setValue(partie.getEquipes().get(1).getNom());
+            oldEq1ID = partie.getEquipes().get(0).getIdEquipe();
+            oldEq2ID = partie.getEquipes().get(1).getIdEquipe();
         }
     }
 
@@ -87,6 +104,8 @@ public class UpdateMatchController {
         try {
             ServiceMatch serviceMatch = new ServiceMatch();
             serviceMatch.modifier(selectedPartie);
+            serviceMatch.modifierPartieEquipes(selectedPartie.getIdMatch(), oldEq1ID , equipesList.stream().filter(p-> p.getNom().equals(updcbteam1.getValue()) ).map(Equipe::getIdEquipe).findFirst().get(),oldEq2ID, equipesList.stream().filter(p-> p.getNom().equals(updcbteam2.getValue()) ).map(Equipe::getIdEquipe).findFirst().get() );
+//            serviceMatch.modifierPartieEquipe(selectedPartie.getIdMatch(), oldEq2ID, equipesList.stream().filter(p-> p.getNom().equals(updcbteam2.getValue()) ).map(Equipe::getIdEquipe).findFirst().get());
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Match modifié avec succès !");
 
             // ✅ Rafraîchir les détails du match
@@ -136,5 +155,20 @@ public class UpdateMatchController {
     public void setDetailsMatchController(DetailsMatchController detailsMatchController) {
         this.detailsMatchController = detailsMatchController;
     }
-
+    private void chargerEquipes() {
+        equipesList.clear();
+        ServiceEquipe serviceEquipe = new ServiceEquipe();
+        try {
+            equipesList = serviceEquipe.afficher();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        List<String> equipeNames = new ArrayList<>();
+        for (Equipe equipe : equipesList) {
+            equipeNames.add(equipe.getNom());
+        }
+        ObservableList<String> observableEquipeNames = FXCollections.observableArrayList(equipeNames);
+        updcbteam1.setItems(observableEquipeNames);
+        updcbteam2.setItems(observableEquipeNames);
+    }
 }

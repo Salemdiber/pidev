@@ -119,6 +119,7 @@ public class DetailsMatchController
     }
     @javafx.fxml.FXML
     public void quitDetails(ActionEvent actionEvent) {
+        this.matchListController.rafraichirAffichage(selectedPartie.getIdMatch());
         Stage stage = (Stage) quitmatchbtn.getScene().getWindow();
         stage.close();
     }
