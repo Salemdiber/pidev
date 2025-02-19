@@ -11,7 +11,7 @@ public class ServiceReclammation implements IService<Reclammation> {
 
     @Override
     public boolean ajouter(Reclammation reclammation) throws SQLException {
-        String insertSQL = "INSERT INTO reclammation (id_user, sujet, description, statut) VALUES (?, ?, ?, ?)";
+        String insertSQL = "INSERT INTO reclammation (id_user, sujet, description/*, statut*/) VALUES (?, ?, ?)";
 
         try (Connection connection = DataBase.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(insertSQL)) {
@@ -20,7 +20,7 @@ public class ServiceReclammation implements IService<Reclammation> {
             preparedStatement.setInt(1, reclammation.getId_user());
             preparedStatement.setString(2, reclammation.getSujet());
             preparedStatement.setString(3, reclammation.getDescription());
-            preparedStatement.setString(4, reclammation.getStatut());
+            //preparedStatement.setString(4, reclammation.getStatut());
 
             // Execute the insert statement
             int rowsAffected = preparedStatement.executeUpdate();

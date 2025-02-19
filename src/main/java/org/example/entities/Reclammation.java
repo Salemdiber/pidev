@@ -15,6 +15,14 @@ public class Reclammation {
         this.statut = statut;
     }
 
+    public Reclammation(int idUser, String sujet, String description) {
+        this.id_user = idUser;
+        this.sujet = sujet;
+        this.description = description;
+
+    }
+
+
     public String getStatut() {
         return statut;
     }

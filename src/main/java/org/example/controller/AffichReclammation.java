@@ -8,16 +8,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
-import javafx.scene.control.Label;
 import javafx.geometry.Insets;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -35,12 +32,62 @@ public class AffichReclammation {
     @FXML
     private ListView<Reclammation> listRec;  // The ListView to display reclamations
     private final ServiceReclammation serviceReclammation = new ServiceReclammation(); // Service to fetch reclamation data
+    @FXML
+    private Button logoutBtn;
+    @FXML
+    private Button btnAjouterRec;
+    @FXML
+    private Label courseWBJTitle;
+    @FXML
+    private ImageView eventsBtnImg;
+    @FXML
+    private Button forumBtn;
+    @FXML
+    private Circle demandeJoinWBImg;
+    @FXML
+    private Button TeamsBtn;
+    @FXML
+    private Button collectsBtn;
+    @FXML
+    private AnchorPane demandeJoinWBContainer;
+    @FXML
+    private HBox notifCount;
+    @FXML
+    private Button homeBtn;
+    @FXML
+    private Button btnSupprimerRec;
+    @FXML
+    private ImageView forumBtnImg;
+    @FXML
+    private TextField searchInput;
+    @FXML
+    private ImageView productsBtnImg;
+    @FXML
+    private ImageView homeBtnImg;
+    @FXML
+    private ImageView collectsBtnImg;
+    @FXML
+    private Pane mainPageContainer;
+    @FXML
+    private Button eventsBtn;
+    @FXML
+    private Circle profilImgContainer;
+    @FXML
+    private ImageView logoutBtnImg;
+    @FXML
+    private ImageView coursesBtnImg;
+    @FXML
+    private Button btnModifierRec;
+    @FXML
+    private Button productsBtn;
 
     @FXML
     public void initialize() {
         User currentUser = SessionManager.getCurrentUser();
         System.out.println(currentUser.getIdUser());
         loadReclammationList();
+
+
 
         // Customize the ListView cell rendering
         listRec.setCellFactory(param -> new ListCell<Reclammation>() {
@@ -80,37 +127,49 @@ public class AffichReclammation {
         });
     }
 
-    private void loadReclammationList() {
+    void loadReclammationList() {
         User currentUser = SessionManager.getCurrentUser();
         try {
-            // Fetch reclamations for the current user using the service
             List<Reclammation> reclammations = serviceReclammation.afficher(currentUser.getIdUser());
-            System.out.println(currentUser.getIdUser());
             if (reclammations == null || reclammations.isEmpty()) {
-                System.out.println("No reclamations found");
+                System.out.println("Aucune réclamation trouvée.");
+                listRec.setItems(FXCollections.observableArrayList()); // Vide la liste proprement
                 return;
             }
 
-            // Convert the List of reclamations to an ObservableList
             ObservableList<Reclammation> reclamationList = FXCollections.observableArrayList(reclammations);
-
-            // Set the ObservableList as the items of the ListView
             listRec.setItems(reclamationList);
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
 
 
+
+    @FXML
    public void versAjouterR(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/ajoutR.fxml")));
-        Scene scene = ((Node) event.getSource()).getScene();
-        scene.setRoot(root);
+       try {
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ajoutR.fxml"));
+           Parent root = loader.load();
+           // Obtenir le contrôleur de la fenêtre AjoutRController
+           AjoutRController ajoutRController = loader.getController();
+
+           // Associer le contrôleur principal
+           ajoutRController.setAffichReclamation(this);
+           // Créer une nouvelle fenêtre pour Ajouter Team
+           Stage stage = new Stage();
+           stage.setTitle("Ajouter Reclamation");
+           stage.setScene(new Scene(root));
+           stage.show();
+       } catch (IOException e) {
+           e.printStackTrace();
+           System.err.println("Erreur lors du chargement de ajoutR.fxml");
+       }
     }
 
 
+    @FXML
     public void versEditR(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/editR.fxml")));
         Scene scene = ((Node) event.getSource()).getScene();
