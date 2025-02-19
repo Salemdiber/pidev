@@ -10,8 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
-import org.example.dao.UserDAO;
-import org.example.model.User;
+import org.example.entities.User;
 import org.example.utils.DataBase;
 
 import java.io.IOException;
@@ -21,7 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
-import org.example.model.SessionManager;
+import org.example.entities.SessionManager;
 
 
 public class LoginController {

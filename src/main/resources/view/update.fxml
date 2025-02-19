@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane stylesheets="/style/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="org.example.controller.UpdateController">
+<BorderPane stylesheets="/styles/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="org.example.controller.UpdateController">
     <left>
         <VBox alignment="CENTER" spacing="10.0" styleClass="sidebar" />
     </left>

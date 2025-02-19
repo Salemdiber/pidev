@@ -5,16 +5,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
-import org.example.dao.UserDAO;
-import org.example.model.User;
+import org.example.entities.User;
+import org.example.services.ServiceUser;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class InscriptionController {
 
@@ -46,7 +46,7 @@ public class InscriptionController {
     }
 
     @FXML
-    private void handleSignupButtonAction(ActionEvent event) {
+    private void handleSignupButtonAction(ActionEvent event) throws SQLException {
         // Retrieve data from input fields
         String nom = nomField.getText();
         String prenom = prenomField.getText();
@@ -54,18 +54,27 @@ public class InscriptionController {
         String role = roleComboBox.getValue();
         String mdp = mdpField.getText();
 
-        // Perform validation
         if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || role == null || mdp.isEmpty()) {
-            System.out.println("Please fill in all fields.");
+            showAlert("Error","Les champs sont vides");
             return;
         }
+        if (!isEmailValid(email))
+        {
+            showAlert("Error","Email est invalide");
+            return;
+        }
+        if (nom.isBlank() || prenom.isBlank() || email.isBlank()  || mdp.isBlank()) {
+            showAlert("Error","Les champs sont des chaines vides");
+            return;
+        }
+
 
         // Create a new User object
         User newUser = new User(nom, prenom, email, role, mdp);
 
         // Insert the user into the database
-        UserDAO userDAO = new UserDAO();
-        if (userDAO.insertUser(newUser)) {
+        ServiceUser usersevice = new ServiceUser();
+        if (usersevice.ajouter(newUser)) {
             System.out.println("Signup successful!");
             clearInputFields();
         } else {
@@ -96,5 +105,20 @@ public class InscriptionController {
         emailField.clear();
         roleComboBox.setValue(null);
         mdpField.clear();
+    }
+    private void showAlert(String chaine1,String chaine2)
+    {
+        Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+        infoAlert.setTitle(chaine1);
+        infoAlert.setHeaderText(null);
+        infoAlert.setContentText(chaine2);
+        infoAlert.showAndWait();
+    }
+
+    public boolean isEmailValid(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 }

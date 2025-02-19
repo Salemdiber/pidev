@@ -6,19 +6,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.example.model.SessionManager;
-import org.example.model.User;
-import org.example.dao.UserDAO;
+import org.example.entities.SessionManager;
+import org.example.entities.User;
+import org.example.services.ServiceUser;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
 
 public class ProfilController {
+
+    @FXML
+    private Button btnRec;
 
     @FXML
     private TextField nomField;
@@ -83,8 +84,8 @@ public class ProfilController {
         confirmationAlert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 try {
-                    UserDAO userDAO = new UserDAO();
-                    userDAO.deleteUser(currentUser.getIdUser());
+                    ServiceUser serviceuser = new ServiceUser();
+                    serviceuser.supprimer(currentUser.getIdUser());
 
                     // Show success message
                     Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -120,5 +121,11 @@ public class ProfilController {
             e.printStackTrace();
             System.out.println("Failed to load login scene.");
         }
+    }
+
+    public void versRec(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/reclammationHome.fxml")));
+        Scene scene = ((Node) event.getSource()).getScene();
+        scene.setRoot(root);
     }
 }

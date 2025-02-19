@@ -4,8 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.event.ActionEvent;
-import org.example.dao.UserDAO;
-import org.example.model.User;
+import org.example.entities.User;
+import org.example.services.ServiceUser;
+
+import java.sql.SQLException;
+
 //a faire session
 public class UpdatePasswordController {
 
@@ -28,7 +31,7 @@ public class UpdatePasswordController {
     }
 
     @FXML
-    private void handleSubmitButtonAction(ActionEvent event) {
+    private void handleSubmitButtonAction(ActionEvent event) throws SQLException {
         // Retrieve data from input fields
         String currentMdp = currentMdpField.getText();
         String newMdp = newMdpField.getText();
@@ -52,10 +55,9 @@ public class UpdatePasswordController {
 
         // Update password in the database
         currentUser.setMdp(newMdp);
-        UserDAO userDAO = new UserDAO();
-        if (userDAO.updateUser(currentUser)) {
+        ServiceUser serviceuser = new ServiceUser();
+        if (serviceuser.modifier(currentUser)) {
             errorLabel.setText("Password update successful!");
-            // Optionally, navigate to another page or show a success message
         } else {
             errorLabel.setText("Password update failed. Please try again.");
         }
