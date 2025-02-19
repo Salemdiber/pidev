@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,6 +17,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.example.entities.Publication;
+import org.example.entities.Terrain;
 import org.example.services.ServicePublication;
 
 import java.io.IOException;
@@ -106,13 +108,13 @@ public class AfficherPubController {
             if (event.getClickCount() == 2) { // Vérifiez si c'est un double-clic
                 Publication selectedPub = listviewPub.getSelectionModel().getSelectedItem();
                 if (selectedPub != null) {
-                    openTerrainDetail(selectedPub);
+                    openTerrainDetail(selectedPub,new ActionEvent(event.getSource(), null));
                 }
             }
         });
     }
 
-    private void openTerrainDetail(Publication selectedPub) {
+    private void openTerrainDetail(Publication selectedPub,ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DetailsPub.fxml"));
             Parent root = loader.load();
@@ -121,9 +123,8 @@ public class AfficherPubController {
             controller.setPublication(selectedPub);
             controller.setAfficherPubController(this); // Pass reference for refreshing
 
-            Stage stage = new Stage();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Détails du publication");
 
             stage.show();
         } catch (IOException e) {
@@ -156,17 +157,14 @@ public class AfficherPubController {
     }
 
     @FXML
-    private void handleAjouterTerrain() {
+    private void handleAjouterTerrain(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AjoutPub.fxml"));
             Parent root = loader.load();
 
             // Créer une nouvelle fenêtre pour AjouterTerrain
-            Stage stage = new Stage();
-            stage.setTitle("Ajouter un Terrain");
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setMaximized(true);
-            stage.setResizable(false);
             // Ajouter un écouteur pour détecter la fermeture de la fenêtre et rafraîchir la ListView
             stage.setOnHidden((WindowEvent e) -> rafraichirAffichage());
 
@@ -222,6 +220,37 @@ public class AfficherPubController {
 
     @FXML
     public void ouvrirFenetreModification(ActionEvent actionEvent) {
+    }
+    @FXML
+    private void handleOuvrirGame(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/gameHome.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirTerrain(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/HomeAffiche.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleReturnButtonClick(ActionEvent event) {
+        try {
+            // Charger la nouvelle scène pour homeAffiche.fxml
+            Parent homePage = FXMLLoader.load(getClass().getResource("/view/homeAffiche.fxml"));
+            Scene homeScene = new Scene(homePage);
+
+            // Obtenir le stage actuel et définir la nouvelle scène
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(homeScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+        }
     }
 
 

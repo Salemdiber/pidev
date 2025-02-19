@@ -76,4 +76,5 @@ public class SupprimerTerrainController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }

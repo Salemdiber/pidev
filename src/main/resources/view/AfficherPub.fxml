@@ -116,7 +116,7 @@
             </Button>
         </HBox>
         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
-            <Button fx:id="eventsBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="70.0" prefWidth="84.0" styleClass="menu-btn" stylesheets="@../styles/style.css" text="STADIUM">
+            <Button fx:id="stadebtn" contentDisplay="TOP" onAction="#handleOuvrirTerrain" mnemonicParsing="false" prefHeight="70.0" prefWidth="84.0" styleClass="menu-btn" stylesheets="@../styles/style.css" text="STADIUM">
                 <graphic>
                     <ImageView fx:id="eventsBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../img/terrain-de-football.png" />
@@ -128,7 +128,7 @@
             </Button>
         </HBox>
         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
-            <Button fx:id="forumBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="EVENTS">
+            <Button fx:id="eventbtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="EVENTS">
                 <graphic>
                     <ImageView fx:id="forumBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../img/event-management.png" />
@@ -140,7 +140,7 @@
             </Button>
         </HBox>
         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
-            <Button fx:id="productsBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="69.0" prefWidth="84.0" styleClass="menu-btn" stylesheets="@../styles/style.css" text="Forum">
+            <Button fx:id="forumbtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="69.0" prefWidth="84.0" styleClass="menu-btn" stylesheets="@../styles/style.css" text="Forum">
                 <graphic>
                     <ImageView fx:id="productsBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../img/bavarder.png" />
@@ -152,7 +152,7 @@
             </Button>
         </HBox>
         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
-            <Button fx:id="collectsBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="GAMES">
+            <Button fx:id="gamebtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleOuvrirGame" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="GAMES">
                 <graphic>
                     <ImageView fx:id="collectsBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../img/video-games.png" />

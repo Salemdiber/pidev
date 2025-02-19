@@ -135,4 +135,29 @@ ps.executeUpdate();
             }
         }
     }
+
+    @Override
+    public int modifier(Terrain terrain, int id) throws SQLException {
+        return 0;
+    }
+
+    @Override
+    public void ajouterEquipeAMatch(int idMatch, int idEquipe) throws SQLException {
+
+    }
+
+    @Override
+    public void supprimerEquipeDuMatch(int idMatch, int idEquipe) throws SQLException {
+
+    }
+
+    @Override
+    public List<Integer> getEquipesParMatch(int idMatch) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public List<Integer> getMatchsParEquipe(int idEquipe) throws SQLException {
+        return List.of();
+    }
 }

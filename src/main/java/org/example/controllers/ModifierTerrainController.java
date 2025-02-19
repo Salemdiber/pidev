@@ -1,6 +1,11 @@
 package org.example.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -12,6 +17,7 @@ import org.example.entities.Terrain;
 import org.example.services.ServiceTerrain;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class ModifierTerrainController {
@@ -152,6 +158,21 @@ public class ModifierTerrainController {
     private void annulerModification() {
         Stage stage = (Stage) annulerbtn.getScene().getWindow();
         stage.close();
+    }
+    @FXML
+    private void handleReturnButtonClick(ActionEvent event) {
+        try {
+            // Charger la nouvelle scène pour homeAffiche.fxml
+            Parent homePage = FXMLLoader.load(getClass().getResource("/view/homeAffiche.fxml"));
+            Scene homeScene = new Scene(homePage);
+
+            // Obtenir le stage actuel et définir la nouvelle scène
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(homeScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+        }
     }
 
 

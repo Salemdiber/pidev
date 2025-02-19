@@ -24,9 +24,12 @@
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Reservation.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Terrain.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/IService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceEquipe.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceMatch.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceReservation.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceTerrain.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/test/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/MyDB.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/MyDataBase.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/29516027-isolé-noir-blanc-joueur-de-football-vecteur-de-prise-de-vue-illustration-removebg-preview.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/abri.png" afterDir="false" />
@@ -102,7 +105,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/KF7/IdeaProjects/sportnexusTest",
+    "last_opened_file_path": "C:/Users/KF7/IdeaProjects/sportnexusTest/src/main/java/org/example/utils",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -118,6 +121,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\KF7\IdeaProjects\sportnexusTest\src\main\java\org\example\utils" />
+      <recent name="C:\Users\KF7\IdeaProjects\sportnexusTest\src\main\java\org\example\services" />
       <recent name="C:\Users\KF7\IdeaProjects\sportnexusTest\src\main\resources\img" />
       <recent name="C:\Users\KF7\IdeaProjects\sportnexus\src\main\resources\img" />
     </key>
@@ -176,7 +181,9 @@
       <workItem from="1739810621748" duration="12614000" />
       <workItem from="1739866491004" duration="3243000" />
       <workItem from="1739870188562" duration="2715000" />
-      <workItem from="1739873534265" duration="9827000" />
+      <workItem from="1739873534265" duration="10655000" />
+      <workItem from="1739884597273" duration="4245000" />
+      <workItem from="1739903425819" duration="19329000" />
     </task>
     <servers />
   </component>

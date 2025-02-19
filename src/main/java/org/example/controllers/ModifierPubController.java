@@ -1,6 +1,11 @@
 package org.example.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -8,6 +13,7 @@ import javafx.stage.Stage;
 import org.example.entities.Publication;
 import org.example.services.ServicePublication;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class ModifierPubController {
@@ -58,6 +64,7 @@ public class ModifierPubController {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le titre doit comporter au moins 3 caractères.");
             return;
         }
+
         if (description.length() < 10) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "La description doit comporter au moins 10 caractères.");
             return;
@@ -70,15 +77,16 @@ public class ModifierPubController {
             servicePublication.modifier_t(publicationSelectionnee);
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Publication modifiée avec succès !");
 
+            // After modifying the publication, refresh the details in the DetailsPubController
             if (detailsPubController != null) {
-                detailsPubController.setPublication(publicationSelectionnee); // Update details view
+                detailsPubController.setPublication(publicationSelectionnee); // Update publication details in DetailsPubController
+                detailsPubController.chargerCommentaires(); // Refresh comments in the ListView
             }
-
-            fermerFenetre();
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de modifier la publication : " + e.getMessage());
         }
     }
+
 
     private void afficherAlerte(Alert.AlertType type, String titre, String message) {
         Alert alert = new Alert(type);
@@ -88,8 +96,20 @@ public class ModifierPubController {
         alert.showAndWait();
     }
 
-    private void fermerFenetre() {
-        Stage stage = (Stage) titrePub.getScene().getWindow();
-        stage.close();
+
+    @FXML
+    private void handleReturnButtonClick(ActionEvent event) {
+        try {
+            // Charger la nouvelle scène pour homeAffiche.fxml
+            Parent homePage = FXMLLoader.load(getClass().getResource("/view/DetailsPub.fxml"));
+            Scene homeScene = new Scene(homePage);
+
+            // Obtenir le stage actuel et définir la nouvelle scène
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(homeScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+        }
     }
 }

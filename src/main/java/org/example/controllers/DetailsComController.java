@@ -1,5 +1,7 @@
 package org.example.controllers;
 
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import org.example.entities.Commentaire;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -72,7 +74,7 @@ public class DetailsComController {
                     detailsPubController.chargerCommentaires();
                 }
 
-                fermerFenetre();
+
             } catch (SQLException e) {
                 afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de supprimer le commentaire : " + e.getMessage());
             }
@@ -114,10 +116,7 @@ public class DetailsComController {
     /**
      * Close the current window.
      */
-    private void fermerFenetre() {
-        Stage stage = (Stage) btnSupprimer.getScene().getWindow();
-        stage.close();
-    }
+
 
     /**
      * Display alert messages.
@@ -128,5 +127,20 @@ public class DetailsComController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+    @FXML
+    private void handleReturnButtonClick(ActionEvent event) {
+        try {
+            // Charger la nouvelle scène pour homeAffiche.fxml
+            Parent homePage = FXMLLoader.load(getClass().getResource("/view/homeAffiche.fxml"));
+            Scene homeScene = new Scene(homePage);
+
+            // Obtenir le stage actuel et définir la nouvelle scène
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(homeScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+        }
     }
 }

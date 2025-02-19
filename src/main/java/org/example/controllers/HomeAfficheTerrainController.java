@@ -57,23 +57,26 @@ public class HomeAfficheTerrainController {
         // Charger les données
         chargerTerrains();
 
-        // Ajouter des actions aux boutons
-        btnmodifier.setOnAction(event -> ouvrirFenetreModification());
-        btnsupprimer.setOnAction(event -> supprimerTerrain());
-       // forumBtn.setOnAction(event -> handleOuvrirForum(ActionEvent event));
 
-       // btnreserver1.setOnAction(event -> handleAfficherReservations());
+        btnsupprimer.setOnAction(event -> supprimerTerrain());
+
         listViewTerrains.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) { // Vérifiez si c'est un double-clic
                 Terrain selectedTerrain = listViewTerrains.getSelectionModel().getSelectedItem();
                 if (selectedTerrain != null) {
-                    openTerrainDetail(selectedTerrain);
+                    openTerrainDetail(selectedTerrain, new ActionEvent(event.getSource(), null));
                 }
             }
         });
+
     }
 
-    private void openTerrainDetail(Terrain selectedTerrain) {
+    private void openTerrainDetail(Terrain selectedTerrain, ActionEvent event) {
+        if (selectedTerrain == null) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Aucun terrain sélectionné.");
+            return;
+        }
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TerrainDetail.fxml"));
             Parent root = loader.load();
@@ -81,16 +84,13 @@ public class HomeAfficheTerrainController {
             TerrainDetailController controller = loader.getController();
             controller.setTerrain(selectedTerrain);
 
-            Stage stage = new Stage();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Détails du Terrain");
-
-            stage.setMaximized(true); // Plein écran fenêtré
-            stage.setResizable(false); // Empêche le redimensionnement
-
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger les détails du terrain : " + e.getMessage());
         }
     }
 
@@ -118,18 +118,17 @@ public class HomeAfficheTerrainController {
     }
 
     @FXML
-    private void handleAjouterTerrain() {
+    private void handleAjouterTerrain(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddTerrain.fxml"));
             Parent root = loader.load();
 
             // Créer une nouvelle fenêtre pour AjouterTerrain
-            Stage stage = new Stage();
-            stage.setTitle("Ajouter un Terrain");
-            stage.setScene(new Scene(root));
-            stage.setMaximized(true);
-            stage.setResizable(false);
+
             // Ajouter un écouteur pour détecter la fermeture de la fenêtre et rafraîchir la ListView
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
             stage.setOnHidden((WindowEvent e) -> rafraichirAffichage());
 
             stage.show();
@@ -173,7 +172,7 @@ public class HomeAfficheTerrainController {
         }
     }
 
-    public void ouvrirFenetreModification() {
+    public void ouvrirFenetreModification(ActionEvent event) {
         if (listViewTerrains == null) { // Vérifie si l'élément est bien chargé
             System.out.println("❌ ERREUR : listViewTerrains n'est pas initialisé !");
             return;
@@ -191,14 +190,16 @@ public class HomeAfficheTerrainController {
             ModifierTerrainController controller = loader.getController();
             controller.setTerrain(terrain);  // Passer le terrain sélectionné
             controller.setHomeAfficheTerrainController(this);
-            Stage stage = new Stage();
-            stage.setTitle("Modifier un terrain");
+
+
+            // Si vous souhaitez changer la scène de la fenêtre actuelle
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setMaximized(true);
-            stage.setResizable(false);
-            stage.show();
+             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la fenêtre de modification : " + e.getMessage());
         }
     }
 
@@ -255,6 +256,22 @@ private void handleAfficherReservations(ActionEvent event)throws IOException {
     @FXML
     private void handleOuvrirForum(ActionEvent event) throws IOException {
         Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/AfficherPub.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirGame(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/gameHome.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirTeam(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/team_home1.fxml"));
         Scene scene = new Scene(trajetPage);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);

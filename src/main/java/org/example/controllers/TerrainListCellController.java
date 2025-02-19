@@ -1,14 +1,22 @@
 package org.example.controllers;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.example.entities.Terrain;
 
 import java.io.File;
+import java.io.IOException;
 
 public class TerrainListCellController extends ListCell<Terrain> {
 
@@ -69,6 +77,21 @@ public class TerrainListCellController extends ListCell<Terrain> {
             }
 
             setGraphic(content);
+        }
+    }
+    @FXML
+    private void handleReturnButtonClick(ActionEvent event) {
+        try {
+
+            Parent homePage = FXMLLoader.load(getClass().getResource("/view/homeAffiche.fxml"));
+            Scene homeScene = new Scene(homePage);
+
+            // Obtenir le stage actuel et définir la nouvelle scène
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(homeScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
         }
     }
 }

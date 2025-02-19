@@ -1,5 +1,9 @@
 package org.example.controllers;
 
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.example.entities.Publication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -74,6 +78,21 @@ public class AjoutPubController {
             titretf.getScene().setRoot(root);
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+    @FXML
+    private void handleReturnButtonClick(ActionEvent event) {
+        try {
+            // Charger la nouvelle scène pour homeAffiche.fxml
+            Parent homePage = FXMLLoader.load(getClass().getResource("/view/AfficherPub.fxml"));
+            Scene homeScene = new Scene(homePage);
+
+            // Obtenir le stage actuel et définir la nouvelle scène
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(homeScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
         }
     }
 }

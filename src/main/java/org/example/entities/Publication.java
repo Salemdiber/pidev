@@ -4,7 +4,7 @@ public class Publication {
     private int idPub;
     private String titre;
     private String describ;
-    private int idUser;
+    private int idUser=1;
     private String nom;
 
 

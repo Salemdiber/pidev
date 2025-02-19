@@ -1,5 +1,9 @@
 package org.example.controllers;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import org.example.entities.Commentaire;
 import org.example.entities.Publication;
 import javafx.event.ActionEvent;
@@ -11,6 +15,7 @@ import javafx.stage.Stage;
 import org.example.services.ServiceCommentaire;
 import org.example.services.ServicePublication;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class AjoutComController {
@@ -79,7 +84,7 @@ public class AjoutComController {
             }
 
             // Close the window after adding
-            fermerFenetre();
+
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible d'ajouter le commentaire : " + e.getMessage());
         }
@@ -110,5 +115,20 @@ public class AjoutComController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+    @FXML
+    private void handleReturnButtonClick(ActionEvent event) {
+        try {
+            // Charger la nouvelle scène pour homeAffiche.fxml
+            Parent homePage = FXMLLoader.load(getClass().getResource("/view/DetailsPub.fxml"));
+            Scene homeScene = new Scene(homePage);
+
+            // Obtenir le stage actuel et définir la nouvelle scène
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(homeScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+        }
     }
 }

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -69,6 +70,15 @@
            <Font name="System Bold" size="11.773585319519043" />
        </font>
    </Button>
+        <Button fx:id="btnreturn" alignment="CENTER" contentDisplay="TOP" layoutX="24.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleReturnButtonClick" prefHeight="50.0" prefWidth="52.0" styleClass="btnreturn" stylesheets="@../styles/style.css">
+            <graphic>
+                <ImageView fx:id="returnbtn" fitHeight="64.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/return-104.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
 
 
     </Pane>

@@ -15,10 +15,8 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/HomeAffiche.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-
             primaryStage.setTitle("Gestion des Terrains");
             primaryStage.setScene(scene);
-
             primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo-removebg-preview1.png")));
 
             primaryStage.setMaximized(true);

@@ -1,5 +1,8 @@
 package org.example.controllers;
 
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.stage.Modality;
 import org.example.entities.Commentaire;
 import org.example.entities.Publication;
 import javafx.collections.FXCollections;
@@ -46,13 +49,15 @@ public class DetailsPubController {
 
     @FXML
     public void initialize() {
-        btnmodifier.setOnAction(event -> ouvrirFenetreModification());
+
         btnsupp.setOnAction(event -> supprimerPublication());
-        ajoutcom.setOnAction(event -> ouvrirAjoutCommentaire());
+        ajoutcom.setOnAction(event -> ouvrirAjoutCommentaire(event));
+        btnmodifier.setOnAction(event -> ouvrirFenetreModification(event));
 
         listcom.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) { // Double-click event
                 String selectedComment = listcom.getSelectionModel().getSelectedItem();
+
                 if (selectedComment != null) {
                     ouvrirDetailsCommentaire(selectedComment);
                 }
@@ -103,7 +108,7 @@ public class DetailsPubController {
     /**
      * Opens the comment addition window.
      */
-    private void ouvrirAjoutCommentaire() {
+    private void ouvrirAjoutCommentaire(ActionEvent event) {
         if (publication == null) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Aucune publication sélectionnée !");
             return;
@@ -113,22 +118,26 @@ public class DetailsPubController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AjoutCom.fxml"));
             Parent root = loader.load();
 
+            // Récupérer le contrôleur et lui passer les informations nécessaires
             AjoutComController controller = loader.getController();
             controller.setIdPub(publication.getIdPub());
-            controller.setDetailsPubController(this); // Pass reference to refresh comments
+            controller.setDetailsPubController(this); // Pour rafraîchir après ajout
 
-            Stage stage = new Stage();
-            stage.setTitle("Ajouter un Commentaire");
+            // Récupérer la fenêtre actuelle et remplacer la scène
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
 
-            stage.setOnHidden((WindowEvent event) -> chargerCommentaires());
+            // Définir un rafraîchissement après affichage de la nouvelle scène
+            stage.setOnShown(eventShown -> chargerCommentaires());
 
-            stage.show();
+            stage.show(); // Afficher la scène sans bloquer l'exécution
+
         } catch (IOException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la fenêtre d'ajout de commentaire !");
             e.printStackTrace();
         }
     }
+
 
     /**
      * Opens the comment details window when a comment is double-clicked.
@@ -195,14 +204,14 @@ public class DetailsPubController {
                 }
 
                 Stage stage = (Stage) btnsupp.getScene().getWindow();
-                stage.close();
+
             } catch (SQLException e) {
                 afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de supprimer la publication : " + e.getMessage());
             }
         }
     }
 
-    private void ouvrirFenetreModification() {
+    private void ouvrirFenetreModification(ActionEvent event) {
         if (publication == null) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Aucune publication sélectionnée !");
             return;
@@ -216,22 +225,26 @@ public class DetailsPubController {
             controller.setPublication(publication);
             controller.setDetailsPubController(this);
 
-            Stage stage = new Stage();
-            stage.setTitle("Modifier Publication");
+            // Récupérer la fenêtre actuelle et remplacer la scène
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
 
-            stage.setOnHidden((WindowEvent event) -> {
+            // Définir un rafraîchissement lorsque la scène est remplacée
+            stage.setOnShown(eventShown -> {
                 if (afficherPubController != null) {
                     afficherPubController.rafraichirAffichage();
                 }
             });
 
-            stage.show();
+            stage.show(); // Afficher la nouvelle scène sans bloquer
+
         } catch (IOException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la fenêtre de modification !");
             e.printStackTrace();
         }
     }
+
+
 
     private void afficherAlerte(Alert.AlertType type, String titre, String message) {
         Alert alert = new Alert(type);
@@ -239,5 +252,20 @@ public class DetailsPubController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+    @FXML
+    private void handleReturnButtonClick(ActionEvent event) {
+        try {
+            // Charger la nouvelle scène pour homeAffiche.fxml
+            Parent homePage = FXMLLoader.load(getClass().getResource("/view/AfficherPub.fxml"));
+            Scene homeScene = new Scene(homePage);
+
+            // Obtenir le stage actuel et définir la nouvelle scène
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(homeScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+        }
     }
 }

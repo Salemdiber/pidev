@@ -46,7 +46,7 @@ public class ListeReservationsController implements Initializable {
 
         // Charger les réservations
         chargerReservations();
-        btnmodifierreservation.setOnAction(event -> handleModifierButtonClick());
+
         // Configurer le ListView pour afficher les réservations
         listViewReservations.setCellFactory(param -> new ListCell<>() {
             @Override
@@ -166,7 +166,7 @@ public class ListeReservationsController implements Initializable {
 
 
     @FXML
-    private void handleModifierButtonClick() {
+    private void handleModifierButtonClick(ActionEvent event) {
         Reservation reservationSelectionne = listViewReservations.getSelectionModel().getSelectedItem();
         if (reservationSelectionne == null) {
             afficherAlerte("Avertissement", "Veuillez sélectionner une réservation à modifier.");
@@ -180,10 +180,9 @@ public class ListeReservationsController implements Initializable {
             ModifierReservationController modifierController = loader.getController();
             modifierController.setReservation(reservationSelectionne);
 
-            Stage stage = new Stage();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Modifier Réservation");
-            stage.showAndWait(); // Wait for the window to close before proceeding
+            stage.show();
 
             rafraichirAffichage(); // Refresh the list after the window is closed
         } catch (IOException e) {

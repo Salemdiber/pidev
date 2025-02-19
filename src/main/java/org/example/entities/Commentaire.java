@@ -3,7 +3,7 @@ package org.example.entities;
 public class Commentaire {
     private int id;
     private String desc;
-    private int idUser;
+    private int idUser=1;
     private int idPub;
     private String nom; // New field to store user's name
 

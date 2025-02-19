@@ -16,7 +16,7 @@ public class ServiceCommentaire implements IService<Commentaire> {
 
     @Override
     public void ajouter_t(Commentaire commentaire) throws SQLException {
-        String sql = "INSERT INTO commentaire`(desc_com`, id_user, id_pub) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO commentaire(`desc_com`, id_user, id_pub) VALUES (?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, commentaire.getDesc());
             ps.setInt(2, commentaire.getIdUser());
@@ -27,15 +27,17 @@ public class ServiceCommentaire implements IService<Commentaire> {
 
     @Override
     public void modifier_t(Commentaire commentaire) throws SQLException {
-        String sql = "UPDATE commentaire SET id_pub`=?, desc_com`=?, id_user`=? WHERE id_com`=?";
+        // Requête corrigée sans les backticks
+        String sql = "UPDATE commentaire SET id_pub = ?, desc_com = ?, id_user = ? WHERE id_com = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(1, commentaire.getIdPub());
-            ps.setString(2, commentaire.getDesc());
-            ps.setInt(3, commentaire.getIdUser());
-            ps.setInt(4, commentaire.getId());
-            ps.executeUpdate();
+            ps.setInt(1, commentaire.getIdPub());     // Paramètre 1 : id_pub
+            ps.setString(2, commentaire.getDesc());   // Paramètre 2 : desc_com
+            ps.setInt(3, commentaire.getIdUser());    // Paramètre 3 : id_user
+            ps.setInt(4, commentaire.getId());        // Paramètre 4 : id_com (ID du commentaire à modifier)
+            ps.executeUpdate(); // Exécuter la mise à jour
         }
     }
+
 
     @Override
     public void supprimer_t(int id) throws SQLException {
@@ -66,5 +68,30 @@ public class ServiceCommentaire implements IService<Commentaire> {
             }
         }
         return commentaires;
+    }
+
+    @Override
+    public int modifier(Commentaire commentaire, int id) throws SQLException {
+        return 0;
+    }
+
+    @Override
+    public void ajouterEquipeAMatch(int idMatch, int idEquipe) throws SQLException {
+
+    }
+
+    @Override
+    public void supprimerEquipeDuMatch(int idMatch, int idEquipe) throws SQLException {
+
+    }
+
+    @Override
+    public List<Integer> getEquipesParMatch(int idMatch) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public List<Integer> getMatchsParEquipe(int idEquipe) throws SQLException {
+        return List.of();
     }
 }
