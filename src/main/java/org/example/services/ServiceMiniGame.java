@@ -40,6 +40,21 @@ public class ServiceMiniGame implements IService<MiniGame> {
     }
 
     @Override
+    public boolean ajouteru(MiniGame miniGame) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean modifieru(MiniGame miniGame) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean supprimeru(int id) throws SQLException {
+        return false;
+    }
+
+    @Override
     public void ajouterEquipeAMatch(int idMatch, int idEquipe) throws SQLException {
 
     }

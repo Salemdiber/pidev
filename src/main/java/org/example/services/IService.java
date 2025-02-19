@@ -14,6 +14,12 @@ public interface IService<T> {
     List<T> afficher_t() throws SQLException;
     int modifier(T t,int id)throws SQLException;
 
+    public boolean ajouteru(T t)throws SQLException;
+
+    public boolean modifieru(T t)throws SQLException;
+
+    public boolean supprimeru(int id) throws SQLException ;
+
     void ajouterEquipeAMatch(int idMatch, int idEquipe) throws SQLException;
     void supprimerEquipeDuMatch(int idMatch, int idEquipe) throws SQLException;
     List<Integer> getEquipesParMatch(int idMatch) throws SQLException;

@@ -76,6 +76,21 @@ public class ServiceCommentaire implements IService<Commentaire> {
     }
 
     @Override
+    public boolean ajouteru(Commentaire commentaire) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean modifieru(Commentaire commentaire) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean supprimeru(int id) throws SQLException {
+        return false;
+    }
+
+    @Override
     public void ajouterEquipeAMatch(int idMatch, int idEquipe) throws SQLException {
 
     }

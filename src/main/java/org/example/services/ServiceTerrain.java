@@ -142,6 +142,21 @@ ps.executeUpdate();
     }
 
     @Override
+    public boolean ajouteru(Terrain terrain) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean modifieru(Terrain terrain) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean supprimeru(int id) throws SQLException {
+        return false;
+    }
+
+    @Override
     public void ajouterEquipeAMatch(int idMatch, int idEquipe) throws SQLException {
 
     }

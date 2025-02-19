@@ -64,6 +64,21 @@ public class ServiceReservation implements IService<Reservation> {
     }
 
     @Override
+    public boolean ajouteru(Reservation reservation) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean modifieru(Reservation reservation) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean supprimeru(int id) throws SQLException {
+        return false;
+    }
+
+    @Override
     public void ajouterEquipeAMatch(int idMatch, int idEquipe) throws SQLException {
 
     }

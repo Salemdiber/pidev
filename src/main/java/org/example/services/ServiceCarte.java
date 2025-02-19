@@ -36,6 +36,22 @@ public class ServiceCarte implements IService<Carte> {
 
         return ps.executeUpdate();
     }
+
+    @Override
+    public boolean ajouteru(Carte carte) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean modifieru(Carte carte) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean supprimeru(int id) throws SQLException {
+        return false;
+    }
+
     @Override
     public void supprimer_t(int id)throws SQLException
     {

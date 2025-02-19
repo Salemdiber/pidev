@@ -81,6 +81,21 @@ public class ServiceEvent implements IService<Event> {
     }
 
     @Override
+    public boolean ajouteru(Event event) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean modifieru(Event event) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean supprimeru(int id) throws SQLException {
+        return false;
+    }
+
+    @Override
     public void ajouterEquipeAMatch(int idMatch, int idEquipe) throws SQLException {
 
     }

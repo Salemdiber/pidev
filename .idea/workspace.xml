@@ -105,7 +105,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/KF7/IdeaProjects/sportnexusTest/src/main/java/org/example/utils",
+    "last_opened_file_path": "C:/Users/KF7/IdeaProjects/pidev-gestionUserReclammation",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -184,6 +184,7 @@
       <workItem from="1739873534265" duration="10655000" />
       <workItem from="1739884597273" duration="4245000" />
       <workItem from="1739903425819" duration="21703000" />
+      <workItem from="1739977364214" duration="9621000" />
     </task>
     <servers />
   </component>

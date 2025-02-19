@@ -112,6 +112,21 @@ public class ServicePublication implements IService<Publication> {
     }
 
     @Override
+    public boolean ajouteru(Publication publication) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean modifieru(Publication publication) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean supprimeru(int id) throws SQLException {
+        return false;
+    }
+
+    @Override
     public void ajouterEquipeAMatch(int idMatch, int idEquipe) throws SQLException {
 
     }

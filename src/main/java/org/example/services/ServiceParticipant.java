@@ -62,6 +62,21 @@ public class ServiceParticipant implements IService<Participant> {
     }
 
     @Override
+    public boolean ajouteru(Participant participant) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean modifieru(Participant participant) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean supprimeru(int id) throws SQLException {
+        return false;
+    }
+
+    @Override
     public void ajouterEquipeAMatch(int idMatch, int idEquipe) throws SQLException {
 
     }

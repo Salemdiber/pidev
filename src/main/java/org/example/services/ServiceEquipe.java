@@ -92,6 +92,21 @@ public class ServiceEquipe implements IService<Equipe> {
     }
 
     @Override
+    public boolean ajouteru(Equipe equipe) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean modifieru(Equipe equipe) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean supprimeru(int id) throws SQLException {
+        return false;
+    }
+
+    @Override
     public void ajouterEquipeAMatch(int idMatch, int idEquipe) throws SQLException {
         String req = "INSERT INTO partie_equipe (id_match, id_equipe) VALUES (?, ?)";
         try (PreparedStatement pst = cnx.prepareStatement(req)) {
