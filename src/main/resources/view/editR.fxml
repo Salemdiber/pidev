@@ -6,9 +6,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1150.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.AffichReclammation">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1150.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.EditRController">
     <AnchorPane fx:id="demandeJoinWBContainer" layoutX="458.0" layoutY="47.0" prefHeight="120.0" prefWidth="499.0" styleClass="demandeJoinWBContainer" stylesheets="@../styles/style.css" visible="false" />
-    <Button layoutX="79.0" layoutY="499.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="submit">
+    <Button fx:id="submitButton" layoutX="79.0" layoutY="499.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="submit">
         <font>
             <Font size="13.0" />
         </font>

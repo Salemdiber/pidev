@@ -171,9 +171,23 @@ public class AffichReclammation {
 
     @FXML
     public void versEditR(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/editR.fxml")));
-        Scene scene = ((Node) event.getSource()).getScene();
-        scene.setRoot(root);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/editR.fxml"));
+            Parent root = loader.load();
+            // Obtenir le contrôleur de la fenêtre AjoutRController
+            //AjoutRController ajoutRController = loader.getController();
+
+            // Associer le contrôleur principal
+            //ajoutRController.setAffichReclamation(this);
+            // Créer une nouvelle fenêtre pour Ajouter Team
+            Stage stage = new Stage();
+            stage.setTitle("editer Reclamation");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Erreur lors du chargement de editR.fxml");
+        }
     }
 
 
