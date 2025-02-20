@@ -2,6 +2,7 @@ package org.example.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import org.example.entities.Commentaire;
 import org.example.entities.Publication;
@@ -14,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import org.example.services.ServiceCommentaire;
 import org.example.services.ServicePublication;
 
@@ -26,11 +26,11 @@ import java.util.Optional;
 public class DetailsPubController {
 
     @FXML
-    private Label nomLabelDetail; // User's name
+    private Label nomLabelDetail;
     @FXML
-    private Label titreLabelDetail; // Publication title
+    private Label titreLabelDetail;
     @FXML
-    private Label desLabelDetail; // Publication description
+    private Label desLabelDetail;
     @FXML
     private Button btnsupp;
     @FXML
@@ -38,9 +38,11 @@ public class DetailsPubController {
     @FXML
     private Button ajoutcom;
     @FXML
+    private Button btnreturn;
+    @FXML
     private Pane mainPageContainer;
     @FXML
-    private ListView<String> listcom; // ListView to display comments with names
+    private ListView<String> listcom;
 
     private Publication publication;
     private final ServicePublication servicePublication = new ServicePublication();
@@ -55,11 +57,11 @@ public class DetailsPubController {
         btnmodifier.setOnAction(event -> ouvrirFenetreModification(event));
 
         listcom.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) { // Double-click event
+            if (event.getClickCount() == 2) {
                 String selectedComment = listcom.getSelectionModel().getSelectedItem();
 
                 if (selectedComment != null) {
-                    ouvrirDetailsCommentaire(selectedComment);
+                    ouvrirDetailsCommentaire(selectedComment,event);
                 }
             }
         });
@@ -72,9 +74,9 @@ public class DetailsPubController {
     public void setPublication(Publication publication) {
         this.publication = publication;
         if (publication != null) {
-            nomLabelDetail.setText( publication.getNom()); // Show user’s name
-            titreLabelDetail.setText(publication.getTitre()); // Show title
-            desLabelDetail.setText(publication.getDescrib()); // Show description
+            nomLabelDetail.setText( publication.getNom());
+            titreLabelDetail.setText(publication.getTitre());
+            desLabelDetail.setText(publication.getDescrib());
             chargerCommentaires();
         }
     }
@@ -83,31 +85,34 @@ public class DetailsPubController {
         this.afficherPubController = controller;
     }
 
-    /**
-     * Loads comments for the selected publication, including user names.
-     */
+
     public void chargerCommentaires() {
         if (publication == null) return;
 
         try {
+
+            listcom.getItems().clear();
+
+
             List<Commentaire> commentaires = serviceCommentaire.afficher_t();
             ObservableList<String> commentList = FXCollections.observableArrayList();
 
+
             for (Commentaire commentaire : commentaires) {
                 if (commentaire.getIdPub() == publication.getIdPub()) {
-                    commentList.add(commentaire.getNom() + " : " + commentaire.getDesc()); // Show name and comment
+                    commentList.add(commentaire.getNom() + " : " + commentaire.getDesc());
                 }
             }
 
+
             listcom.setItems(commentList);
+
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger les commentaires : " + e.getMessage());
         }
     }
 
-    /**
-     * Opens the comment addition window.
-     */
+
     private void ouvrirAjoutCommentaire(ActionEvent event) {
         if (publication == null) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Aucune publication sélectionnée !");
@@ -118,19 +123,18 @@ public class DetailsPubController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AjoutCom.fxml"));
             Parent root = loader.load();
 
-            // Récupérer le contrôleur et lui passer les informations nécessaires
             AjoutComController controller = loader.getController();
             controller.setIdPub(publication.getIdPub());
-            controller.setDetailsPubController(this); // Pour rafraîchir après ajout
+            controller.setDetailsPubController(this);
 
-            // Récupérer la fenêtre actuelle et remplacer la scène
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
 
-            // Définir un rafraîchissement après affichage de la nouvelle scène
+
             stage.setOnShown(eventShown -> chargerCommentaires());
 
-            stage.show(); // Afficher la scène sans bloquer l'exécution
+            stage.show();
 
         } catch (IOException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la fenêtre d'ajout de commentaire !");
@@ -139,10 +143,8 @@ public class DetailsPubController {
     }
 
 
-    /**
-     * Opens the comment details window when a comment is double-clicked.
-     */
-    private void ouvrirDetailsCommentaire(String commentText) {
+
+    private void ouvrirDetailsCommentaire(String commentText, MouseEvent event) {
         if (publication == null) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Aucune publication sélectionnée !");
             return;
@@ -165,22 +167,27 @@ public class DetailsPubController {
                 return;
             }
 
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DetailsCom.fxml"));
             Parent root = loader.load();
+
 
             DetailsComController controller = loader.getController();
             controller.setCommentaire(selectedCommentaire);
             controller.setDetailsPubController(this);
 
-            Stage stage = new Stage();
-            stage.setTitle("Détails du Commentaire");
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
+
         } catch (IOException | SQLException e) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la fenêtre de détails du commentaire !");
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la scène de détails du commentaire !");
             e.printStackTrace();
         }
     }
+
+
 
     private void supprimerPublication() {
         if (publication == null) {
@@ -225,19 +232,18 @@ public class DetailsPubController {
             controller.setPublication(publication);
             controller.setDetailsPubController(this);
 
-            // Récupérer la fenêtre actuelle et remplacer la scène
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
 
-            // Définir un rafraîchissement lorsque la scène est remplacée
+
             stage.setOnShown(eventShown -> {
                 if (afficherPubController != null) {
                     afficherPubController.rafraichirAffichage();
                 }
             });
 
-            stage.show(); // Afficher la nouvelle scène sans bloquer
-
+            stage.show();
         } catch (IOException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la fenêtre de modification !");
             e.printStackTrace();
@@ -256,16 +262,16 @@ public class DetailsPubController {
     @FXML
     private void handleReturnButtonClick(ActionEvent event) {
         try {
-            // Charger la nouvelle scène pour homeAffiche.fxml
+
             Parent homePage = FXMLLoader.load(getClass().getResource("/view/AfficherPub.fxml"));
             Scene homeScene = new Scene(homePage);
 
-            // Obtenir le stage actuel et définir la nouvelle scène
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(homeScene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+            e.printStackTrace();
         }
     }
 }

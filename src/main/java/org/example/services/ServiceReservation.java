@@ -57,6 +57,19 @@ public class ServiceReservation implements IService<Reservation> {
         }
         return reservations;
     }
+    public String getUserNameById(int idUser) throws SQLException {
+        String sql = "SELECT nom, prenom FROM user WHERE id_user = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, idUser);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getString("nom") + " " + resultSet.getString("prenom");
+            }
+        }
+        return "Utilisateur inconnu";
+    }
+
 
     @Override
     public int modifier(Reservation reservation, int id) throws SQLException {

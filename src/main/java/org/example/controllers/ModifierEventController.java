@@ -57,7 +57,6 @@ public class ModifierEventController {
         modifbtn.setOnAction(event -> modifierEvent());
         annulerbtn.setOnAction(event -> annulerModification());
 
-        // Remplir les ComboBox d'heures et de minutes
         for (int i = 0; i < 24; i++) {
             hourComboBox.getItems().add(String.format("%02d", i));
         }
@@ -75,7 +74,7 @@ public class ModifierEventController {
             txtImg.setText(event.getImage());
             datetf.setValue(event.getDate().toLocalDate());
 
-            // ✅ Extraire et afficher l'heure et les minutes
+
             hourComboBox.setValue(String.format("%02d", event.getDate().getHour()));
             minuteComboBox.setValue(String.format("%02d", event.getDate().getMinute()));
         }
@@ -89,10 +88,10 @@ public class ModifierEventController {
         File selectedFile = fileChooser.showOpenDialog(txtImg.getScene().getWindow());
 
         if (selectedFile != null) {
-            // ✅ Met à jour le champ texte avec le chemin absolu
+
             txtImg.setText(selectedFile.getAbsolutePath());
 
-            // ✅ Met à jour l'ImageView avec l'image sélectionnée
+
             Image image = new Image(selectedFile.toURI().toString());
             imageview.setImage(image);
         } else {
@@ -110,19 +109,19 @@ public class ModifierEventController {
         String description = desctxtfield.getText();
         String img = txtImg.getText();
 
-        // Vérifier si tous les champs sont remplis
+
         if (nom.isEmpty() || lieu.isEmpty() || description.isEmpty() || img.isEmpty()) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires !");
             return;
         }
 
-        // Vérification que le lieu commence par une majuscule
+
         if (!Character.isUpperCase(lieu.charAt(0))) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le lieu doit commencer par une majuscule !");
             return;
         }
 
-        // Vérification de la longueur du nom et de la description
+
         if (nom.length() < 3) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le nom doit comporter au moins 3 caractères.");
             return;
@@ -150,11 +149,11 @@ public class ModifierEventController {
         try {
             serviceEvent.modifier_t(eventSelected);
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "event modifié avec succès !");
-            fermerFenetre(); // Fermer la fenêtre de modification
+            fermerFenetre();
             if (afficherEventController != null) {
                 afficherEventController.rafraichirAffichage();
             }
-            // Rafraîchir l'affichage
+
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de modifier le event : " + e.getMessage());
         }
@@ -172,7 +171,7 @@ public class ModifierEventController {
 
     private void fermerFenetre() {
         if (detailsEventController != null) {
-            detailsEventController.setEvent(eventSelected); // 🔹 Met à jour l'événement dans la page des détails
+            detailsEventController.setEvent(eventSelected);
         } else {
             System.out.println("⚠️ `detailsEventController` est NULL, impossible de mettre à jour l'affichage !");
         }
@@ -192,9 +191,9 @@ public class ModifierEventController {
     }
     @FXML
     private void handleReturnButtonClick() {
-        // Fermer la fenêtre actuelle
+
         Stage stage = (Stage) btnreturn.getScene().getWindow();
-        stage.close(); // Cela fermera la fenêtre actuelle
+        stage.close();
     }
 
 }

@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -26,7 +25,6 @@
         </HBox>
         <HBox prefHeight="50.0" prefWidth="80.0">
             <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="37.0" styleClass="notif-btn" stylesheets="@../styles/style.css" translateY="8.0" />
-            <HBox fx:id="notifCount" alignment="CENTER" maxHeight="-Infinity" prefHeight="20.0" prefWidth="20.0" styleClass="notif-count" stylesheets="@../styles/style.css" translateX="-26.0" translateY="9.0" />
         </HBox>
     </HBox>
     <Pane fx:id="mainPageContainer" layoutX="162.0" layoutY="79.0" prefHeight="939.0" prefWidth="1699.0" styleClass="main-content-container" stylesheets="@../styles/style.css">
@@ -60,30 +58,10 @@
         </Label>
 
 
-        <Button fx:id="btnajouter" alignment="CENTER" contentDisplay="TOP" layoutX="832.0" layoutY="216.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAjouterTerrain" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
+        <Button fx:id="btnajouter" alignment="CENTER" contentDisplay="TOP" layoutX="958.0" layoutY="216.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAjouterTerrain" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
             <graphic>
                 <ImageView fx:id="btnajouter1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
                     <Image url="@../img/ajouter.png" />
-                </ImageView>
-            </graphic>
-            <font>
-                <Font name="System Bold" size="11.773585319519043" />
-            </font>
-        </Button>
-        <Button fx:id="btnsupprimer" alignment="CENTER" contentDisplay="TOP" layoutX="898.0" layoutY="216.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#supprimerTerrain" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
-            <graphic>
-                <ImageView fx:id="btnsupprimer1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
-                    <Image url="@../img/deleteicon.png" />
-                </ImageView>
-            </graphic>
-            <font>
-                <Font name="System Bold" size="11.773585319519043" />
-            </font>
-        </Button>
-        <Button fx:id="btnmodifier" alignment="CENTER" contentDisplay="TOP" layoutX="961.0" layoutY="216.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ouvrirFenetreModification" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
-            <graphic>
-                <ImageView fx:id="btnmodifier1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
-                    <Image url="@../img/modifyicon.png" />
                 </ImageView>
             </graphic>
             <font>
@@ -101,11 +79,6 @@
                 <Font name="System Bold" size="11.773585319519043" />
             </font>
         </Button>
-         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" layoutX="691.0" layoutY="58.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="search-bar" width="400.0" />
-         <TextField fx:id="searchInput" layoutX="725.0" layoutY="63.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="350.0" promptText="Search for any things ..." styleClass="search-input" stylesheets="@../styles/style.css" />
-         <ImageView fitHeight="30.0" fitWidth="34.0" layoutX="695.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true" styleClass="search-bar-icon">
-             <Image url="@../img/recherche.png" />
-         </ImageView>
     </Pane>
     <VBox alignment="TOP_CENTER" layoutX="22.0" layoutY="117.0" prefHeight="894.0" prefWidth="140.0" styleClass="leftMenuContainer" stylesheets="@../styles/style.css">
         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
@@ -117,7 +90,7 @@
             </ImageView>
         </HBox>
         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
-            <Button fx:id="homeBtn" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="HOME">
+            <Button fx:id="homeBtn" alignment="CENTER" contentDisplay="TOP" onAction="#handleHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="HOME">
                 <graphic>
                     <ImageView fx:id="homeBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
                         <Image url="@../img/abri.png" />
@@ -129,7 +102,7 @@
             </Button>
         </HBox>
         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
-            <Button fx:id="TeamsBtn" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleOuvrirTeam" mnemonicParsing="false" prefHeight="71.0" prefWidth="82.0" styleClass="menu-btn" stylesheets="@../styles/style.css" text="TEAMS">
+            <Button fx:id="TeamsBtn" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleOuvrirTeam" prefHeight="71.0" prefWidth="82.0" styleClass="menu-btn" stylesheets="@../styles/style.css" text="TEAMS">
                 <graphic>
                     <ImageView fx:id="coursesBtnImg" fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../img/team-building.png" />
@@ -153,7 +126,7 @@
             </Button>
         </HBox>
         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
-            <Button fx:id="eventbtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="70.4" onAction="#handleOuvrirEvent" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="EVENTS">
+            <Button fx:id="eventbtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleOuvrirEvent" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="EVENTS">
                 <graphic>
                     <ImageView fx:id="forumBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../img/event-management.png" />
@@ -192,7 +165,7 @@
             <VBox.margin>
                 <Insets top="20.0" />
             </VBox.margin>
-            <Button fx:id="logoutBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="Logout">
+            <Button fx:id="logoutBtn" contentDisplay="TOP" mnemonicParsing="false"  prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="Logout">
                 <graphic>
                     <ImageView fx:id="logoutBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../img/se-deconnecter.png" />
@@ -204,21 +177,4 @@
             </Button>
         </HBox>
     </VBox>
-    <AnchorPane fx:id="demandeJoinWBContainer" layoutX="458.0" layoutY="47.0" prefHeight="120.0" prefWidth="499.0" styleClass="demandeJoinWBContainer" stylesheets="@../styles/style.css" visible="false">
-        <Circle fx:id="demandeJoinWBImg" fill="DODGERBLUE" layoutX="53.0" layoutY="74.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-        <Label fx:id="courseWBJTitle" layoutX="102.0" layoutY="50.0" prefHeight="47.0" prefWidth="189.0" styleClass="most-progressed-course-title" stylesheets="@../styles/style.css" text="JavaScript Course">
-            <font>
-                <Font name="Jost Regular" size="32.0" />
-            </font>
-        </Label>
-        <Label layoutX="172.0" layoutY="1.0" prefHeight="47.0" prefWidth="150.0" styleClass="second-welcome-msg" stylesheets="@../styles/style.css" text="WhiteBoard Meeting">
-            <font>
-                <Font name="Jost Regular" size="12.0" />
-            </font>
-        </Label>
-    </AnchorPane>
-     <Circle fx:id="profilImgContainer" fill="DODGERBLUE" layoutX="1821.0" layoutY="68.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="profil-img-container" />
-        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="1665.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../img/actif.png" />
-        </ImageView>
 </AnchorPane>

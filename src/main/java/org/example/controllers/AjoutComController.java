@@ -30,23 +30,23 @@ public class AjoutComController {
     private TextField descCom;
 
     private final ServiceCommentaire serviceCommentaire = new ServiceCommentaire();
-    private final ServicePublication servicePublication = new ServicePublication(); // Added to fetch user name
+    private final ServicePublication servicePublication = new ServicePublication();
     private DetailsPubController detailsPubController;
     private int idPub;
-    private int idUser = 1; // Default user ID (Change this based on logged-in user)
+    private int idUser = 1;
 
     public void setIdPub(int idPub) {
         this.idPub = idPub;
     }
 
-    // Set publication ID for the comment
+
     public void setPublication(Publication publication) {
         if (publication != null) {
             this.idPub = publication.getIdPub();
         }
     }
 
-    // Refresh comments after adding a comment
+
     public void setDetailsPubController(DetailsPubController detailsPubController) {
         this.detailsPubController = detailsPubController;
     }
@@ -56,34 +56,34 @@ public class AjoutComController {
     public void ajouterCommentaire(ActionEvent actionEvent) {
         String description = descCom.getText().trim();
 
-        // Validate input
+
         if (description.isEmpty()) {
             afficherAlerte(Alert.AlertType.WARNING, "Champ vide", "Veuillez saisir un commentaire.");
             return;
         }
 
-        // Check if idPub is set
+
         if (idPub == 0) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Aucune publication sélectionnée !");
             return;
         }
 
-        // Fetch the user name from the publication
-        String userName = servicePublication.getUserNameById(idUser); // Retrieve user name by ID
 
-        // Creating the comment with user_id and user_name
+        String userName = servicePublication.getUserNameById(idUser);
+
+
         Commentaire commentaire = new Commentaire(description, idUser, idPub, userName);
 
         try {
             serviceCommentaire.ajouter_t(commentaire);
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Commentaire ajouté avec succès !");
 
-            // Refresh comments in DetailsPubController after adding
+
             if (detailsPubController != null) {
                 detailsPubController.chargerCommentaires();
             }
 
-            // Close the window after adding
+
 
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible d'ajouter le commentaire : " + e.getMessage());
@@ -119,16 +119,14 @@ public class AjoutComController {
     @FXML
     private void handleReturnButtonClick(ActionEvent event) {
         try {
-            // Charger la nouvelle scène pour homeAffiche.fxml
-            Parent homePage = FXMLLoader.load(getClass().getResource("/view/DetailsPub.fxml"));
-            Scene homeScene = new Scene(homePage);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AfficherPub.fxml"));
+            Parent homePage = loader.load();
 
-            // Obtenir le stage actuel et définir la nouvelle scène
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(homeScene);
-            stage.show();
+            stage.getScene().setRoot(homePage);
         } catch (IOException e) {
-            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+            e.printStackTrace();
         }
     }
+
 }

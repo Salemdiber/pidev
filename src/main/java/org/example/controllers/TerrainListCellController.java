@@ -20,18 +20,18 @@ import java.io.IOException;
 
 public class TerrainListCellController extends ListCell<Terrain> {
 
-    private final HBox content; // Conteneur principal pour la cellule
-    private final ImageView imageView; // Pour afficher l'image du terrain
-    private final Label nomLabel; // Pour afficher le nom du terrain
-    private final Label lieuLabel; // Pour afficher le lieu du terrain
-    private final Label descriptionLabel; // Pour afficher la description du terrain
+    private final HBox content;
+    private final ImageView imageView;
+    private final Label nomLabel;
+    private final Label lieuLabel;
+    private final Label descriptionLabel;
 
     public TerrainListCellController() {
         super();
 
-        // 🔹 Initialiser les composants
+
         imageView = new ImageView();
-        imageView.setFitHeight(250); // Taille de l'image
+        imageView.setFitHeight(250);
         imageView.setFitWidth(250);
         imageView.setPreserveRatio(true);
 
@@ -41,16 +41,16 @@ public class TerrainListCellController extends ListCell<Terrain> {
         lieuLabel = new Label();
 
         descriptionLabel = new Label();
-        descriptionLabel.setWrapText(true); // Permettre le retour à la ligne automatique
-        descriptionLabel.setMaxWidth(300); // Largeur max pour éviter trop de texte
+        descriptionLabel.setWrapText(true);
+        descriptionLabel.setMaxWidth(300);
 
-        // 🔹 Organiser les composants dans un VBox
+
         VBox textContainer = new VBox(nomLabel, lieuLabel, descriptionLabel);
-        textContainer.setSpacing(5); // Espacement entre les éléments
+        textContainer.setSpacing(5);
 
-        // 🔹 HBox contenant l'image et les textes
+
         content = new HBox(imageView, textContainer);
-        content.setSpacing(10); // Espacement entre l'image et les textes
+        content.setSpacing(10);
     }
 
     @Override
@@ -59,12 +59,12 @@ public class TerrainListCellController extends ListCell<Terrain> {
         if (empty || terrain == null) {
             setGraphic(null);
         } else {
-            //  Mettre à jour le texte des labels
+
             nomLabel.setText("Nom : " + terrain.getNom());
             lieuLabel.setText("Lieu : " + terrain.getLieu());
             descriptionLabel.setText("Description : " + terrain.getDes());
 
-            // 📷 Vérifier et charger l'image
+
             String imagePath = terrain.getImg();
             if (imagePath != null && !imagePath.isEmpty()) {
                 File file = new File(imagePath);
@@ -86,12 +86,12 @@ public class TerrainListCellController extends ListCell<Terrain> {
             Parent homePage = FXMLLoader.load(getClass().getResource("/view/homeAffiche.fxml"));
             Scene homeScene = new Scene(homePage);
 
-            // Obtenir le stage actuel et définir la nouvelle scène
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(homeScene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+            e.printStackTrace();
         }
     }
 }

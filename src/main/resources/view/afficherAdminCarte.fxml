@@ -18,8 +18,8 @@
     </AnchorPane>
     <ListView fx:id="carteList" layoutX="199.0" layoutY="227.0" prefHeight="354.0" prefWidth="691.0" />
     <Label layoutX="234.0" layoutY="45.0" style="-fx-font-size: 50; -fx-font-weight: bold;" styleClass="title_page" stylesheets="@../styles/style.css" text="Gestion Des Cartes" />
-   <Button fx:id="supprimerCarte" layoutX="641.0" layoutY="154.0" mnemonicParsing="false" onAction="#versSupprimer" prefHeight="43.0" prefWidth="108.0" text="Supprimer Carte" />
-   <Button fx:id="modifierCarte" layoutX="782.0" layoutY="154.0" mnemonicParsing="false" onAction="#versModifier" prefHeight="43.0" prefWidth="108.0" text="Modifier Carte" />
+   <Button fx:id="supprimerCarte" styleClass="add_team" stylesheets="@../styles/style.css"  layoutX="641.0" layoutY="154.0" mnemonicParsing="false" onAction="#versSupprimer" prefHeight="43.0" prefWidth="108.0" text="Supprimer Carte" />
+   <Button fx:id="modifierCarte" styleClass="add_team" stylesheets="@../styles/style.css"  layoutX="782.0" layoutY="154.0" mnemonicParsing="false" onAction="#versModifier" prefHeight="43.0" prefWidth="108.0" text="Modifier Carte" />
     <Button fx:id="btnreturn" alignment="CENTER" contentDisplay="TOP" layoutX="24.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleReturnButtonClick" prefHeight="50.0" prefWidth="52.0" styleClass="btnreturn" stylesheets="@../styles/style.css">
         <graphic>
             <ImageView fx:id="btnreturn1" fitHeight="64.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">

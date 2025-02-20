@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class PubListCellController extends ListCell<Publication> {
     private final HBox content;
-    private final Label userLabel; // New Label for user's name
+    private final Label userLabel;
     private final Label titreLabel;
     private final Label descriptionLabel;
 
@@ -33,7 +33,7 @@ public class PubListCellController extends ListCell<Publication> {
         descriptionLabel.setWrapText(true);
         descriptionLabel.setMaxWidth(300);
 
-        VBox textContainer = new VBox(userLabel, titreLabel, descriptionLabel); // Show nom above titre
+        VBox textContainer = new VBox(userLabel, titreLabel, descriptionLabel);
         textContainer.setSpacing(5);
 
         content = new HBox(textContainer);
@@ -46,7 +46,7 @@ public class PubListCellController extends ListCell<Publication> {
         if (empty || publication == null) {
             setGraphic(null);
         } else {
-            userLabel.setText("Posté par : " + publication.getNom()); // Display user's name
+            userLabel.setText("Posté par : " + publication.getNom());
             titreLabel.setText(publication.getTitre());
             descriptionLabel.setText(publication.getDescrib());
             setGraphic(content);
@@ -55,16 +55,16 @@ public class PubListCellController extends ListCell<Publication> {
     @FXML
     private void handleReturnButtonClick(ActionEvent event) {
         try {
-            // Charger la nouvelle scène pour homeAffiche.fxml
+
             Parent homePage = FXMLLoader.load(getClass().getResource("/view/homeAffiche.fxml"));
             Scene homeScene = new Scene(homePage);
 
-            // Obtenir le stage actuel et définir la nouvelle scène
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(homeScene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+            e.printStackTrace();
         }
     }
 }

@@ -2,17 +2,24 @@ package org.example.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.example.entities.Equipe;
 import org.example.entities.Partie;
+import org.example.entities.SessionManager;
 import org.example.services.ServiceEquipe;
 import org.example.services.ServiceMatch;
 import org.example.entities.TypeMatch;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +32,13 @@ public class AddMatchController {
 
     @FXML
     private Button addmatchbtn;
+    @FXML
+    private Button btnreturn;
     private List<Equipe> equipesList = new ArrayList<>();
     @FXML
     private TextField resultxtfield;
     @FXML
-    private ComboBox<String> placecombobox; // Spécifiez le type pour le ComboBox
+    private ComboBox<String> placecombobox;
     @FXML
     private ComboBox<TypeMatch> typecombobox;
 
@@ -41,7 +50,7 @@ public class AddMatchController {
     @FXML
     private ComboBox<String> cbteam2;
     @FXML
-    private Label errorType, errorResult, errorPlace, errorTeam1, errorTeam2;
+    private Label errorType, errorResult, errorTeam1, errorTeam2;
 
 
     @FXML
@@ -55,12 +64,16 @@ public class AddMatchController {
             }
         });
         chargerEquipes();
+        String role = SessionManager.getInstance().getUserRole();
+        if (!"Admin".equals(role)) {
+            addmatchbtn.setDisable(true);
+        }
+
     }
     private void ajouterMatch() throws SQLException {
         // Réinitialiser la visibilité des messages d'erreur
         errorType.setText("");
         errorResult.setText("");
-        errorPlace.setText("");
         errorTeam1.setText("");
         errorTeam2.setText("");
 
@@ -69,7 +82,6 @@ public class AddMatchController {
         // Récupération des valeurs saisies
         TypeMatch type = typecombobox.getValue();
         String resultat = resultxtfield.getText();
-        String place = placecombobox.getValue();
         String team1Name = cbteam1.getValue();
         String team2Name = cbteam2.getValue();
 
@@ -81,12 +93,8 @@ public class AddMatchController {
         if (resultat.isEmpty()) {
             errorResult.setText("Le resultat est requis !");
             isValid = false;
-        } else if (!resultat.matches("\\d+:\\d+")) {  // Validation du format "team1Result:team2Result"
+        } else if (!resultat.matches("\\d+:\\d+")) {
             errorResult.setText("Le format du résultat est invalide (ex: 1:0) !");
-            isValid = false;
-        }
-        if (place == null) {
-            errorPlace.setText("La place est requis !");
             isValid = false;
         }
         if (team1Name == null) {
@@ -102,13 +110,13 @@ public class AddMatchController {
             isValid = false;
         }
 
-        if (!isValid) return; // Arrêter l'exécution si les champs ne sont pas valides
-
-        // Convertir LocalDate en java.sql.Date
+        if (!isValid) return;
 
 
-        // Création et ajout du match
-        Partie match = new Partie(type, resultat,place);
+
+
+
+        Partie match = new Partie(type, resultat);
         Equipe team1 = getEquipeByName(team1Name);
         Equipe team2 = getEquipeByName(team2Name);
         serviceMatch.ajouter_t(match, team1.getIdEquipe(), team2.getIdEquipe());
@@ -120,7 +128,6 @@ public class AddMatchController {
     private void clearFields() {
         typecombobox.setValue(null);
         resultxtfield.clear();
-        placecombobox.setValue(null);
 
     }
     private Equipe getEquipeByName(String name) {
@@ -140,11 +147,7 @@ public class AddMatchController {
         alert.showAndWait();
     }
 
-    @FXML
-    public void quitter(Event event) {
-        Stage stage = (Stage) quitmatchbtn.getScene().getWindow();
-        stage.close();
-    }
+
     private void chargerEquipes() {
             equipesList.clear();
             ServiceEquipe serviceEquipe = new ServiceEquipe();
@@ -161,5 +164,20 @@ public class AddMatchController {
             cbteam1.setItems(observableEquipeNames);
             cbteam2.setItems(observableEquipeNames);
         }
+    @FXML
+    private void handleReturnButtonClick(ActionEvent event) {
+        try {
+
+            Parent homePage = FXMLLoader.load(getClass().getResource("/view/team_home1.fxml"));
+            Scene homeScene = new Scene(homePage);
+
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(homeScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

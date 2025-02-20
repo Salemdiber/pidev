@@ -87,8 +87,8 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
 
     }
     public void simplePauseTimer() {
-        // Set up a timer to check every 100 milliseconds
-        int pauseDuration = 60000; // 1 minute in milliseconds
+
+        int pauseDuration = 60000;
         Timer timer = new Timer(100, new ActionListener() {
             private long startTime = System.currentTimeMillis();
 

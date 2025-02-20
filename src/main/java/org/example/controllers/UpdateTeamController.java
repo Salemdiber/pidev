@@ -55,7 +55,7 @@ public class UpdateTeamController
             Updptstxtfield.setText(String.valueOf(equipe.getPoints()));
             imgtxtfield.setText(String.valueOf(equipe.getImage()));
 
-            // Charger l'image
+
             String imagePath = equipe.getImage();
             if (imagePath != null && !imagePath.isEmpty()) {
                 File file = new File(imagePath);
@@ -73,10 +73,10 @@ public class UpdateTeamController
         File selectedFile = fileChooser.showOpenDialog(imgtxtfield.getScene().getWindow());
 
         if (selectedFile != null) {
-            // ✅ Met à jour le champ texte avec le chemin absolu
+
             imgtxtfield.setText(selectedFile.getAbsolutePath());
 
-            // ✅ Met à jour l'ImageView avec l'image sélectionnée
+
             Image image = new Image(selectedFile.toURI().toString());
             teamImageU.setImage(image);
         } else {
@@ -120,28 +120,28 @@ public class UpdateTeamController
             serviceEquipe.modifier_t(currentEquipe);
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Équipe modifiée avec succès !");
 
-            // ✅ Rafraîchir les détails
+
             if (detailTeamController != null) {
                 detailTeamController.setTeams(currentEquipe);
             } else {
                 System.out.println("❌ `detailTeamController` est NULL");
             }
 
-            // ✅ Rafraîchir la liste des équipes
+
             if (TeamhomePController != null) {
                 TeamhomePController.rafraichirAffichage();
             } else {
                 System.out.println("❌ `TeamhomePController` est NULL");
             }
 
-            // ✅ Fermer la fenêtre
+
             fermerFenetre();
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de modifier l'équipe : " + e.getMessage());
         }
     }
 
-    // Fusionne avec updateTeam()
+
     @FXML
     public void updateTeam(ActionEvent actionEvent) {
         modifierEquipe();

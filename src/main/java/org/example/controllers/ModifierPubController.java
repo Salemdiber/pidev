@@ -77,10 +77,10 @@ public class ModifierPubController {
             servicePublication.modifier_t(publicationSelectionnee);
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Publication modifiée avec succès !");
 
-            // After modifying the publication, refresh the details in the DetailsPubController
+
             if (detailsPubController != null) {
-                detailsPubController.setPublication(publicationSelectionnee); // Update publication details in DetailsPubController
-                detailsPubController.chargerCommentaires(); // Refresh comments in the ListView
+                detailsPubController.setPublication(publicationSelectionnee);
+                detailsPubController.chargerCommentaires();
             }
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de modifier la publication : " + e.getMessage());
@@ -98,18 +98,25 @@ public class ModifierPubController {
 
 
     @FXML
+
     private void handleReturnButtonClick(ActionEvent event) {
         try {
-            // Charger la nouvelle scène pour homeAffiche.fxml
-            Parent homePage = FXMLLoader.load(getClass().getResource("/view/DetailsPub.fxml"));
-            Scene homeScene = new Scene(homePage);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DetailsPub.fxml"));
+            Parent homePage = loader.load();
 
-            // Obtenir le stage actuel et définir la nouvelle scène
+            DetailsPubController detailsController = loader.getController();
+            if (detailsPubController != null && publicationSelectionnee != null) {
+                detailsController.setPublication(publicationSelectionnee);
+                detailsController.chargerCommentaires();
+            }
+
+            Scene homeScene = new Scene(homePage);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(homeScene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+            e.printStackTrace();
         }
     }
+
 }

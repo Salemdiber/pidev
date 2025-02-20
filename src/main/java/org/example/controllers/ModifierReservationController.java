@@ -50,52 +50,46 @@ public class ModifierReservationController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Initialiser les heures de réservation (8h00 à 23h00)
+
         heureComboBoxRes.getItems().addAll(
                 "09:00", "10:00", "11:00", "12:00",
                 "13:00", "14:00", "15:00", "16:00", "17:00",
                 "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"
         );
         try {
-            List<String> nomsTerrains = serviceTerrain.getAllTerrainNames(); // Assurez-vous que cette méthode existe
+            List<String> nomsTerrains = serviceTerrain.getAllTerrainNames();
             nameComboBox.getItems().addAll(nomsTerrains);
         } catch (SQLException e) {
             e.printStackTrace();
             afficherAlerte("Erreur", "Impossible de charger les noms des terrains : " + e.getMessage());
         }
-        // Configurer l'action du bouton "Modifier"
+
         btnModifierRes.setOnAction(event -> modifierReservation());
     }
 
-    /**
-     * Méthode pour initialiser les champs avec les données de la réservation sélectionnée.
-     *
-     * @param reservation La réservation à modifier.
-     */
+
     public void setReservation(Reservation reservation) {
         this.reservationToModify = reservation;
 
-        // Remplir les champs avec les données de la réservation
+
         nameComboBox.setValue(reservation.getNomTerrain());
         LocalDateTime dateTime = reservation.getDate_res().toLocalDateTime();
-        // Convertir java.sql.Date en LocalDate pour le DatePicker
+
         datePickerRes.setValue(dateTime.toLocalDate());
 
-        // Sélectionner une heure par défaut (par exemple, 08:00)
+
         String heureExistante = dateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
         heureComboBoxRes.setValue(heureExistante);
     }
 
-    /**
-     * Méthode pour modifier la réservation.
-     */
+
     private void modifierReservation() {
         if (reservationToModify == null) {
             afficherAlerte("Erreur", "Aucune réservation sélectionnée.");
             return;
         }
 
-        // Récupérer les nouvelles valeurs des champs
+
         String nouveauNomTerrain = nameComboBox.getValue();
         LocalDate nouvelleDate = datePickerRes.getValue();
         String nouvelleHeure = heureComboBoxRes.getValue();
@@ -105,7 +99,6 @@ public class ModifierReservationController implements Initializable {
             return;
         }
 
-        // Vérifier si la date sélectionnée est dans le passé
         LocalDate aujourdHui = LocalDate.now();
         if (nouvelleDate.isBefore(aujourdHui)) {
             afficherAlerte("Erreur", "La date sélectionnée ne peut pas être dans le passé.");
@@ -115,13 +108,13 @@ public class ModifierReservationController implements Initializable {
         LocalTime heure = LocalTime.parse(nouvelleHeure, DateTimeFormatter.ofPattern("HH:mm"));
         LocalDateTime dateTime = LocalDateTime.of(nouvelleDate, heure);
 
-        // Mettre à jour la réservation
+
         reservationToModify.setNomTerrain(nouveauNomTerrain);
         reservationToModify.setDate_res(Timestamp.valueOf(dateTime));
 
-        // Récupérer l'ID du terrain à partir du nom
+
         try {
-            int idTerrain = serviceTerrain.getTerrainIdByName(nouveauNomTerrain); // Assurez-vous que cette méthode existe
+            int idTerrain = serviceTerrain.getTerrainIdByName(nouveauNomTerrain);
             reservationToModify.setId_terrain(idTerrain);
         } catch (SQLException e) {
             afficherAlerte("Erreur", "Impossible de récupérer l'ID du terrain : " + e.getMessage());
@@ -129,27 +122,22 @@ public class ModifierReservationController implements Initializable {
         }
 
         try {
-            // Appeler le service pour mettre à jour la réservation dans la base de données
+
             serviceReservation.modifier_t(reservationToModify);
 
-            // Afficher un message de succès
+
             afficherAlerte("Succès", "La réservation a été modifiée avec succès.");
 
-            // Fermer la fenêtre de modification
+
             Stage stage = (Stage) btnModifierRes.getScene().getWindow();
-            stage.close();
+
         } catch (Exception e) {
             e.printStackTrace();
             afficherAlerte("Erreur", "Impossible de modifier la réservation : " + e.getMessage());
         }
     }
 
-    /**
-     * Méthode pour afficher une alerte.
-     *
-     * @param titre   Le titre de l'alerte.
-     * @param message Le message de l'alerte.
-     */
+
     private void afficherAlerte(String titre, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titre);
@@ -160,16 +148,16 @@ public class ModifierReservationController implements Initializable {
     @FXML
     private void handleReturnButtonClick(ActionEvent event) {
         try {
-            // Charger la nouvelle scène pour homeAffiche.fxml
+
             Parent homePage = FXMLLoader.load(getClass().getResource("/view/homeAffiche.fxml"));
             Scene homeScene = new Scene(homePage);
 
-            // Obtenir le stage actuel et définir la nouvelle scène
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(homeScene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+            e.printStackTrace();
         }
     }
 }

@@ -89,7 +89,7 @@ public class AffichReclammation {
 
 
 
-        // Customize the ListView cell rendering
+
         listRec.setCellFactory(param -> new ListCell<Reclammation>() {
             @Override
             protected void updateItem(Reclammation reclammation, boolean empty) {
@@ -98,13 +98,12 @@ public class AffichReclammation {
                 if (empty || reclammation == null) {
                     setGraphic(null);
                 } else {
-                    // Create a VBox for each reclamation to simulate a card
+
                     VBox vBox = new VBox(10);
                     vBox.setPadding(new Insets(10));
                     vBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
                     vBox.setStyle("-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #cccccc; -fx-border-width: 2;");
 
-                    // Add Labels to display reclamation details
                     Label sujetLabel = new Label("Sujet: " + reclammation.getSujet());
                     sujetLabel.setFont(new Font("Arial", 16));
                     sujetLabel.setTextFill(Color.DARKBLUE);
@@ -113,14 +112,14 @@ public class AffichReclammation {
                     statutLabel.setFont(new Font("Arial", 14));
                     statutLabel.setTextFill(Color.DARKGREEN);
 
-                    Label dateCreationLabel = new Label("Date: " + reclammation.getDate_creation().toString()); // Corrected getter
+                    Label dateCreationLabel = new Label("Date: " + reclammation.getDate_creation().toString());
                     dateCreationLabel.setFont(new Font("Arial", 12));
                     dateCreationLabel.setTextFill(Color.BLACK);
 
-                    // Add the Labels to the VBox (the "card")
+
                     vBox.getChildren().addAll(sujetLabel, statutLabel, dateCreationLabel);
 
-                    // Set this VBox as the graphic of the ListCell (which will be the visual display of each item)
+
                     setGraphic(vBox);
                 }
             }
@@ -133,7 +132,7 @@ public class AffichReclammation {
             List<Reclammation> reclammations = serviceReclammation.afficher(currentUser.getIdUser());
             if (reclammations == null || reclammations.isEmpty()) {
                 System.out.println("Aucune réclamation trouvée.");
-                listRec.setItems(FXCollections.observableArrayList()); // Vide la liste proprement
+                listRec.setItems(FXCollections.observableArrayList());
                 return;
             }
 
@@ -152,12 +151,11 @@ public class AffichReclammation {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ajoutR.fxml"));
             Parent root = loader.load();
-            // Obtenir le contrôleur de la fenêtre AjoutRController
+
             AjoutRController ajoutRController = loader.getController();
 
-            // Associer le contrôleur principal
             ajoutRController.setAffichReclamation(this);
-            // Créer une nouvelle fenêtre pour Ajouter Team
+
             Stage stage = new Stage();
             stage.setTitle("Ajouter Reclamation");
             stage.setScene(new Scene(root));
@@ -179,24 +177,24 @@ public class AffichReclammation {
 
 
     public void delR(ActionEvent actionEvent) {
-        // Récupérer l'élément sélectionné
+
         Reclammation selectedReclamation = listRec.getSelectionModel().getSelectedItem();
 
         if (selectedReclamation != null) {
             try {
-                // Supprimer la réclamation via le service
+
                 boolean deleted = serviceReclammation.supprimeru(selectedReclamation.getId_reclammation());
 
                 if (deleted) {
                     System.out.println("Réclamation supprimée avec succès !");
 
-                    // Supprimer localement de l'ObservableList
+
                     listRec.getItems().remove(selectedReclamation);
 
-                    // Effacer la sélection pour éviter les problèmes
+
                     listRec.getSelectionModel().clearSelection();
 
-                    // Rafraîchir l'affichage de la ListView
+
                     listRec.refresh();
 
                 } else {
@@ -208,6 +206,75 @@ public class AffichReclammation {
         } else {
             System.out.println("Veuillez sélectionner une réclamation à supprimer.");
         }
+    }
+
+
+    @FXML
+    private void handleOuvrirTerrain(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/HomeAffiche.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirForum(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/AfficherPub.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirGame(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/gameHome.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirTeam(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/team_home1.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirEvent(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/AfficherEvent.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleLogout(ActionEvent event) {
+
+        SessionManager.getInstance().logout();
+
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Connexion");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+    @FXML
+    private void handleHome(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/HomePage.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
 

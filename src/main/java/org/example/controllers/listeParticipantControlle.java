@@ -43,7 +43,6 @@ public class listeParticipantControlle implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        // Charger les réservations
         chargerEvents();
 
         listViewParticipant.setCellFactory(param -> new ListCell<>() {
@@ -55,7 +54,7 @@ public class listeParticipantControlle implements Initializable {
                     setGraphic(null);
                 } else {
                     try {
-                        // 🔹 Récupérer le nom de l'utilisateur à partir de l'ID
+
                         String userName = serviceparticipant.getUserNameById(item.getId_user());
 
                         Label userLabel = new Label("👤 participant: " + userName);
@@ -85,9 +84,9 @@ public class listeParticipantControlle implements Initializable {
         }
 
         this.event = event;
-        System.out.println("✅ Événement reçu avec ID : " + event.getId_event()); // Debug
+        System.out.println("✅ Événement reçu avec ID : " + event.getId_event());
 
-        chargerParticipants(); // Charger les participants
+        chargerParticipants();
     }
 
 
@@ -97,10 +96,10 @@ public class listeParticipantControlle implements Initializable {
             ObservableList<Participant> data = FXCollections.observableArrayList(participants);
             listViewParticipant.setItems(data);
 
-            // Vérification du contenu réel de ListView
-            System.out.println("📌 Vérification ListView après chargement :");
+
+            System.out.println("Vérification ListView après chargement :");
             for (Participant p : listViewParticipant.getItems()) {
-                System.out.println("🔹 Participant dans ListView : " + p);
+                System.out.println(" Participant dans ListView : " + p);
             }
 
             System.out.println("✅ Participants chargés !");
@@ -114,10 +113,10 @@ public class listeParticipantControlle implements Initializable {
     private void chargerEvents() {
         try {
             List<Participant> participants = serviceparticipant.afficher_t();
-            // Récupérer le nom  pour chaque participation
+
             for (Participant participant : participants) {
                 String nomEvent = serviceevent.getEventById(participant.getId_event()).getNom();
-                System.out.println("📌 Participant chargé : ID = " + participant.getId_part());
+                System.out.println(" Participant chargé : ID = " + participant.getId_part());
             }
 
             ObservableList<Participant> data = FXCollections.observableArrayList(participants);
@@ -158,9 +157,9 @@ public class listeParticipantControlle implements Initializable {
         Optional<ButtonType> result = confirmation.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                serviceparticipant.supprimer_t(participantSelectionne.getId_part()); // Suppression par ID
+                serviceparticipant.supprimer_t(participantSelectionne.getId_part());
                 afficherAlerte("Succès", "Participant supprimé avec succès !");
-                listViewParticipant.getItems().remove(participantSelectionne); // Supprimer de la liste immédiatement
+                listViewParticipant.getItems().remove(participantSelectionne);
                 rafraichirAffichage();
             } catch (SQLException e) {
                 afficherAlerte("Erreur", "Impossible de supprimer le participant : " + e.getMessage());
@@ -184,7 +183,7 @@ public class listeParticipantControlle implements Initializable {
         task.setOnSucceeded(event -> listViewParticipant.setItems(task.getValue()));
         task.setOnFailed(event -> afficherAlerte("Erreur SQL", "Impossible de rafraîchir l'affichage"));
 
-        new Thread(task).start(); // Run in background thread
+        new Thread(task).start();
     }
 
 
@@ -192,9 +191,9 @@ public class listeParticipantControlle implements Initializable {
     }
     @FXML
     private void handleReturnButtonClick() {
-        // Fermer la fenêtre actuelle
+
         Stage stage = (Stage) btnreturn.getScene().getWindow();
-        stage.close(); // Cela fermera la fenêtre actuelle
+        stage.close();
     }
 
 }

@@ -15,22 +15,22 @@ import java.io.IOException;
 import java.util.List;
 
 public class MatchListController extends ListCell<Partie> {
-    private final HBox content; // Conteneur principal pour la cellule
-    private final Label typeLabel; // Pour afficher le nom de l'équipe
-    private final Label resultatLabel; // Pour afficher les points de l'équipe
-    private final Button detailsButton; // Bouton "View Details"
+    private final HBox content;
+    private final Label typeLabel;
+    private final Label resultatLabel;
+    private final Button detailsButton;
     @javafx.fxml.FXML
     private ListView<Partie> listViewMatchs;
 
     public MatchListController() {
         super();
-        // Initialisation des labels
-        typeLabel = new Label();
-        typeLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;"); // Taille et style du texte
-        resultatLabel = new Label();
-        resultatLabel.setStyle("-fx-font-size: 16px;"); // Taille du texte
 
-        // Bouton "View Details"
+        typeLabel = new Label();
+        typeLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        resultatLabel = new Label();
+        resultatLabel.setStyle("-fx-font-size: 16px;");
+
+
         detailsButton = new Button("View Details");
         detailsButton.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 14px;");
         detailsButton.setOnAction(event -> {
@@ -40,14 +40,14 @@ public class MatchListController extends ListCell<Partie> {
             }
         });
 
-        // Organisation des labels dans un VBox
+
         VBox textContainer = new VBox(typeLabel, resultatLabel);
         textContainer.setSpacing(10);
-        textContainer.setAlignment(Pos.CENTER_LEFT); // Alignement des labels au centre verticalement
+        textContainer.setAlignment(Pos.CENTER_LEFT);
 
-        // HBox contenant image + textes + bouton
+
         content = new HBox(15, textContainer, detailsButton);
-        content.setAlignment(Pos.CENTER_LEFT); // Alignement des éléments au centre verticalement
+        content.setAlignment(Pos.CENTER_LEFT);
     }
 
     @Override
@@ -56,23 +56,23 @@ public class MatchListController extends ListCell<Partie> {
         if (empty || partie == null) {
             setGraphic(null);
         } else {
-            // Display the teams instead of the match type
+
             String teamNames = "";
             List<Equipe> equipes = partie.getEquipes();
             if (equipes.size() >= 2) {
-                teamNames = equipes.get(0).getNom() + " vs " + equipes.get(1).getNom();  // Assuming 'getNom()' is the method to get the team name
+                teamNames = equipes.get(0).getNom() + " vs " + equipes.get(1).getNom();
             }
-            typeLabel.setText("Teams: " + teamNames);  // Display the teams in the type label
+            typeLabel.setText("Teams: " + teamNames);
 
-            // Display the match type in place of the team names
-            resultatLabel.setText("Resultat: " + partie.getResultat() + " \nType: " + partie.getType());  // Display the type in the result label
+
+            resultatLabel.setText("Resultat: " + partie.getResultat() + " \nType: " + partie.getType());
 
             setGraphic(content);
         }
     }
 
 
-    // Méthode pour afficher les détails de l'équipe
+
     private void afficherDetailsMatch(Partie partie) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DetailsMatch.fxml"));
@@ -84,7 +84,7 @@ public class MatchListController extends ListCell<Partie> {
             controller.setSelectedPartie(partie);
             controller.setMatchListController(this);
 
-            // Créer une nouvelle fenêtre pour AjouterTerrain
+
             Stage stage = new Stage();
             stage.setTitle("details Match");
             stage.setScene(new Scene(root));

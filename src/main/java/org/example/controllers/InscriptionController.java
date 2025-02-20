@@ -69,10 +69,9 @@ public class InscriptionController {
         }
 
 
-        // Create a new User object
         User newUser = new User(nom, prenom, email, role, mdp);
 
-        // Insert the user into the database
+
         ServiceUser usersevice = new ServiceUser();
         if (usersevice.ajouteru(newUser)) {
             System.out.println("Signup successful!");
@@ -85,19 +84,16 @@ public class InscriptionController {
     @FXML
     private void handleLoginButtonAction(ActionEvent event) {
         try {
-            // Charger le fichier login.fxml
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
             Parent root = loader.load();
 
-            // Obtenir le stage actuel
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            // Ajuster la taille de la fenêtre pour qu'elle prenne toute la taille de l'écran
-            javafx.geometry.Rectangle2D screenBounds = javafx.stage.Screen.getPrimary().getVisualBounds();
-            stage.setWidth(screenBounds.getWidth());
-            stage.setHeight(screenBounds.getHeight());
 
-            // Mettre à jour la scène avec la nouvelle vue
+
+
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {

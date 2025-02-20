@@ -37,7 +37,7 @@
     <TextField fx:id="desctxtfield" layoutX="258.0" layoutY="277.0" prefHeight="31.0" prefWidth="277.0" promptText="ENTRER UN DESCRIPTION" />
 
     <TextField fx:id="txtImgTerrain" layoutX="258.0" layoutY="320.0" prefHeight="31.0" prefWidth="277.0" />
-    <Button fx:id="btnChoisirImage" layoutX="263.0" layoutY="374.0" prefHeight="25.0" prefWidth="277.0" text="Choisir Image" />
+    <Button fx:id="btnChoisirImage" styleClass="add_team" stylesheets="@../styles/style.css" layoutX="263.0" layoutY="374.0" prefHeight="25.0" prefWidth="277.0" text="Choisir Image" />
 
 
     <ImageView fx:id="terrainImage" fitHeight="100.0" fitWidth="150.0" layoutX="313.0" layoutY="414.0" preserveRatio="true" />

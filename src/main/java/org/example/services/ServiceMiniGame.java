@@ -126,7 +126,7 @@ public class ServiceMiniGame implements IService<MiniGame> {
         System.out.println("lastSavedGame");
         int lastGameId = -1;
         Statement st=connection.createStatement();
-        String query = "SELECT id FROM minigame ORDER BY id DESC LIMIT 1";  // Modify column and table names
+        String query = "SELECT id FROM minigame ORDER BY id DESC LIMIT 1";
         ResultSet rs = st.executeQuery(query);
         if (rs.next()) {
             System.out.println("lastSavedGame");

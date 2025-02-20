@@ -9,7 +9,7 @@ import org.example.services.ServiceUser;
 
 import java.sql.SQLException;
 
-//a faire session
+
 public class UpdatePasswordController {
 
     @FXML
@@ -32,12 +32,12 @@ public class UpdatePasswordController {
 
     @FXML
     private void handleSubmitButtonAction(ActionEvent event) throws SQLException {
-        // Retrieve data from input fields
+
         String currentMdp = currentMdpField.getText();
         String newMdp = newMdpField.getText();
         String confirmMdp = confirmMdpField.getText();
 
-        // Perform validation
+
         if (currentMdp.isEmpty() || newMdp.isEmpty() || confirmMdp.isEmpty()) {
             errorLabel.setText("Please fill in all fields.");
             return;
@@ -53,7 +53,7 @@ public class UpdatePasswordController {
             return;
         }
 
-        // Update password in the database
+
         currentUser.setMdp(newMdp);
         ServiceUser serviceuser = new ServiceUser();
         if (serviceuser.modifieru(currentUser)) {
@@ -65,6 +65,6 @@ public class UpdatePasswordController {
 
     @FXML
     private void handleCancelButtonAction(ActionEvent event) {
-        // Handle cancel action, e.g., close the window or navigate back
+
     }
 }

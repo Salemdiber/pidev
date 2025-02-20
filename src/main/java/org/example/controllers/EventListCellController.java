@@ -20,17 +20,17 @@ import java.time.format.DateTimeFormatter;
 
 public class EventListCellController extends ListCell<Event> {
 
-    private final HBox content; // Conteneur principal
-    private final ImageView imageView; // Image de l'événement
-    private final Label nomLabel; // Nom de l'événement
-    private final Label dateLabel; // 📅 Date de l'événement
-    private final Button detailsButton; // Nouveau bouton
+    private final HBox content;
+    private final ImageView imageView;
+    private final Label nomLabel;
+    private final Label dateLabel;
+    private final Button detailsButton;
 
 
     public EventListCellController() {
         super();
 
-        // 🔹 Initialisation des composants
+
         imageView = new ImageView();
         imageView.setFitHeight(250);
         imageView.setFitWidth(250);
@@ -43,7 +43,7 @@ public class EventListCellController extends ListCell<Event> {
         nomLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
 
-        dateLabel = new Label(); // 📅 Nouveau label pour la date
+        dateLabel = new Label();
         dateLabel.setStyle("-fx-text-fill: #555555; -fx-font-size: 14px;");
         detailsButton.setOnAction(event -> {
             if (getItem() != null) {
@@ -52,7 +52,7 @@ public class EventListCellController extends ListCell<Event> {
         });
 
 
-        // 🔹 Organisation des composants
+
         VBox textContainer = new VBox(nomLabel, dateLabel, detailsButton);
         textContainer.setSpacing(5);
 
@@ -74,7 +74,7 @@ public class EventListCellController extends ListCell<Event> {
             DetailsEventController controller = loader.getController();
             controller.setEvent(selectedEvent);
             if (afficherController != null) {
-                controller.setAfficherEventController(afficherController); // ✅ Passe bien l'instance
+                controller.setAfficherEventController(afficherController);
             } else {
                 System.out.println("⚠️ afficherController est NULL, impossible de rafraîchir !");
             }
@@ -98,11 +98,11 @@ public class EventListCellController extends ListCell<Event> {
         if (empty || event == null) {
             setGraphic(null);
         } else {
-            // 🔹 Mise à jour des labels
+
             nomLabel.setText("Nom : " + event.getNom());
             dateLabel.setText("📅 Date : " + event.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
-            // 📷 Vérification et chargement de l'image
+
             String imagePath = event.getImage();
             if (imagePath != null && !imagePath.isEmpty()) {
                 File file = new File(imagePath);
@@ -114,7 +114,7 @@ public class EventListCellController extends ListCell<Event> {
                 }
             }
 
-            // 🎯 Ajoute cette ligne pour que le bouton ouvre bien les détails avec le contrôleur principal
+
             detailsButton.setOnAction(eventAction -> {
                 openEventDetail(event);
             });

@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.entities.Equipe;
+import org.example.entities.SessionManager;
 import org.example.services.ServiceEquipe;
 
 import java.io.File;
@@ -35,8 +36,8 @@ public class AddTeamController {
     @FXML
     private ImageView teamImage;
     private File imageFile;
-    private String imagePath = "";  // to store the image path for the team
-    private ServiceEquipe serviceEquipe = new ServiceEquipe(); // create an instance of ServiceEquipe
+    private String imagePath = "";
+    private ServiceEquipe serviceEquipe = new ServiceEquipe();
     @FXML
     private Pane addteampane;
     private TeamListController teamListController;
@@ -51,20 +52,16 @@ public class AddTeamController {
 
     @FXML
     public void initialize() {
-        // Set default action for the "Add Team" button
         addteambtn.setOnAction(event -> handleAddTeam());
-
-        // Set default action for the "Quit" button
         quitAteambtn.setOnAction(event -> handleQuit());
-
-        // Set default action for the "Choose Image" button
         chooseimagebtn.setOnAction(event -> choisirImage());
+        String role = SessionManager.getInstance().getUserRole();
+        if (!"Admin".equals(role)) {
+            addteambtn.setDisable(true);
+        }
 
-        // You can initialize other components here if needed
-        // For example, if you have a ComboBox or other controls to set
-        // typecombobox.setItems(FXCollections.observableArrayList(TypeMatch.values()));
+
     }
-    // Action when the "Add Team" button is clicked
 
 
     @FXML
@@ -76,7 +73,7 @@ public class AddTeamController {
         errorPoints.setText("");
         errorImage.setText("");
 
-        // Récupération des données
+
         String nom = nametxtfield.getText().trim();
         String classementStr = classementtxtfield.getText().trim();
         String description = desctxtfield.getText().trim();
@@ -84,7 +81,7 @@ public class AddTeamController {
 
         boolean isValid = true;
 
-        // Vérification du nom (ne doit pas être vide ou un nombre)
+
         if (nom.isEmpty()) {
             errorNom.setText("Le nom est requis !");
             isValid = false;
@@ -93,7 +90,7 @@ public class AddTeamController {
             isValid = false;
         }
 
-        // Vérification de la description (ne doit pas être vide ou un nombre)
+
         if (description.isEmpty()) {
             errorDescription.setText("La description est requise !");
             isValid = false;
@@ -104,7 +101,7 @@ public class AddTeamController {
 
         int classement = 0, points = 0;
 
-        // Vérification du classement (doit être un entier positif)
+
         if (classementStr.isEmpty()) {
             errorClassement.setText("Classement requis !");
             isValid = false;
@@ -121,7 +118,7 @@ public class AddTeamController {
             }
         }
 
-        // Vérification des points (doit être un entier positif)
+
         if (pointsStr.isEmpty()) {
             errorPoints.setText("Points requis !");
             isValid = false;
@@ -138,7 +135,7 @@ public class AddTeamController {
             }
         }
 
-        // Vérification de l’image
+
         if (imageFile == null) {
             errorImage.setText("Veuillez sélectionner une image !");
             isValid = false;
@@ -150,10 +147,10 @@ public class AddTeamController {
             }
         }
 
-        // Si une erreur est détectée, on arrête l'exécution
+
         if (!isValid) return;
 
-        // Gestion du fichier image
+
         File destinationDir = new File("img/");
         if (!destinationDir.exists()) {
             destinationDir.mkdirs();
@@ -166,10 +163,10 @@ public class AddTeamController {
             Files.copy(imageFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             String imgPath = "img/" + newFileName;
 
-            // Création de l'objet Equipe
+
             Equipe equipe = new Equipe(nom, classement, imgPath, description, points);
 
-            // Enregistrement en base de données
+
             serviceEquipe.ajouter_t(equipe);
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Équipe ajoutée avec succès !");
             clearFields();
@@ -185,24 +182,24 @@ public class AddTeamController {
 
 
 
-    // Action when the "Quit" button is clicked
+
     @FXML
     public void handleQuit() {
         Stage stage = (Stage) quitAteambtn.getScene().getWindow();
         stage.close();
     }
 
-    // Action when the "Choose Image" button is clicked
+
     @FXML
     public void handleChooseImage() {
-        // Open a file chooser to select an image
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.jpeg"));
         File selectedFile = fileChooser.showOpenDialog(null);
 
         if (selectedFile != null) {
-            imagePath = selectedFile.getAbsolutePath();  // Get the file path of the selected image
-            teamImage.setImage(new javafx.scene.image.Image("file:///" + imagePath)); // Display the selected image
+            imagePath = selectedFile.getAbsolutePath();
+            teamImage.setImage(new javafx.scene.image.Image("file:///" + imagePath));
         }
     }
     private void choisirImage() {
@@ -211,15 +208,15 @@ public class AddTeamController {
         File selectedFile = fileChooser.showOpenDialog(new Stage());
 
         if (selectedFile != null) {
-            // Sauvegarde uniquement le nom du fichier au lieu du chemin absolu
+
             imageFile = selectedFile;
             teamImage.setImage(new Image(imageFile.toURI().toString()));
 
-            // Copier l'image sélectionnée vers le dossier resources/img/ (À FAIRE)
+
         }
     }
 
-    // Utility method to show alerts
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -228,7 +225,7 @@ public class AddTeamController {
         alert.showAndWait();
     }
 
-    // Utility method to clear all input fields
+
     private void clearFields() {
         nametxtfield.clear();
         classementtxtfield.clear();

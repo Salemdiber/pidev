@@ -25,14 +25,14 @@ import java.util.List;
 public class AdminDashBoard {
 
     @FXML
-    private ListView<User> listUser;  // The ListView to display users
-    private final ServiceUser serviceUser = new ServiceUser(); // Service to fetch user data
+    private ListView<User> listUser;
+    private final ServiceUser serviceUser = new ServiceUser();
 
     @FXML
     public void initialize() {
         loadUserList();
 
-        // Customize the ListView cell rendering
+
         listUser.setCellFactory(param -> new ListCell<User>() {
             @Override
             protected void updateItem(User user, boolean empty) {
@@ -41,13 +41,13 @@ public class AdminDashBoard {
                 if (empty || user == null) {
                     setGraphic(null);
                 } else {
-                    // Create a VBox for each user to simulate a card
+
                     VBox vBox = new VBox(10);
                     vBox.setPadding(new Insets(10));
                     vBox.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
                     vBox.setStyle("-fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #cccccc; -fx-border-width: 2;");
 
-                    // Add Labels to display user details
+
                     Label nameLabel = new Label(user.getNom() + " " + user.getPrenom());
                     nameLabel.setFont(new Font("Arial", 16));
                     nameLabel.setTextFill(Color.DARKBLUE);
@@ -60,10 +60,10 @@ public class AdminDashBoard {
                     roleLabel.setFont(new Font("Arial", 14));
                     roleLabel.setTextFill(Color.DARKGREEN);
 
-                    // Add the Labels to the VBox (the "card")
+
                     vBox.getChildren().addAll(nameLabel, emailLabel, roleLabel);
 
-                    // Set this VBox as the graphic of the ListCell (which will be the visual display of each item)
+
                     setGraphic(vBox);
                 }
             }
@@ -72,22 +72,22 @@ public class AdminDashBoard {
 
     private void loadUserList() {
         try {
-            // Fetch the list of users from the service layer
+
             List<User> users = serviceUser.afficher_t();
             if (users == null || users.isEmpty()) {
                 System.out.println("No users found");
                 return;
             }
 
-            // Convert the List of users to an ObservableList (which can be used in ListView)
+
             ObservableList<User> userList = FXCollections.observableArrayList(users);
 
-            // Set the ObservableList as the items of the ListView
+
             listUser.setItems(userList);
 
         } catch (SQLException e) {
             e.printStackTrace();
-            // Show error alert
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Database Error");
             alert.setHeaderText("Failed to load users");

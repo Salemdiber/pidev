@@ -31,9 +31,7 @@ public class DetailsComController {
     private DetailsPubController detailsPubController;
 
 
-    /**
-     * Set the selected comment to be displayed in the window.
-     */
+
     public void setCommentaire(Commentaire commentaire) {
         this.commentaire = commentaire;
         if (commentaire != null) {
@@ -41,17 +39,13 @@ public class DetailsComController {
         }
     }
 
-    /**
-     * Set reference to `DetailsPubController` for refreshing comments after modifications.
-     */
+
     public void setDetailsPubController(DetailsPubController detailsPubController) {
         this.detailsPubController = detailsPubController;
     }
 
 
-    /**
-     * Handle deleting the selected comment.
-     */
+
     @FXML
     private void supprimerCommentaire() {
         if (commentaire == null) {
@@ -66,10 +60,10 @@ public class DetailsComController {
 
         if (confirmation.showAndWait().orElse(null) == ButtonType.OK) {
             try {
-                serviceCommentaire.supprimer_t(commentaire.getId()); // Use correct ID
+                serviceCommentaire.supprimer_t(commentaire.getId());
                 afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Commentaire supprimé avec succès !");
 
-                // Refresh the comment list in DetailsPubController after deletion
+
                 if (detailsPubController != null) {
                     detailsPubController.chargerCommentaires();
                 }
@@ -81,9 +75,7 @@ public class DetailsComController {
         }
     }
 
-    /**
-     * Handle modifying the selected comment.
-     */
+
     @FXML
     private void modifierCommentaire() {
         try {
@@ -92,35 +84,21 @@ public class DetailsComController {
 
             ModifierComController controller = loader.getController();
             controller.setCommentaire(commentaire);
-            controller.setDetailsComController(this); // Ensure this is properly set
+            controller.setDetailsComController(this);
 
-            Stage stage = new Stage();
-            stage.setTitle("Modifier le Commentaire");
+
+            Stage stage = (Stage) btnModifier.getScene().getWindow();
             stage.setScene(new Scene(root));
-
-            // Refresh comments in DetailsPubController when modification window is closed
-            stage.setOnHidden(event -> {
-                if (detailsPubController != null) {
-                    detailsPubController.chargerCommentaires();
-                }
-            });
-
             stage.show();
+
         } catch (IOException e) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la fenêtre de modification !");
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la scène de modification !");
             e.printStackTrace();
         }
     }
 
 
-    /**
-     * Close the current window.
-     */
 
-
-    /**
-     * Display alert messages.
-     */
     private void afficherAlerte(Alert.AlertType type, String titre, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(titre);
@@ -131,16 +109,28 @@ public class DetailsComController {
     @FXML
     private void handleReturnButtonClick(ActionEvent event) {
         try {
-            // Charger la nouvelle scène pour homeAffiche.fxml
-            Parent homePage = FXMLLoader.load(getClass().getResource("/view/homeAffiche.fxml"));
-            Scene homeScene = new Scene(homePage);
 
-            // Obtenir le stage actuel et définir la nouvelle scène
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AfficherPub.fxml"));
+            Parent homePage = loader.load();
+
+
+            Object controller = loader.getController();
+            if (controller instanceof AfficherPubController) {
+                AfficherPubController afficherPubController = (AfficherPubController) controller;
+
+            } else {
+                throw new ClassCastException("Controller is not an instance of AfficherPubController");
+            }
+
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(homeScene);
+            stage.setScene(new Scene(homePage));
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+            e.printStackTrace();
+        } catch (ClassCastException e) {
+            e.printStackTrace();
         }
     }
+
 }

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.example.entities.Equipe;
 import org.example.entities.Partie;
+import org.example.entities.SessionManager;
 import org.example.services.ServiceEquipe;
 import org.example.services.ServiceMatch;
 
@@ -107,6 +109,11 @@ public class TeamhomePController
         listViewMatchs.setCellFactory(param -> new MatchListController());
 
         listViewTeams.setCellFactory(param -> new TeamListController());
+        String role = SessionManager.getInstance().getUserRole();
+        if (!"Admin".equals(role)) {
+            addteam.setDisable(true);
+            addmatch.setDisable(true);
+        }
 
         allteamsBtnA(null);
 
@@ -143,11 +150,11 @@ public class TeamhomePController
 
     public void rafraichirAffichageM() {
         try {
-            ServiceMatch serviceMatch = new ServiceMatch();  // ✅ Créer une instance
-            List<Partie> matchs = serviceMatch.afficher_t();  // ✅ Appeler la méthode correctement
-            listViewMatchs.getItems().clear();  // Vider la liste
-            listViewMatchs.getItems().addAll(matchs); // Ajouter les nouvelles données
-            listViewMatchs.refresh(); // Rafraîchir l'affichage
+            ServiceMatch serviceMatch = new ServiceMatch();
+            List<Partie> matchs = serviceMatch.afficher_t();
+            listViewMatchs.getItems().clear();
+            listViewMatchs.getItems().addAll(matchs);
+            listViewMatchs.refresh();
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de rafraîchir l'affichage : " + e.getMessage());
         }
@@ -167,7 +174,7 @@ public class TeamhomePController
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddTeam.fxml"));
             Parent root = loader.load();
-            // Créer une nouvelle fenêtre pour Ajouter Team
+
             Stage stage = new Stage();
             stage.setTitle("Ajouter Team");
             stage.setScene(new Scene(root));
@@ -179,16 +186,12 @@ public class TeamhomePController
     }
 
     @FXML
-    private void handleAjouterMatch() {
+    private void handleAjouterMatch(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddMatch.fxml"));
-            Parent root = loader.load();
-            // Créer une nouvelle fenêtre pour AjouterTerrain
-            Stage stage = new Stage();
-            stage.setTitle("Ajouter Match");
-            stage.setScene(new Scene(root));
-            // Ajouter un écouteur pour détecter la fermeture de la fenêtre et rafraîchir la ListView
-            stage.setOnHidden((WindowEvent e) -> rafraichirAffichage());
+            Parent AddMatch = FXMLLoader.load(getClass().getResource("/view/AddMatch.fxml"));
+            Scene scene = new Scene(AddMatch);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -202,24 +205,79 @@ public class TeamhomePController
     }
     @FXML
     public void allmatchsBtn(ActionEvent actionEvent) {
-        listViewMatchs.setVisible(true);  // Afficher la liste des matchs
-        matchScrollPane.setVisible(true); // Afficher le ScrollPane des matchs
-        listViewTeams.setVisible(false);  // Cacher la liste des équipes
-        teamsScrollPane.setVisible(false); // Cacher le ScrollPane des équipes
-        chargerMatchs();                   // Charger les matchs
+        listViewMatchs.setVisible(true);
+        matchScrollPane.setVisible(true);
+        listViewTeams.setVisible(false);
+        teamsScrollPane.setVisible(false);
+        chargerMatchs();
     }
 
     @FXML
     public void allteamsBtnA(ActionEvent actionEvent) {
         listViewTeams.setVisible(true);
         teamsScrollPane.setVisible(true);
-        listViewMatchs.setVisible(false); // Cacher la liste des matchs
-        matchScrollPane.setVisible(false); // Cacher le ScrollPane des matchs
-        chargerTeams(); // Recharger les équipes
+        listViewMatchs.setVisible(false);
+        matchScrollPane.setVisible(false);
+        chargerTeams();
     }
+    @FXML
+    private void handleOuvrirForum(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/AfficherPub.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirGame(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/gameHome.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirTerrain(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/HomeAffiche.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirEvent(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/AfficherEvent.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleLogout(ActionEvent event) {
+
+        SessionManager.getInstance().logout();
 
 
-    @javafx.fxml.FXML
-    public void TeamsBtnClicked(Event event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Connexion");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page de connexion : " + e.getMessage());
+        }
     }
+    @FXML
+    private void handleHome(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/HomePage.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }

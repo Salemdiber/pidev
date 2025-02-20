@@ -43,7 +43,7 @@ public class AjouterTerrainController {
 
 
     private final ServiceTerrain serviceTerrain = new ServiceTerrain();
-    private File imageFile; // Stocke le fichier image sélectionné
+    private File imageFile;
 
     @FXML
     public void initialize() {
@@ -55,11 +55,11 @@ public class AjouterTerrainController {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg"));
         File selectedFile = fileChooser.showOpenDialog(new Stage());
         if (selectedFile != null) {
-            // Sauvegarde uniquement le nom du fichier au lieu du chemin absolu
+
             imageFile = selectedFile;
             terrainImage.setImage(new Image(imageFile.toURI().toString()));
 
-            // Copier l'image sélectionnée vers le dossier resources/img/ (À FAIRE)
+
         }
     }
     private void ajouterTerrain() {
@@ -67,13 +67,13 @@ public class AjouterTerrainController {
         String lieu = lieutxtfield.getText();
         String description = desctxtfield.getText();
 
-        // Vérifier si tous les champs sont remplis
+
         if (nom.isEmpty() || lieu.isEmpty() || description.isEmpty() || imageFile == null) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires !");
             return;
         }
 
-        // Vérification de la longueur du nom et de la description
+
         if (nom.length() < 3) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le nom doit comporter au moins 3 caractères.");
             return;
@@ -88,38 +88,37 @@ public class AjouterTerrainController {
             return;
         }
 
-        // Vérification de l'extension de l'image
+
         String fileExtension = getFileExtension(imageFile);
         if (!fileExtension.equals("png") && !fileExtension.equals("jpg") && !fileExtension.equals("jpeg")) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "L'image doit être au format PNG, JPG ou JPEG.");
             return;
         }
 
-        // 📂 Définir le dossier de destination des images
+
         File destinationDir = new File("img/");
         if (!destinationDir.exists()) {
-            destinationDir.mkdirs(); // Crée le dossier s'il n'existe pas
+            destinationDir.mkdirs();
         }
 
-        // 🎯 Nom de fichier unique pour éviter les conflits
         String newFileName = System.currentTimeMillis() + "_" + imageFile.getName();
         File destinationFile = new File(destinationDir, newFileName);
 
         try {
-            // 📥 Copier l'image sélectionnée vers le dossier des uploads
+
             Files.copy(imageFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-            // 📌 Enregistrer uniquement le nom du fichier dans la base de données
+
             String imgPath = "img/" + newFileName;
 
             Terrain terrain = new Terrain(nom, lieu, description, imgPath);
 
-            // 📤 Enregistrement en base de données
+
             serviceTerrain.ajouter_t(terrain);
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Terrain ajouté avec succès !");
             clearFields();
             Stage stage = (Stage) ajouterbtn.getScene().getWindow();
-            stage.close();
+           ;
             System.out.println("✅ Image copiée et sauvegardée avec succès : " + imgPath);
         } catch (IOException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de copier l'image : " + e.getMessage());
@@ -138,8 +137,8 @@ public class AjouterTerrainController {
         nametxtfield.clear();
         lieutxtfield.clear();
         desctxtfield.clear();
-        terrainImage.setImage(null); // Réinitialise l'image
-        imageFile = null; // Réinitialise le fichier image
+        terrainImage.setImage(null);
+        imageFile = null;
     }
 
     private void afficherAlerte(Alert.AlertType type, String titre, String message) {
@@ -152,16 +151,16 @@ public class AjouterTerrainController {
     @FXML
     private void handleReturnButtonClick(ActionEvent event) {
         try {
-            // Charger la nouvelle scène pour homeAffiche.fxml
+
             Parent homePage = FXMLLoader.load(getClass().getResource("/view/homeAffiche.fxml"));
             Scene homeScene = new Scene(homePage);
 
-            // Obtenir le stage actuel et définir la nouvelle scène
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(homeScene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+            e.printStackTrace();
         }
     }
 }

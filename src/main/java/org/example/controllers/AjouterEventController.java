@@ -42,7 +42,7 @@ public class AjouterEventController {
 
 
     private final ServiceEvent serviceEvent = new ServiceEvent();
-    private File imageFile; // Stocke le fichier image sélectionné
+    private File imageFile;
     @FXML
     private ImageView imageview;
     @FXML
@@ -69,7 +69,7 @@ public class AjouterEventController {
         File selectedFile = fileChooser.showOpenDialog(new Stage());
 
         if (selectedFile != null) {
-            // Sauvegarde uniquement le nom du fichier au lieu du chemin absolu
+
             imageFile = selectedFile;
             imageview.setImage(new Image(imageFile.toURI().toString()));
         }
@@ -82,18 +82,18 @@ public class AjouterEventController {
         Integer hour = hourComboBox.getValue();
         Integer minute = minuteComboBox.getValue();
 
-        // Vérifier si une image a été sélectionnée
+
         if (nom.isEmpty() || lieu.isEmpty() || description.isEmpty() || imageFile == null || date == null || hour == null || minute == null) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires !");
             return;
         }
-        // Vérification que le lieu commence par une majuscule
+
         if (!Character.isUpperCase(lieu.charAt(0))) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le lieu doit commencer par une majuscule !");
             return;
         }
 
-        // Vérification de la longueur du nom et de la description
+
         if (nom.length() < 3) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le nom doit comporter au moins 3 caractères.");
             return;
@@ -117,23 +117,23 @@ public class AjouterEventController {
 
 
 
-        // 📂 Définir le dossier de destination des images
+
         File destinationDir = new File("img/");
         if (!destinationDir.exists()) {
-            destinationDir.mkdirs(); // Crée le dossier s'il n'existe pas
+            destinationDir.mkdirs();
         }
 
-        // 🎯 Nom de fichier unique pour éviter les conflits
+
         String newFileName = System.currentTimeMillis() + "_" + imageFile.getName();
         File destinationFile = new File(destinationDir, newFileName);
 
 
 
         try {
-            // 📥 Copier l'image sélectionnée vers le dossier des uploads
+
             Files.copy(imageFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-            // 📌 Enregistrer uniquement le nom du fichier dans la base de données
+
             String imgPath = "img/" + newFileName;
 
             LocalDateTime dateTime = date.atTime(hour, minute);
@@ -141,7 +141,7 @@ public class AjouterEventController {
             Event E = new Event(nom,imgPath,description,lieu,dateTime);
 
 
-            // 📤 Enregistrement en base de données
+
             serviceEvent.ajouter_t(E);
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Evenement ajouté avec succès !");
             clearFields();
@@ -157,8 +157,8 @@ public class AjouterEventController {
         nametxtfield.clear();
         lieutxtfield.clear();
         desctxtfield.clear();
-        imageview.setImage(null); // Réinitialise l'image
-        imageFile = null; // Réinitialise le fichier image
+        imageview.setImage(null);
+        imageFile = null;
         datetf.setValue(null);
         hourComboBox.setValue(12);
         minuteComboBox.setValue(0);
@@ -175,9 +175,9 @@ public class AjouterEventController {
 
     @FXML
     private void handleReturnButtonClick() {
-        // Fermer la fenêtre actuelle
+
         Stage stage = (Stage) btnreturn.getScene().getWindow();
-        stage.close(); // Cela fermera la fenêtre actuelle
+        stage.close();
     }
 }
 

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="updteampane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="987.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.UpdateTeamController">
+<AnchorPane fx:id="updteampane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.UpdateTeamController">
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="258.0">
          <children>
@@ -24,44 +24,44 @@
             </Label>
          </children>
       </AnchorPane>
-      <Label layoutX="127.0" layoutY="206.0" prefHeight="31.0" prefWidth="84.0" text="NAME:">
+      <Label layoutX="554.0" layoutY="386.0" prefHeight="31.0" prefWidth="84.0" text="NAME:">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="127.0" layoutY="246.0" prefHeight="31.0" prefWidth="155.0" text="CLASSEMENT:">
+      <Label layoutX="554.0" layoutY="426.0" prefHeight="31.0" prefWidth="155.0" text="CLASSEMENT:">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="126.0" layoutY="288.0" prefHeight="31.0" prefWidth="84.0" text="IMAGE:">
+      <Label layoutX="553.0" layoutY="468.0" prefHeight="31.0" prefWidth="84.0" text="IMAGE:">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="117.0" layoutY="463.0" prefHeight="31.0" prefWidth="155.0" text="DESCRIPTION:">
+      <Label layoutX="544.0" layoutY="643.0" prefHeight="31.0" prefWidth="155.0" text="DESCRIPTION:">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="126.0" layoutY="506.0" prefHeight="31.0" prefWidth="84.0" text="POINTS:">
+      <Label layoutX="553.0" layoutY="686.0" prefHeight="31.0" prefWidth="84.0" text="POINTS:">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <TextField fx:id="Updnametxtfield" layoutX="268.0" layoutY="206.0" prefHeight="31.0" prefWidth="277.0" promptText="Type your name" />
-      <TextField fx:id="Updclassementtxtfield" layoutX="268.0" layoutY="246.0" prefHeight="31.0" prefWidth="277.0" promptText="Type your classement" />
-      <TextField fx:id="Upddesctxtfield" layoutX="268.0" layoutY="462.0" prefHeight="31.0" prefWidth="277.0" promptText="Type your Team's description" />
-      <TextField fx:id="Updptstxtfield" layoutX="268.0" layoutY="506.0" prefHeight="31.0" prefWidth="277.0" promptText="Type Team's points" />
-      <Button fx:id="Updteambtn" layoutX="640.0" layoutY="458.0" mnemonicParsing="false" onAction="#updateTeam" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Update Team" />
-      <Label layoutX="184.0" layoutY="110.0" prefHeight="62.0" prefWidth="470.0" text="Update your team now and enjoy your experience !">
+      <TextField fx:id="Updnametxtfield" layoutX="695.0" layoutY="386.0" prefHeight="31.0" prefWidth="277.0" promptText="Type your name" />
+      <TextField fx:id="Updclassementtxtfield" layoutX="695.0" layoutY="426.0" prefHeight="31.0" prefWidth="277.0" promptText="Type your classement" />
+      <TextField fx:id="Upddesctxtfield" layoutX="695.0" layoutY="642.0" prefHeight="31.0" prefWidth="277.0" promptText="Type your Team's description" />
+      <TextField fx:id="Updptstxtfield" layoutX="695.0" layoutY="686.0" prefHeight="31.0" prefWidth="277.0" promptText="Type Team's points" />
+      <Button fx:id="Updteambtn" layoutX="1067.0" layoutY="638.0" mnemonicParsing="false" onAction="#updateTeam" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Update Team" />
+      <Label layoutX="611.0" layoutY="290.0" prefHeight="62.0" prefWidth="470.0" text="Update your team now and enjoy your experience !">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
-      <Button fx:id="quitteambtn" layoutX="640.0" layoutY="511.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Quit" />
-      <ImageView fx:id="teamImageU" fitHeight="121.0" fitWidth="174.0" layoutX="316.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true" />
-      <TextField fx:id="imgtxtfield" layoutX="553.0" layoutY="284.0" prefHeight="31.0" prefWidth="277.0" promptText="Image Path" />
-      <Button fx:id="chooseimageUbtn" layoutX="268.0" layoutY="284.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" text="Choose Image" />
+      <Button fx:id="quitteambtn" layoutX="1067.0" layoutY="691.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Quit" />
+      <ImageView fx:id="teamImageU" fitHeight="121.0" fitWidth="174.0" layoutX="743.0" layoutY="509.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="imgtxtfield" layoutX="980.0" layoutY="464.0" prefHeight="31.0" prefWidth="277.0" promptText="Image Path" />
+      <Button fx:id="chooseimageUbtn" layoutX="695.0" layoutY="464.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" text="Choose Image" />
    </children>
 </AnchorPane>

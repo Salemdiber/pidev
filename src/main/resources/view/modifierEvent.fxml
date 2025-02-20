@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="987.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ModifierEventController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ModifierEventController">
     <AnchorPane prefHeight="100.0" prefWidth="258.0">
         <Label layoutX="105.0" layoutY="18.0" prefHeight="74.0" prefWidth="442.0" styleClass="title_page" stylesheets="@../styles/style.css" text="modifier Evenement">
             <font>
@@ -37,7 +37,7 @@
     <TextField fx:id="nametxtfield" layoutX="258.0" layoutY="196.0" prefHeight="31.0" prefWidth="277.0" promptText="ENTRER LE NOM D'EVENEMENT" />
     <TextField fx:id="lieutxtfield" layoutX="258.0" layoutY="236.0" prefHeight="31.0" prefWidth="277.0" promptText="ENTRER LE LIEU" />
     <TextField fx:id="desctxtfield" layoutX="258.0" layoutY="277.0" prefHeight="31.0" prefWidth="277.0" promptText="ENTRER UN DESCRIPTION" />
-    <Button fx:id="btnChoisirImage" layoutX="547.0" layoutY="322.0" prefHeight="25.0" prefWidth="277.0" text="Choisir Image" />
+    <Button fx:id="btnChoisirImage" layoutX="547.0" layoutY="322.0" prefHeight="25.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Choisir Image" />
 
 
     <ImageView fx:id="imageview" fitHeight="100.0" fitWidth="150.0" layoutX="313.0" layoutY="406.0" preserveRatio="true" />
@@ -59,8 +59,8 @@
         </font>
     </Label>
     <DatePicker fx:id="datetf" layoutX="261.0" layoutY="370.0" />
-    <ComboBox fx:id="hourComboBox" layoutX="452.0" layoutY="370.0" />
-    <ComboBox fx:id="minuteComboBox" layoutX="510.0" layoutY="370.0" />
+    <ComboBox fx:id="hourComboBox" layoutX="338.0" layoutY="421.0" />
+    <ComboBox fx:id="minuteComboBox" layoutX="402.0" layoutY="421.0" />
    <TextField fx:id="txtImg" layoutX="258.0" layoutY="319.0" prefHeight="31.0" prefWidth="277.0" promptText="ENTRER UN DESCRIPTION" />
    <Button fx:id="btnreturn" alignment="CENTER" contentDisplay="TOP" layoutX="24.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleReturnButtonClick" prefHeight="36.0" prefWidth="41.0" styleClass="btnreturn" stylesheets="@../styles/style.css">
       <graphic>

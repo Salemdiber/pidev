@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1000.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.listeParticipantControlle">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.listeParticipantControlle">
     <AnchorPane prefHeight="550.0" prefWidth="994.0">
         <VBox layoutX="53.0" layoutY="14.0" prefHeight="370.0" prefWidth="930.0" spacing="10.0">
             <Label prefHeight="37.0" prefWidth="550.0" style="-fx-font-size: 50; -fx-font-weight: bold;" styleClass="title_page" stylesheets="@../styles/style.css" text="Liste des Participant">

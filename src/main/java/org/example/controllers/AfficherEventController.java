@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,6 +17,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.example.entities.Event;
+import org.example.entities.SessionManager;
 import org.example.services.ServiceEvent;
 
 import java.io.IOException;
@@ -92,11 +94,11 @@ public class AfficherEventController {
         }
         listViewEvent.setCellFactory(param -> {
             EventListCellController cellController = new EventListCellController();
-            cellController.setAfficherController(this);  // 🔹 Passer le contrôleur principal
+            cellController.setAfficherController(this);
             return cellController;
         });
 
-        // Charger les données
+
         chargerEvent();
         listViewEvent.setOnMouseClicked(event -> {
             Event selectedEvent = listViewEvent.getSelectionModel().getSelectedItem();
@@ -104,6 +106,12 @@ public class AfficherEventController {
                 openEventDetail(selectedEvent);
             }
         });
+
+        String role = SessionManager.getInstance().getUserRole();
+        if (!"Admin".equals(role)) {
+            btnajouter.setDisable(true);
+
+        }
 
     }
 
@@ -114,7 +122,7 @@ public class AfficherEventController {
 
             DetailsEventController controller = loader.getController();
             controller.setEvent(selectedEvent);
-            controller.setAfficherEventController(this); // ✅ Passe le contrôleur principal
+            controller.setAfficherEventController(this);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -159,13 +167,13 @@ public class AfficherEventController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AjouterEvent.fxml"));
             Parent root = loader.load();
 
-            // Créer une nouvelle fenêtre pour AjouterTerrain
+
             Stage stage = new Stage();
             stage.setTitle("Ajouter un event");
             stage.setScene(new Scene(root));
-            //stage.setMaximized(true);
+
             stage.setResizable(true);
-            // Ajouter un écouteur pour détecter la fermeture de la fenêtre et rafraîchir la ListView
+
             stage.setOnHidden((WindowEvent e) -> rafraichirAffichage());
 
             stage.show();
@@ -173,6 +181,66 @@ public class AfficherEventController {
             e.printStackTrace();
             System.err.println("Erreur lors du chargement de AjouterEvent.fxml");
         }
+    }
+    @FXML
+    private void handleOuvrirForum(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/AfficherPub.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirGame(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/gameHome.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirTeam(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/team_home1.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void handleOuvrirTerrain(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/HomeAffiche.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleLogout(ActionEvent event) {
+
+        SessionManager.getInstance().logout();
+
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Connexion");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page de connexion : " + e.getMessage());
+        }
+    }
+    @FXML
+    private void handleHome(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/HomePage.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void rafraichirAffichage() {

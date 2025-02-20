@@ -18,7 +18,6 @@
     </AnchorPane>
     <ListView fx:id="carteList" layoutX="182.0" layoutY="142.0" prefHeight="424.0" prefWidth="722.0" />
     <Label layoutX="300.0" layoutY="55.0" style="-fx-font-size: 50; -fx-font-weight: bold;" styleClass="title_page" stylesheets="@../styles/style.css" text="Collection Cartes" />
-    <Button fx:id="back" layoutX="182.0" layoutY="582.0" mnemonicParsing="false" onAction="#backPage" prefHeight="37.0" prefWidth="75.0" text="Back" />
    <Button fx:id="btnreturn" alignment="CENTER" contentDisplay="TOP" layoutX="24.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleReturnButtonClick" prefHeight="50.0" prefWidth="52.0" styleClass="btnreturn" stylesheets="@../styles/style.css">
       <graphic>
          <ImageView fx:id="returnbtn" fitHeight="64.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">

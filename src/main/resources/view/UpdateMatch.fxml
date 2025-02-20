@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -12,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="updmatchpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="987.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.UpdateMatchController">
+<Pane fx:id="updmatchpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.UpdateMatchController">
    <children>
       <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="100.0" prefWidth="258.0">
          <children>
@@ -28,45 +26,43 @@
             </Label>
          </children>
       </AnchorPane>
-      <Label layoutX="137.0" layoutY="217.0" prefHeight="31.0" prefWidth="84.0" text="TYPE:">
+      <Label layoutX="659.0" layoutY="358.0" prefHeight="31.0" prefWidth="84.0" text="TYPE:">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="137.0" layoutY="274.0" prefHeight="31.0" prefWidth="117.0" text="RESULT:">
+      <Label layoutX="659.0" layoutY="415.0" prefHeight="31.0" prefWidth="117.0" text="RESULT:">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="135.0" layoutY="330.0" prefHeight="31.0" prefWidth="155.0" text="Place:">
+      <Label layoutX="656.0" layoutY="462.0" prefHeight="31.0" prefWidth="97.0" text="TEAMS:">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Label layoutX="135.0" layoutY="374.0" prefHeight="31.0" prefWidth="97.0" text="TEAMS:">
-         <font>
-            <Font name="System Bold" size="21.0" />
-         </font>
-      </Label>
-      <Button fx:id="Updmatchbtn" layoutX="288.0" layoutY="489.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Update Match" />
-      <Label layoutX="194.0" layoutY="120.0" prefHeight="62.0" prefWidth="481.0" text="Update your match now and enjoy your experience !">
+      <Button fx:id="Updmatchbtn" layoutX="809.0" layoutY="577.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Update Match" />
+      <Label layoutX="716.0" layoutY="261.0" prefHeight="62.0" prefWidth="481.0" text="Update your match now and enjoy your experience !">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
-      <Button fx:id="quitmatchbtn" layoutX="288.0" layoutY="538.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Quit" />
-      <TextField fx:id="updresultxtfield" layoutX="287.0" layoutY="274.0" prefHeight="31.0" prefWidth="277.0" promptText="Your Team's result" />
-      <ComboBox fx:id="updplacecombobox" layoutX="287.0" layoutY="328.0" prefHeight="31.0" prefWidth="277.0">
-         <items>
-            <FXCollections fx:factory="observableArrayList">
-               <String fx:value="Stade A" />
-               <String fx:value="Stade B" />
-               <String fx:value="Stade C" />
-            </FXCollections>
-         </items>
-      </ComboBox>
-      <ComboBox fx:id="updtypecombobox" layoutX="288.0" layoutY="218.0" prefHeight="31.0" prefWidth="277.0" />
-      <ComboBox fx:id="updcbteam1" layoutX="287.0" layoutY="374.0" prefHeight="31.0" prefWidth="277.0" />
-      <ComboBox fx:id="updcbteam2" layoutX="288.0" layoutY="419.0" prefHeight="31.0" prefWidth="277.0" />
+      <Button fx:id="quitmatchbtn" layoutX="809.0" layoutY="626.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Quit" /><!-- Type Match -->
+      <ComboBox fx:id="updtypecombobox" layoutX="810.0" layoutY="359.0" prefHeight="31.0" prefWidth="277.0" />
+      <Label fx:id="errorType" layoutX="1100.0" layoutY="365.0" textFill="RED"/>
+
+      <!-- Résultat -->
+      <TextField fx:id="updresultxtfield" layoutX="809.0" layoutY="415.0" prefHeight="31.0" prefWidth="277.0" promptText="Your Team's result" />
+      <Label fx:id="errorResult" layoutX="1100.0" layoutY="420.0" textFill="RED"/>
+
+      <!-- Équipe 1 -->
+      <ComboBox fx:id="updcbteam1" layoutX="808.0" layoutY="462.0" prefHeight="31.0" prefWidth="277.0" />
+      <Label fx:id="errorTeam1" layoutX="1100.0" layoutY="468.0" textFill="RED"/>
+
+      <!-- Équipe 2 -->
+      <ComboBox fx:id="updcbteam2" layoutX="808.0" layoutY="507.0" prefHeight="31.0" prefWidth="277.0" />
+      <Label fx:id="errorTeam2" layoutX="1100.0" layoutY="513.0" textFill="RED"/>
+
+
    </children>
 </Pane>

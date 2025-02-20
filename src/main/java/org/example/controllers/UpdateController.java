@@ -45,7 +45,7 @@ public class UpdateController {
         if (currentUser != null) {
 
             setUserDetails(currentUser);
-            // displayUserImage(currentUser);
+
 
         }
     }
@@ -55,7 +55,7 @@ public class UpdateController {
         prenomField.setText(user.getPrenom());
         emailField.setText(user.getEmail());
         roleField.setText(user.getRole());
-        // Avoid setting the password field for security reasons
+
     }
 
     @FXML
@@ -83,15 +83,15 @@ public class UpdateController {
         currentUser = SessionManager.getCurrentUser();
         System.out.println("Current user ID: " + currentUser.getIdUser());
 
-        // Créer un utilisateur mis à jour sans toucher au mot de passe
-        User updatedUser = new User(nom, prenom, email, role, currentUser.getMdp()); // Utiliser le mot de passe actuel
-        updatedUser.setIdUser(currentUser.getIdUser()); // S'assurer que l'ID est conservé pour la mise à jour
+
+        User updatedUser = new User(nom, prenom, email, role, currentUser.getMdp());
+        updatedUser.setIdUser(currentUser.getIdUser());
         System.out.println("Current user ID: " + currentUser.getIdUser());
 
         ServiceUser serviceUser = new ServiceUser();
         if (serviceUser.modifieru(updatedUser)) {
             errorLabel.setText("Update successful!");
-            // Optionnellement, naviguer vers une autre page ou afficher un message de succès
+
         } else {
             errorLabel.setText("Update failed. Please try again.");
         }
@@ -100,12 +100,12 @@ public class UpdateController {
 
     @FXML
     private void handleEditProfile(ActionEvent event) {
-        // Handle edit profile action, e.g., reload the current scene or navigate to another
+
     }
 
     @FXML
     private void handleAdminDashboard(ActionEvent event) {
-        // Handle admin dashboard action, e.g., navigate to the admin dashboard
+
     }
     private void showAlert(String chaine1,String chaine2)
     {

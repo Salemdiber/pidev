@@ -17,21 +17,20 @@ public class ServiceMatch  {
     }
 
 
-//    @Override
+
     public void ajouter_t(Partie match , int  idEq1, int idEq2) throws SQLException {
         if (cnx == null || cnx.isClosed()) {
             throw new SQLException("La connexion à la base de données est fermée !");
         }
-        String req = "INSERT INTO partie (type, resultat, lieu) VALUES (?, ?, ?)";
+        String req = "INSERT INTO partie (type, resultat) VALUES (?, ?)";
         String req2 = "INSERT INTO partie_equipe  VALUES (?,?)";
         try (PreparedStatement pst = cnx.prepareStatement(req, Statement.RETURN_GENERATED_KEYS)) {
-            // En utilisant l'enum TypeMatch et la méthode toString()
+
             pst.setString(1, match.getType().toString());
             pst.setString(2, match.getResultat());
-            pst.setString(3, match.getLieu());
             pst.executeUpdate();
 
-            // Récupérer l'ID généré pour le match
+
             ResultSet rs = pst.getGeneratedKeys();
             if (rs.next()) {
                 match.setIdMatch(rs.getInt(1));
@@ -55,7 +54,7 @@ public class ServiceMatch  {
         }
     }
 
-//    @Override
+
     public void supprimer_t(int id) throws SQLException {
         String req = "DELETE FROM partie WHERE id_match = ?";
         try (PreparedStatement pst = cnx.prepareStatement(req)) {
@@ -69,15 +68,14 @@ public class ServiceMatch  {
         }
     }
 
-//    @Override
+
     public void modifier_t(Partie match) throws SQLException {
-        String req = "UPDATE partie SET type=?, resultat=?, lieu=? WHERE id_match=?";
+        String req = "UPDATE partie SET type=?, resultat=? WHERE id_match=?";
         try (PreparedStatement pst = cnx.prepareStatement(req)) {
-            // En utilisant l'enum TypeMatch et la méthode toString()
+
             pst.setString(1, match.getType().toString());
             pst.setString(2, match.getResultat());
-            pst.setString(3, match.getLieu());
-            pst.setInt(4, match.getIdMatch());
+            pst.setInt(3, match.getIdMatch());
             int rowsAffected = pst.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("✅ Match mis à jour avec succès !");
@@ -112,29 +110,28 @@ public class ServiceMatch  {
     }
 
 
-    //    @Override
+
 public List<Partie> afficher_t() throws SQLException {
     List<Partie> matchs = new ArrayList<>();
     String req = "SELECT * FROM partie";
     try (Statement st = cnx.createStatement();
          ResultSet rs = st.executeQuery(req)) {
         while (rs.next()) {
-            // Mapper l'enum TypeMatch à partir de la base de données
+
             TypeMatch type = TypeMatch.valueOf(rs.getString("type").toUpperCase());
             Partie match = new Partie(
                     rs.getInt("id_match"),
                     TypeMatch.valueOf(rs.getString("type").toUpperCase()),
-                    rs.getString("resultat"),
-                    rs.getString("lieu")
+                    rs.getString("resultat")
             );
-            // Retrieve associated teams
+
             List<Equipe> equipes = new ArrayList<>();
             List<Integer> equipeIds = getEquipesParMatch(match.getIdMatch());
             for (int equipeId : equipeIds) {
-                Equipe equipe = new ServiceEquipe().getOne(equipeId); // Assuming ServiceEquipe has a getOne method to fetch teams by ID
+                Equipe equipe = new ServiceEquipe().getOne(equipeId);
                 equipes.add(equipe);
             }
-            match.setEquipes(equipes); // Add teams to the match
+            match.setEquipes(equipes);
             matchs.add(match);
         }
     }
@@ -142,7 +139,7 @@ public List<Partie> afficher_t() throws SQLException {
 }
 
 
-    //    @Override
+
     public void ajouterEquipeAMatch(int idMatch, int idEquipe) throws SQLException {
         String req = "INSERT INTO partie_equipe (id_match, id_equipe) VALUES (?, ?)";
         try (PreparedStatement pst = cnx.prepareStatement(req)) {
@@ -153,7 +150,7 @@ public List<Partie> afficher_t() throws SQLException {
         }
     }
 
-//    @Override
+
     public void supprimerEquipeDuMatch(int idMatch, int idEquipe) throws SQLException {
         String req = "DELETE FROM partie_equipe WHERE id_match = ? AND id_equipe = ?";
         try (PreparedStatement pst = cnx.prepareStatement(req)) {
@@ -168,7 +165,7 @@ public List<Partie> afficher_t() throws SQLException {
         }
     }
 
-//    @Override
+
     public List<Integer> getEquipesParMatch(int idMatch) throws SQLException {
         List<Integer> equipes = new ArrayList<>();
         String req = "SELECT id_equipe FROM partie_equipe WHERE id_match = ?";
@@ -180,14 +177,14 @@ public List<Partie> afficher_t() throws SQLException {
             }
         }
         if (!equipes.isEmpty()) {
-            System.out.println(equipes.get(0)); // Accessing the first element
+            System.out.println(equipes.get(0));
         }
 
         System.out.println(equipes.get(1));
         return equipes;
     }
 
-//    @Override
+
     public List<Integer> getMatchsParEquipe(int idEquipe) throws SQLException {
         List<Integer> matchs = new ArrayList<>();
         String req = "SELECT id_match FROM partie_equipe WHERE id_equipe = ?";
@@ -211,13 +208,9 @@ public List<Partie> afficher_t() throws SQLException {
             while (rs.next()){
                 partie = new Partie(
                         rs.getInt("id_match"),
-                        TypeMatch.valueOf(rs.getString("type").toUpperCase()),  // Utilisation de l'enum TypeMatch
-                        rs.getString("resultat"),
-                        rs.getString("lieu")
+                        TypeMatch.valueOf(rs.getString("type").toUpperCase()),
+                        rs.getString("resultat")
                 );
-
-
-
             }
             stm.close();
         }catch (SQLException ex){

@@ -54,36 +54,35 @@ ps.executeUpdate();
     }
 
     public void reserverTerrain(int idTerrain, int idUser, String dateReservation) throws SQLException {
-        String sql = "INSERT INTO reservation (date_res, id_user, id_terrain, nomTerrain) VALUES (?, ?, ?, ?)"; // Ajouter nom_terrain
+        String sql = "INSERT INTO reservation (date_res, id_user, id_terrain, nomTerrain) VALUES (?, ?, ?, ?)";
 
-        // Récupérer le nom du terrain en utilisant le service terrain
-        Terrain terrain = getTerrainById(idTerrain); // Méthode pour récupérer le terrain par son ID
+
+        Terrain terrain = getTerrainById(idTerrain);
         if (terrain == null) {
             throw new SQLException("Terrain avec ID " + idTerrain + " non trouvé.");
         }
-        String nomTerrain = terrain.getNom(); // Assurez-vous que vous avez bien le nom du terrain
-
+        String nomTerrain = terrain.getNom();
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, dateReservation);
             stmt.setInt(2, idUser);
             stmt.setInt(3, idTerrain);
-            stmt.setString(4, nomTerrain); // Ajouter le nom du terrain à la requête
+            stmt.setString(4, nomTerrain);
             stmt.executeUpdate();
         }
     }
 
     public Terrain getTerrainById(int idTerrain) {
         Terrain terrain = null;
-        String query = "SELECT * FROM terrain WHERE id_terrain = ?";  // Requête pour récupérer le terrain par ID
+        String query = "SELECT * FROM terrain WHERE id_terrain = ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
             stmt.setInt(1, idTerrain);
 
             try (ResultSet rs = stmt.executeQuery()) {
-                // Si un terrain est trouvé
+
                 if (rs.next()) {
-                    // Créer l'objet Terrain à partir des données récupérées
+
                     terrain = new Terrain();
                     terrain.setId_terrain(rs.getInt("id_terrain"));
                     terrain.setNom(rs.getString("nom"));
@@ -98,7 +97,7 @@ ps.executeUpdate();
     }
     public List<String> getAllTerrainNames() throws SQLException {
         List<String> terrainNames = new ArrayList<>();
-        String query = "SELECT nom FROM terrain"; // Use the correct table name
+        String query = "SELECT nom FROM terrain";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
@@ -124,7 +123,7 @@ ps.executeUpdate();
         return false;
     }
     public int getTerrainIdByName(String nomTerrain) throws SQLException {
-        String sql = "SELECT id_terrain FROM terrain WHERE nom = ?"; // Correction ici
+        String sql = "SELECT id_terrain FROM terrain WHERE nom = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, nomTerrain);
             ResultSet rs = ps.executeQuery();

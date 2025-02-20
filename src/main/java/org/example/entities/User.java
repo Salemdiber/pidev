@@ -8,7 +8,7 @@ public class User {
     private String role;
     private String mdp;
 
-    // Constructors
+
     public User() {}
 
     public User(String nom, String prenom, String email, String role, String mdp) {
@@ -21,7 +21,7 @@ public class User {
 
 
 
-    // Getters and Setters
+
     public int getIdUser() {
         return idUser;
     }

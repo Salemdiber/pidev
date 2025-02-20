@@ -71,7 +71,7 @@ public class Publication {
                 ", titre='" + titre + '\'' +
                 ", describ='" + describ + '\'' +
                 ", idUser=" + idUser +
-                ", nom='" + nom + '\'' + // Display nom
+                ", nom='" + nom + '\'' +
                 '}';
     }
 }

@@ -11,6 +11,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.example.entities.Event;
+import org.example.entities.SessionManager;
+import org.example.entities.User;
 import org.example.services.ServiceEvent;
 import org.example.services.ServiceParticipant;
 
@@ -56,6 +58,8 @@ public class DetailsEventController {
     @FXML
     private Button btnparticiper;
     @FXML
+    private Label userRoleLabel;
+    @FXML
     private Button btnreturn;
 
     @FXML
@@ -63,6 +67,19 @@ public class DetailsEventController {
         btnmodifier.setOnAction(event -> modifierEvent());
         btnsupp.setOnAction(event->supprimerEvent());
         affichereventcontroller = new AfficherEventController();
+        String role = SessionManager.getInstance().getUserRole();
+        if (!"Admin".equals(role)) {
+            btnmodifier.setDisable(true);
+            btnsupp.setDisable(true);
+            btnpart.setDisable(true);
+        }
+        User currentUser = SessionManager.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            userRoleLabel.setText("Rôle: " + currentUser.getRole());
+        } else {
+            userRoleLabel.setText("Utilisateur non connecté");
+        }
+
     }
 
 
@@ -88,16 +105,23 @@ public class DetailsEventController {
     @FXML
     private void Participer() {
         if (event == null) {
-            afficherAlerte(Alert.AlertType.WARNING, "Avertissement", "Aucun event sélectionné.");
+            afficherAlerte(Alert.AlertType.WARNING, "Avertissement", "Aucun événement sélectionné.");
             return;
         }
 
         int idEvent = event.getId_event();
-        int idUser = getCurrentUserId();
+        int idUser  = getCurrentUserId();
 
         try {
-            serviceevent.participer(idUser,idEvent);
-            afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "event participé avec succès !");
+
+            if (serviceParticipant.aDejaParticipe(idUser)) {
+                afficherAlerte(Alert.AlertType.WARNING, "Avertissement", "Vous avez déjà participé à un événement !");
+                return;
+            }
+
+
+            serviceevent.participer(idUser , idEvent);
+            afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Vous avez participé à l'événement avec succès !");
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de participer : " + e.getMessage());
             System.out.println(e.getMessage());
@@ -105,11 +129,17 @@ public class DetailsEventController {
     }
 
     private int getCurrentUserId() {
-        return 1;
+        User currentUser = SessionManager.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            return currentUser.getIdUser();
+        } else {
+
+            return 0;
+        }
     }
 
 
-    // Méthode de suppression mise à jour
+
     @FXML
     private void supprimerEvent() {
         if (event == null) {
@@ -128,14 +158,14 @@ public class DetailsEventController {
                 serviceevent.supprimer_t(event.getId_event());
 
                 if (afficherEventController != null) {
-                    afficherEventController.rafraichirAffichage();  // ✅ Rafraîchir la liste après suppression
+                    afficherEventController.rafraichirAffichage();
                 } else {
                     System.out.println("⚠️ afficherEventController est NULL, impossible de rafraîchir !");
                 }
 
                 afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Événement supprimé avec succès !");
 
-                // Fermer la fenêtre après suppression
+
                 Stage stage = (Stage) btnsupp.getScene().getWindow();
                 stage.close();
             } catch (SQLException e) {
@@ -169,15 +199,15 @@ public class DetailsEventController {
 
             ModifierEventController controller = loader.getController();
             controller.setDetailsEventController(this);
-            controller.setEvent(event); // 🔹 Passe l'événement à modifier
-            controller.setAfficherEventController(afficherEventController); // ✅ Pour rafraîchir après modification
+            controller.setEvent(event);
+            controller.setAfficherEventController(afficherEventController);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Modifier l'Événement");
             stage.setResizable(false);
 
-            // 🔹 Rafraîchir après fermeture de la fenêtre de modification
+
             stage.setOnHidden(e -> {
                 if (afficherEventController != null) {
                     afficherEventController.rafraichirAffichage();
@@ -197,14 +227,14 @@ public class DetailsEventController {
             return;
         }
 
-        System.out.println("🔹 ID de l'événement envoyé : " + event.getId_event()); // Debug
+        System.out.println("🔹 ID de l'événement envoyé : " + event.getId_event());
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/listeParticipants.fxml"));
             Parent root = loader.load();
 
             listeParticipantControlle controller = loader.getController();
-            controller.setEvent(event); // Passer l'événement sélectionné
+            controller.setEvent(event);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -217,9 +247,9 @@ public class DetailsEventController {
     }
     @FXML
     private void handleReturnButtonClick() {
-        // Fermer la fenêtre actuelle
+
         Stage stage = (Stage) btnreturn.getScene().getWindow();
-        stage.close(); // Cela fermera la fenêtre actuelle
+        stage.close();
     }
 
 

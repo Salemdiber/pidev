@@ -8,13 +8,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.DetailsEventController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.DetailsEventController">
     <Pane fx:id="mainPageContainer" layoutX="15.0" layoutY="6.0" prefHeight="590.0" prefWidth="978.0" styleClass="main-content-container" stylesheets="@../styles/style.css">
+
         <Label fx:id="nomLabelDetail" layoutX="238.0" layoutY="141.0" prefHeight="17.0" prefWidth="323.0" text="Label">
             <font>
                 <Font name="System Bold" size="36.0" />
             </font></Label>
+
         <Label fx:id="lieuLabelDetail" layoutX="246.0" layoutY="202.0" prefHeight="17.0" prefWidth="323.0" text="Label">
+
             <font>
                 <Font size="24.0" />
             </font></Label>
@@ -71,6 +74,7 @@
                </image>
             </ImageView>
          </graphic>
+
          <font>
             <Font name="System Bold" size="11.773585319519043" />
          </font>
@@ -111,4 +115,5 @@
 
 
     </Pane>
+    <Label fx:id="userRoleLabel" text="User Role" visible="false" />
 </AnchorPane>

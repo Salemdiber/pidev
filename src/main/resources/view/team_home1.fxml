@@ -5,64 +5,35 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1150.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.TeamhomePController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.TeamhomePController">
    <children>
       <HBox alignment="CENTER_RIGHT" layoutX="310.0" layoutY="14.0" prefHeight="64.0" prefWidth="739.0" styleClass="headerContainer" stylesheets="@../styles/style.css">
          <children>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="420.0" styleClass="search-bar-container" stylesheets="@../styles/style.css">
-               <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="40.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="search-bar" width="400.0" />
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="search-bar-icon" translateX="-395.0">
-                     <image>
-                        <Image url="@../img/recherche.png" />
-                     </image>
-                  </ImageView>
-                  <TextField fx:id="searchInput" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="350.0" promptText="Search for any thnigs ..." styleClass="search-input" stylesheets="@../styles/style.css">
-                     <HBox.margin>
-                        <Insets left="-390.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
                <padding>
                   <Insets left="-40.0" />
                </padding>
             </HBox>
             <HBox prefHeight="62.0" prefWidth="56.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="37.0" styleClass="notif-btn" stylesheets="@../styles/style.css" translateY="8.0">
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/actif.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <HBox fx:id="notifCount" alignment="CENTER" maxHeight="-Infinity" prefHeight="20.0" prefWidth="20.0" styleClass="notif-count" stylesheets="@../styles/style.css" translateX="-26.0" translateY="9.0" />
-                  <Circle fx:id="profilImgContainer" fill="#041b31" radius="32.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="profil-img-container">
-                     <HBox.margin>
-                        <Insets right="-260.0" />
-                     </HBox.margin>
-                  </Circle>
+                  <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="37.0" styleClass="notif-btn" stylesheets="@../styles/style.css" translateY="8.0" />
                </children>
             </HBox>
 
          </children>
       </HBox>
-      <Pane fx:id="mainPageContainer" layoutX="162.0" layoutY="79.0" prefHeight="643.0" prefWidth="987.0" styleClass="main-content-container" stylesheets="@../styles/style.css">
+      <Pane fx:id="mainPageContainer" layoutX="162.0" layoutY="79.0" prefHeight="939.0" prefWidth="1699.0" styleClass="main-content-container" stylesheets="@../styles/style.css">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="133.0" layoutX="20.0" layoutY="43.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="welcome-container" width="444.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="153.0" layoutX="20.0" layoutY="23.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="welcome-container" width="628.0" />
             <ImageView fitHeight="105.0" fitWidth="129.0" layoutX="353.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/29516027-isolé-noir-blanc-joueur-de-football-vecteur-de-prise-de-vue-illustration-removebg-preview.png" />
@@ -78,9 +49,9 @@
                   <Font name="Jost Regular" size="12.0" />
                </font>
             </Label>
-            <ScrollPane fx:id="teamsScrollPane" hbarPolicy="NEVER" layoutX="20.0" layoutY="316.0" prefHeight="255.0" prefWidth="829.0" styleClass="TMScrollPane" stylesheets="@../styles/style.css">
+            <ScrollPane fx:id="teamsScrollPane" hbarPolicy="NEVER" layoutX="20.0" layoutY="316.0" prefHeight="433.0" prefWidth="1077.0" styleClass="TMScrollPane" stylesheets="@../styles/style.css">
                <content>
-                  <ListView fx:id="listViewTeams" prefHeight="305.0" prefWidth="900.0" styleClass="TMScrollPane" stylesheets="@../styles/style.css" />
+                  <ListView fx:id="listViewTeams" prefHeight="436.0" prefWidth="1077.0" styleClass="TMScrollPane" stylesheets="@../styles/style.css" />
                </content>
             </ScrollPane>
             <Label fx:id="TeamsandMatchsTitle" layoutX="26.0" layoutY="217.0" prefHeight="47.0" prefWidth="289.0" stylesheets="@../styles/style.css" text="TEAMS &amp; Matches">
@@ -97,30 +68,30 @@
             </HBox>
             <Button fx:id="addteam" layoutX="691.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleAjouterTeam" prefHeight="71.0" prefWidth="113.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Add Team" />
             <Button fx:id="addmatch" layoutX="835.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleAjouterMatch" prefHeight="71.0" prefWidth="113.0" styleClass="add_match" stylesheets="@../styles/style.css" text="Add Match" />
-            <ScrollPane fx:id="matchScrollPane" hbarPolicy="NEVER" layoutX="20.0" layoutY="316.0" prefHeight="255.0" prefWidth="829.0" styleClass="TMScrollPane" stylesheets="@../styles/style.css" visible="true">
+            <ScrollPane fx:id="matchScrollPane" hbarPolicy="NEVER" layoutX="20.0" layoutY="316.0" prefHeight="433.0" prefWidth="1077.0" styleClass="TMScrollPane" stylesheets="@../styles/style.css" visible="true">
                <content>
-                  <ListView fx:id="listViewMatchs" prefHeight="293.0" prefWidth="1022.0" styleClass="TMScrollPane" stylesheets="@../styles/style.css" visible="true" />
+                  <ListView fx:id="listViewMatchs" prefHeight="436.0" prefWidth="1077.0" styleClass="TMScrollPane" stylesheets="@../styles/style.css" visible="true" />
                </content>
             </ScrollPane>
          </children>
       </Pane>
-      <VBox alignment="TOP_CENTER" layoutX="28.0" layoutY="-6.0" prefHeight="720.0" prefWidth="130.0" styleClass="leftMenuContainer" stylesheets="@../styles/style.css">
+      <VBox alignment="TOP_CENTER" layoutX="32.0" layoutY="127.0" prefHeight="894.0" prefWidth="140.0" styleClass="leftMenuContainer" stylesheets="@../styles/style.css">
          <children>
             <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
                <children>
                   <ImageView fitHeight="119.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true" styleClass="logoContainer">
-                     <image>
-                        <Image url="@../img/logo-removebg-preview.png" />
-                     </image>
                      <HBox.margin>
                         <Insets top="4.0" />
                      </HBox.margin>
+                     <image>
+                        <Image url="@../img/logo-removebg-preview.png" />
+                     </image>
                   </ImageView>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
                <children>
-                  <Button fx:id="homeBtn" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="HOME">
+                  <Button fx:id="homeBtn" alignment="CENTER" onAction="#handleHome" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="HOME">
                      <graphic>
                         <ImageView fx:id="homeBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
                            <image>
@@ -136,9 +107,9 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
                <children>
-                  <Button fx:id="TeamsBtn" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#TeamsBtnClicked" prefHeight="71.0" prefWidth="82.0" styleClass="menu-btn" stylesheets="@../styles/style.css" text="TEAMS">
+                  <Button fx:id="TeamsBtn" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"  prefHeight="71.0" prefWidth="82.0" styleClass="menu-btn" stylesheets="@../styles/style.css" text="TEAMS">
                      <graphic>
-                        <ImageView fx:id="teamsBtnImg" fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="coursesBtnImg" fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/team-building.png" />
                            </image>
@@ -152,9 +123,9 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
                <children>
-                  <Button fx:id="stadiumBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="70.0" prefWidth="84.0" styleClass="menu-btn" stylesheets="@../styles/style.css" text="STADIUM">
+                  <Button fx:id="stadebtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="70.0" prefWidth="84.0" onAction="#handleOuvrirTerrain" styleClass="menu-btn" stylesheets="@../styles/style.css" text="STADIUM">
                      <graphic>
-                        <ImageView fx:id="stadiumBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="eventsBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/terrain-de-football.png" />
                            </image>
@@ -168,9 +139,9 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
                <children>
-                  <Button fx:id="eventBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="EVENTS">
+                  <Button fx:id="eventbtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleOuvrirEvent" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="EVENTS">
                      <graphic>
-                        <ImageView fx:id="eventBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="forumBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/event-management.png" />
                            </image>
@@ -184,9 +155,9 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
                <children>
-                  <Button fx:id="forumBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="69.0" prefWidth="84.0" styleClass="menu-btn" stylesheets="@../styles/style.css" text="Forum">
+                  <Button fx:id="forumBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleOuvrirForum" prefHeight="69.0" prefWidth="84.0" styleClass="menu-btn" stylesheets="@../styles/style.css" text="Forum">
                      <graphic>
-                        <ImageView fx:id="forumBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="productsBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/bavarder.png" />
                            </image>
@@ -200,9 +171,9 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
                <children>
-                  <Button fx:id="gamesBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="GAMES">
+                  <Button fx:id="gameBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleOuvrirGame" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="GAMES">
                      <graphic>
-                        <ImageView fx:id="gamesBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="collectsBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/video-games.png" />
                            </image>
@@ -215,8 +186,11 @@
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="85.0" prefWidth="103.0">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
                <children>
-                  <Button fx:id="logoutBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="Logout">
+                  <Button fx:id="logoutBtn"  contentDisplay="TOP" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="Logout">
                      <graphic>
                         <ImageView fx:id="logoutBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -229,9 +203,6 @@
                      </font>
                   </Button>
                </children>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
             </HBox>
          </children>
       </VBox>

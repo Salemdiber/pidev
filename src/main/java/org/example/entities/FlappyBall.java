@@ -132,7 +132,7 @@ public class FlappyBall extends MiniGame implements ActionListener, KeyListener 
                 long elapsedTime = System.currentTimeMillis() - startTime;
 
                 if (!isPaused) {
-                   // System.out.println("Game resumed");
+
                     ((Timer) e.getSource()).stop();
                     return;
                 }
@@ -246,7 +246,7 @@ public class FlappyBall extends MiniGame implements ActionListener, KeyListener 
         {
 
             saveGameResult();
-            //System.out.println(this);
+
             try{
                 checkAndCreateReward(this);
             }catch(SQLException ex){

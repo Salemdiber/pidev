@@ -6,39 +6,37 @@ import java.util.List;
 
 public class Partie {
     private int idMatch;
-    private TypeMatch type; // Changement de String à TypeMatch
+    private TypeMatch type;
     private String resultat;
-    private String lieu;
-    private List<Equipe> equipes = new ArrayList<>(); // Liste des équipes participant à la partie
+    private List<Equipe> equipes = new ArrayList<>();
 
-    // Constructeur avec Enum TypeMatch
-    public Partie(int idMatch, TypeMatch type, String resultat, String lieu) {
+
+    public Partie(int idMatch, TypeMatch type, String resultat) {
         this.idMatch = idMatch;
         this.type = type;
         this.resultat = resultat;
-        this.lieu = lieu;
+
     }
 
 
-    public Partie(int idMatch, TypeMatch type, String resultat, String lieu, List<Equipe> equipes) {
+    public Partie(int idMatch, TypeMatch type, String resultat, List<Equipe> equipes) {
         this.idMatch = idMatch;
         this.type = type;
         this.resultat = resultat;
-        this.lieu = lieu;
+
         this.equipes = equipes;
     }
 
-    // Constructeur avec Enum TypeMatch
-    public Partie(TypeMatch type, String resultat, String lieu) {
+
+    public Partie(TypeMatch type, String resultat) {
         this.type = type;
         this.resultat = resultat;
-        this.lieu = lieu;
+
     }
 
-    public Partie(TypeMatch type, String resultat, String place, List<Equipe> listequipe) {
+    public Partie(TypeMatch type, String resultat, List<Equipe> listequipe) {
         this.type = type;
         this.resultat = resultat;
-        this.lieu = place;
         this.equipes.addAll(listequipe);
     }
 
@@ -46,7 +44,7 @@ public class Partie {
 
     }
 
-    // Getters
+
     public int getIdMatch() {
         return idMatch;
     }
@@ -67,33 +65,25 @@ public class Partie {
         this.equipes = equipes;
     }
 
-    public String getLieu() {
-        return lieu;
-    }
-
     public List<Equipe> getEquipes() {
         return equipes;
     }
 
 
-    // Setters
+
     public void setType(TypeMatch type) {
-        this.type = type; // Accepte l'Enum TypeMatch
+        this.type = type;
     }
 
     public void setResultat(String resultat) {
         this.resultat = resultat;
     }
 
-    public void setLieu(String lieu) {
-        this.lieu = lieu;
-    }
 
-    // Ajouter une équipe au match
     public void ajouterEquipe(Equipe equipe) {
         if (!equipes.contains(equipe)) {
             equipes.add(equipe);
-            equipe.ajouterMatch(this); // Mise à jour bidirectionnelle
+            equipe.ajouterMatch(this);
         }
     }
 
@@ -101,9 +91,8 @@ public class Partie {
     public String toString() {
         return "Partie{" +
                 "idMatch=" + idMatch +
-                ", type=" + type + // Affichage de l'Enum
+                ", type=" + type +
                 ", resultat='" + resultat + '\'' +
-                ", lieu='" + lieu + '\'' +
                 '}';
     }
 }

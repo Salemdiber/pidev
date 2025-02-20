@@ -11,7 +11,7 @@ public class Equipe {
     private int points;
     private int idEntraineur = 1;
 
-    private List<Partie> matchs = new ArrayList<>(); // Liste des matchs joués par l'équipe
+    private List<Partie> matchs = new ArrayList<>();
 
 
     public Equipe(int idEquipe, String nom, int classement, String image, String description, int points) {
@@ -49,7 +49,7 @@ public class Equipe {
 
     }
 
-    // Getters
+
     public int getIdEquipe() {
         return idEquipe;
     }
@@ -83,7 +83,7 @@ public class Equipe {
         return matchs;
     }
 
-    // Setters
+
     public void setIdEquipe(int idEquipe) {
         this.idEquipe = idEquipe;
     }
@@ -116,7 +116,7 @@ public class Equipe {
         this.idEntraineur = idEntraineur;
     }
 
-    // Ajouter un match à la liste
+
     public void ajouterMatch(Partie match) {
         matchs.add(match);
     }

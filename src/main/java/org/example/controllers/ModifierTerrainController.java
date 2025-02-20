@@ -71,10 +71,10 @@ public class ModifierTerrainController {
         File selectedFile = fileChooser.showOpenDialog(txtImgTerrain.getScene().getWindow());
 
         if (selectedFile != null) {
-            // ✅ Met à jour le champ texte avec le chemin absolu
+
             txtImgTerrain.setText(selectedFile.getAbsolutePath());
 
-            // ✅ Met à jour l'ImageView avec l'image sélectionnée
+
             Image image = new Image(selectedFile.toURI().toString());
             terrainImage.setImage(image);
         } else {
@@ -94,19 +94,19 @@ public class ModifierTerrainController {
         String description = desctxtfield.getText();
         String img = txtImgTerrain.getText();
 
-        // Vérifier si tous les champs sont remplis
+
         if (nom.isEmpty() || lieu.isEmpty() || description.isEmpty() || img.isEmpty()) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires !");
             return;
         }
 
-        // Vérification que le lieu commence par une majuscule
+
         if (!Character.isUpperCase(lieu.charAt(0))) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le lieu doit commencer par une majuscule !");
             return;
         }
 
-        // Vérification de la longueur du nom et de la description
+
         if (nom.length() < 3) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le nom doit comporter au moins 3 caractères.");
             return;
@@ -125,11 +125,11 @@ public class ModifierTerrainController {
         try {
             serviceTerrain.modifier_t(terrainSelectionne);
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Terrain modifié avec succès !");
-            fermerFenetre(); // Fermer la fenêtre de modification
+
             if (homeAfficheTerrainController != null) {
                 homeAfficheTerrainController.rafraichirAffichage();
             }
-            // Rafraîchir l'affichage
+
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de modifier le terrain : " + e.getMessage());
         }
@@ -162,16 +162,16 @@ public class ModifierTerrainController {
     @FXML
     private void handleReturnButtonClick(ActionEvent event) {
         try {
-            // Charger la nouvelle scène pour homeAffiche.fxml
+
             Parent homePage = FXMLLoader.load(getClass().getResource("/view/homeAffiche.fxml"));
             Scene homeScene = new Scene(homePage);
 
-            // Obtenir le stage actuel et définir la nouvelle scène
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(homeScene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+            e.printStackTrace();
         }
     }
 

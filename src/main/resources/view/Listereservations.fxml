@@ -40,7 +40,7 @@
                  </ImageView>
              </graphic>
          </Button>
-        <Button fx:id="btnmodifierreservation" alignment="CENTER" contentDisplay="TOP" layoutX="27.0" layoutY="780.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"  prefHeight="50.0" prefWidth="52.0" styleClass="btnmodifier" stylesheets="@../styles/style.css" onAction="#handleModifierButtonClick">
+        <Button fx:id="btnmodifierreservation" alignment="CENTER" contentDisplay="TOP" layoutX="94.0" layoutY="715.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleModifierButtonClick" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
             <graphic>
                 <ImageView fx:id="btnmodifierreservation1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
                     <image>

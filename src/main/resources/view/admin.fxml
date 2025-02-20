@@ -9,11 +9,12 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane stylesheets="/styles/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="org.example.controllers.AdminController">
+<BorderPane stylesheets="/styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AdminController">
     <left>
         <VBox alignment="CENTER" spacing="10.0" styleClass="sidebar">
-            <Button styleClass="sidebar-button" text="Edit Profil" />
-            <Button fx:id="btnDhashB" onAction="#versDash" styleClass="sidebar-button" text="Admin Dashboard" />
+            <Button styleClass="add_team" stylesheets="@../styles/style.css"  text="Edit Profil" />
+            <Button fx:id="btnDhashB" styleClass="add_team" stylesheets="@../styles/style.css"  onAction="#versDash"  text="Admin Dashboard" />
+         <Button fx:id="btnversgestion" layoutX="10.0" layoutY="164.0" onAction="#versGestions" styleClass="add_team" stylesheets="@../styles/style.css"   text="Vers les gestions" />
         </VBox>
     </left>
     <center>

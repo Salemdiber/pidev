@@ -32,15 +32,14 @@ public class SupprimerTerrainController {
 
     @FXML
     public void initialize() {
-        // Initialiser les colonnes du tableau
+
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         colLieu.setCellValueFactory(new PropertyValueFactory<>("lieu"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-        // Charger les données au démarrage
         rafraichirAffichage();
 
-        // Action du bouton supprimer
+
         btnSupprimer.setOnAction(event -> supprimerTerrain());
     }
 

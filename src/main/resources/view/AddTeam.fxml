@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="addteampane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="987.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AddTeamController">
+<Pane fx:id="addteampane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AddTeamController">
    <children>
       <AnchorPane prefHeight="100.0" prefWidth="258.0">
          <children>
@@ -27,32 +27,33 @@
       </AnchorPane>
 
       <!-- Labels et Champs -->
-      <Label layoutX="117.0" layoutY="196.0" style="-fx-font-size: 21px; -fx-font-weight: bold;" text="NAME:" />
-      <TextField fx:id="nametxtfield" layoutX="258.0" layoutY="196.0" prefHeight="31.0" prefWidth="277.0" promptText="Type your name" />
-      <Label fx:id="errorNom" layoutX="550.0" layoutY="200.0" style="-fx-text-fill: red;" text="" />
+      <Label layoutX="508.0" layoutY="345.0" style="-fx-font-size: 21px; -fx-font-weight: bold;" text="NAME:" />
+      <TextField fx:id="nametxtfield" layoutX="649.0" layoutY="345.0" prefHeight="31.0" prefWidth="277.0" promptText="Type your name" />
+      <Label fx:id="errorNom" layoutX="940.0" layoutY="345.0" style="-fx-text-fill: red;" text="" />
 
-      <Label layoutX="117.0" layoutY="236.0" style="-fx-font-size: 21px; -fx-font-weight: bold;" text="CLASSEMENT:" />
-      <TextField fx:id="classementtxtfield" layoutX="258.0" layoutY="236.0" prefHeight="31.0" prefWidth="277.0" promptText="Type your classement" />
-      <Label fx:id="errorClassement" layoutX="550.0" layoutY="240.0" style="-fx-text-fill: red;" text="" />
+      <Label layoutX="508.0" layoutY="385.0" style="-fx-font-size: 21px; -fx-font-weight: bold;" text="CLASSEMENT:" />
+      <TextField fx:id="classementtxtfield" layoutX="649.0" layoutY="385.0" prefHeight="31.0" prefWidth="277.0" promptText="Type your classement" />
+      <Label fx:id="errorClassement" layoutX="940.0" layoutY="385.0" style="-fx-text-fill: red;" text="" />
 
-      <Label layoutX="116.0" layoutY="278.0" style="-fx-font-size: 21px; -fx-font-weight: bold;" text="IMAGE:" />
-      <Button fx:id="chooseimagebtn" layoutX="258.0" layoutY="274.0" prefHeight="31.0" prefWidth="277.0" text="Choose Image" />
-      <Label fx:id="errorImage" layoutX="550.0" layoutY="280.0" style="-fx-text-fill: red;" text="" />
+      <Label layoutX="507.0" layoutY="427.0" style="-fx-font-size: 21px; -fx-font-weight: bold;" text="IMAGE:" />
+      <Button fx:id="chooseimagebtn" styleClass="add_team" stylesheets="@../styles/style.css"   layoutX="649.0" layoutY="423.0" prefHeight="31.0" prefWidth="277.0" text="Choose Image" />
+      <Label fx:id="errorImage" layoutX="940.0" layoutY="423.0" style="-fx-text-fill: red;" text="" />
 
-      <ImageView fx:id="teamImage" fitHeight="121.0" fitWidth="174.0" layoutX="310.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="teamImage" fitHeight="121.0" fitWidth="174.0" layoutX="701.0" layoutY="458.0" pickOnBounds="true" preserveRatio="true" />
 
-      <Label layoutX="115.0" layoutY="434.0" style="-fx-font-size: 21px; -fx-font-weight: bold;" text="DESCRIPTION:" />
-      <TextField fx:id="desctxtfield" layoutX="258.0" layoutY="434.0" prefHeight="31.0" prefWidth="277.0" promptText="Type your Team's description" />
-      <Label fx:id="errorDescription" layoutX="550.0" layoutY="438.0" style="-fx-text-fill: red;" text="" />
+      <Label layoutX="506.0" layoutY="583.0" style="-fx-font-size: 21px; -fx-font-weight: bold;" text="DESCRIPTION:" />
+      <TextField fx:id="desctxtfield" layoutX="649.0" layoutY="583.0" prefHeight="31.0" prefWidth="277.0" promptText="Type your Team's description" />
+      <Label fx:id="errorDescription" layoutX="940.0" layoutY="583.0" style="-fx-text-fill: red;" text="" />
 
-      <Label layoutX="115.0" layoutY="476.0" style="-fx-font-size: 21px; -fx-font-weight: bold;" text="POINTS:" />
-      <TextField fx:id="ptstxtfield" layoutX="258.0" layoutY="476.0" prefHeight="31.0" prefWidth="277.0" promptText="Type Team's points" />
-      <Label fx:id="errorPoints" layoutX="550.0" layoutY="480.0" style="-fx-text-fill: red;" text="" />
+      <Label layoutX="506.0" layoutY="625.0" style="-fx-font-size: 21px; -fx-font-weight: bold;" text="POINTS:" />
+      <TextField fx:id="ptstxtfield" layoutX="649.0" layoutY="625.0" prefHeight="31.0" prefWidth="277.0" promptText="Type Team's points" />
+      <Label fx:id="errorPoints" layoutX="940.0" layoutY="625.0" style="-fx-text-fill: red;" text="" />
+
 
       <!-- Boutons -->
-      <Button fx:id="addteambtn" layoutX="637.0" layoutY="523.0" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Add Team" />
-      <Button fx:id="quitAteambtn" layoutX="637.0" layoutY="576.0" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Quit" />
+      <Button fx:id="addteambtn" layoutX="1028.0" layoutY="672.0" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Add Team" />
+      <Button fx:id="quitAteambtn" layoutX="1028.0" layoutY="725.0" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Quit" />
 
-      <Label layoutX="174.0" layoutY="100.0" prefHeight="62.0" prefWidth="446.0" style="-fx-font-size: 19px; -fx-font-weight: bold;" text="Add your team now and enjoy your experience !" />
+      <Label layoutX="565.0" layoutY="249.0" prefHeight="62.0" prefWidth="446.0" style="-fx-font-size: 19px; -fx-font-weight: bold;" text="Add your team now and enjoy your experience !" />
    </children>
 </Pane>

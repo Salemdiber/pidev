@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.example.entities.SessionManager;
 import org.example.entities.Terrain;
 import org.example.services.ServiceTerrain;
 
@@ -24,23 +25,21 @@ import java.util.Optional;
 
 public class HomeAfficheTerrainController {
 
-    public AnchorPane demandeJoinWBContainer;
-    public HBox notifCount;
-    public ScrollPane coursesScrollPane;
-    public Circle profilImgContainer;
-    public Circle demandeJoinWBImg;
-    public Label courseWBJTitle;
 
-    // Déclaration des éléments FXML
+
+
     @FXML
-    private ListView<Terrain> listViewTerrains; // Remplace TableView par ListView
+    private ListView<Terrain> listViewTerrains;
 
     @FXML
     private Button btnsupprimer;
     @FXML
     private Button btnmodifier;
+
     @FXML
-    private Button forumBtn;
+    private Button eventbtn;
+    @FXML
+    private Button btnajouter;
     @FXML
     private Button btnreserver1;
 
@@ -54,20 +53,33 @@ public class HomeAfficheTerrainController {
         }
         listViewTerrains.setCellFactory(param -> new TerrainListCellController());
 
-        // Charger les données
+
         chargerTerrains();
 
 
-        btnsupprimer.setOnAction(event -> supprimerTerrain());
+
 
         listViewTerrains.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) { // Vérifiez si c'est un double-clic
+            if (event.getClickCount() == 2) {
                 Terrain selectedTerrain = listViewTerrains.getSelectionModel().getSelectedItem();
                 if (selectedTerrain != null) {
                     openTerrainDetail(selectedTerrain, new ActionEvent(event.getSource(), null));
                 }
             }
         });
+
+
+
+        String role = SessionManager.getInstance().getUserRole();
+        System.out.println("User Role: " + role);
+        if ("Admin".equals(role)) {
+            btnajouter.setDisable(false);
+            btnreserver1.setDisable(false);
+        } else {
+            btnajouter.setDisable(true);
+            btnreserver1.setDisable(true);
+        }
+
 
     }
 
@@ -94,11 +106,6 @@ public class HomeAfficheTerrainController {
         }
     }
 
-
-
-
-
-
     private void chargerTerrains() {
         try {
             List<Terrain> terrains = serviceTerrain.afficher_t();
@@ -123,9 +130,7 @@ public class HomeAfficheTerrainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddTerrain.fxml"));
             Parent root = loader.load();
 
-            // Créer une nouvelle fenêtre pour AjouterTerrain
 
-            // Ajouter un écouteur pour détecter la fermeture de la fenêtre et rafraîchir la ListView
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -173,7 +178,7 @@ public class HomeAfficheTerrainController {
     }
 
     public void ouvrirFenetreModification(ActionEvent event) {
-        if (listViewTerrains == null) { // Vérifie si l'élément est bien chargé
+        if (listViewTerrains == null) {
             System.out.println("❌ ERREUR : listViewTerrains n'est pas initialisé !");
             return;
         }
@@ -188,11 +193,11 @@ public class HomeAfficheTerrainController {
             Parent root = loader.load();
 
             ModifierTerrainController controller = loader.getController();
-            controller.setTerrain(terrain);  // Passer le terrain sélectionné
+            controller.setTerrain(terrain);
             controller.setHomeAfficheTerrainController(this);
 
 
-            // Si vous souhaitez changer la scène de la fenêtre actuelle
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
              stage.show();
@@ -203,27 +208,8 @@ public class HomeAfficheTerrainController {
         }
     }
 
-
-/*
-    @FXML
-    private void handleAfficherReservations() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Listereservations.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Liste des Réservations");
-            stage.setScene(new Scene(root));
-            stage.show();
-            stage.setMaximized(true);
-            stage.setResizable(false);
-        } catch (IOException e) {
-            e.printStackTrace();
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la fenêtre des réservations : " + e.getMessage());
-        }
-    }  */
 @FXML
-private void handleAfficherReservations(ActionEvent event)throws IOException {
+private void handleAfficherReservations(ActionEvent event) {
     try {
         Parent reservationsPage = FXMLLoader.load(getClass().getResource("/view/Listereservations.fxml"));
         Scene scene = new Scene(reservationsPage);
@@ -236,23 +222,7 @@ private void handleAfficherReservations(ActionEvent event)throws IOException {
     }
 }
 
-    /*  @FXML
-    private void handleOuvrirForum() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AfficherPub.fxml"));
-            Parent root = loader.load();
 
-            Stage stage = new Stage();
-            stage.setTitle("Forum des Publications");
-            stage.setScene(new Scene(root));
-            stage.setMaximized(true); // Ouvre en plein écran
-            stage.setResizable(false); // Empêche le redimensionnement
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page du forum : " + e.getMessage());
-        }
-    }*/
     @FXML
     private void handleOuvrirForum(ActionEvent event) throws IOException {
         Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/AfficherPub.fxml"));
@@ -280,6 +250,30 @@ private void handleAfficherReservations(ActionEvent event)throws IOException {
     @FXML
     private void handleOuvrirEvent(ActionEvent event) throws IOException {
         Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/AfficherEvent.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleLogout(ActionEvent event) {
+        SessionManager.getInstance().logout();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Connexion");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page de connexion : " + e.getMessage());
+        }
+    }
+    @FXML
+    private void handleHome(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/HomePage.fxml"));
         Scene scene = new Scene(trajetPage);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);

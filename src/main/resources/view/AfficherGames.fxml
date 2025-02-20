@@ -18,7 +18,7 @@
     </AnchorPane>
    <ListView fx:id="gameList" layoutX="207.0" layoutY="141.0" prefHeight="424.0" prefWidth="749.0" />
       <Label layoutX="350.0" layoutY="54.0" style="-fx-font-size: 50; -fx-font-weight: bold;" styleClass="title_page" stylesheets="@../styles/style.css" text="Historique Des Jeux" />
-   <Button fx:id="back" layoutX="207.0" layoutY="592.0" mnemonicParsing="false" onAction="#backPage" prefHeight="37.0" prefWidth="75.0" text="Back" />
+
    <Button fx:id="btnreturn" alignment="CENTER" contentDisplay="TOP" layoutX="24.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleReturnButtonClick" prefHeight="50.0" prefWidth="52.0" styleClass="btnreturn" stylesheets="@../styles/style.css">
       <graphic>
          <ImageView fx:id="returnbtn" fitHeight="64.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">

@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.example.entities.Equipe;
+import org.example.entities.SessionManager;
 import org.example.services.ServiceEquipe;
 
 import java.io.File;
@@ -47,16 +48,21 @@ public class DetailTeamController
 
     @javafx.fxml.FXML
     public void initialize() {
+        String role = SessionManager.getInstance().getUserRole();
+        if (!"Admin".equals(role)) {
+            deleteteambtn.setDisable(true);
+            updteambtn.setDisable(true);
+        }
     }
     public void setTeams(Equipe equipe) {
-        this.selectedEquipe = equipe; // Stocker l'équipe
+        this.selectedEquipe = equipe;
         if (equipe != null) {
             namelabel.setText(equipe.getNom());
             classementlabel.setText(String.valueOf(equipe.getClassement()));
             descriptionlabel.setText(equipe.getDescription());
             pointslabel.setText(String.valueOf(equipe.getPoints()));
 
-            // Charger l'image
+
             String imagePath = equipe.getImage();
             if (imagePath != null && !imagePath.isEmpty()) {
                 File file = new File(imagePath);
@@ -79,7 +85,7 @@ public class DetailTeamController
 
 
     private void setDefaultImage() {
-        // Remplacez "default.jpg" par un chemin valide d'image par défaut
+
         String defaultImagePath = "file:src/assets/default.jpg";
         imagelabel.setImage(new Image(defaultImagePath));
     }
@@ -92,13 +98,13 @@ public class DetailTeamController
 
             UpdateTeamController updateController = loader.getController();
             updateController.setTeamData(selectedEquipe);
-            updateController.setDetailTeamController(this);  // Pass reference to DetailTeamController
+            updateController.setDetailTeamController(this);
 
             Stage stage = new Stage();
             stage.setTitle("Update Team");
             stage.setScene(new Scene(root));
 
-            // ✅ Listen for window close and refresh team details
+
             stage.setOnHidden(event -> setTeams(selectedEquipe));
             stage.show();
         } catch (IOException e) {
@@ -109,12 +115,12 @@ public class DetailTeamController
     @FXML
     public void deleteTeam(ActionEvent event) throws SQLException {
         if (selectedEquipe != null) {
-            // Appeler le service de suppression (à implémenter selon ton architecture)
-            ServiceEquipe serviceEquipe = new ServiceEquipe(); // Assure-toi d’avoir un service pour gérer les équipes
+
+            ServiceEquipe serviceEquipe = new ServiceEquipe();
             serviceEquipe.supprimer_t(selectedEquipe.getIdEquipe());
-                // Fermer la fenêtre actuelle
+
                 Stage stage = (Stage) deleteteambtn.getScene().getWindow();
-                //System.err.println("Erreur lors de la suppression de l'équipe.")
+
                 stage.close();
 
 

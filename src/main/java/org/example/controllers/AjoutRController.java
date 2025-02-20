@@ -41,14 +41,14 @@ public class AjoutRController {
     @FXML
     private void initialize() {
         submitButton.setOnAction(event -> ajouterReclammation());
-        quit.setOnAction(event -> quitRec(new ActionEvent())); // Simule un ActionEvent
+        quit.setOnAction(event -> quitRec(new ActionEvent()));
     }
 
     @FXML
     public void ajouterReclammation() {
         String sujet = sujetField.getText().trim();
         String description = descriptionField.getText().trim();
-        int idUser = 5; // Remplacez ceci par l'ID de l'utilisateur connecté
+        int idUser = 5;
 
         if (sujet.isEmpty() || description.isEmpty()) {
             statusMessage.setText("Veuillez remplir tous les champs.");
@@ -82,5 +82,6 @@ public class AjoutRController {
 
         stage.close();
     }
+
 
 }

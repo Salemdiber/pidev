@@ -59,7 +59,7 @@ public class ServiceEvent implements IService<Event> {
         ResultSet rs = statement.executeQuery(sql);
 
         while (rs.next()) {
-            int idEvent = rs.getInt("id_event");  // Vérifie bien que tu prends id_event
+            int idEvent = rs.getInt("id_event");
             String nom = rs.getString("nom");
             String image = rs.getString("image");
             String descEvent = rs.getString("desc_event");
@@ -116,7 +116,7 @@ public class ServiceEvent implements IService<Event> {
     }
 
     public void participer(int idUser, int idEvent) throws SQLException {
-        // Vérifier si l'utilisateur existe
+
         String checkUserSql = "SELECT COUNT(*) FROM user WHERE id_user = ?";
         PreparedStatement checkUserStmt = this.connection.prepareStatement(checkUserSql);
         checkUserStmt.setInt(1, idUser);
@@ -126,7 +126,7 @@ public class ServiceEvent implements IService<Event> {
             throw new SQLException("Erreur : L'utilisateur avec id_user = " + idUser + " n'existe pas !");
         }
 
-        // Vérifier si l'événement existe
+
         String checkEventSql = "SELECT COUNT(*) FROM event WHERE id_event = ?";
         PreparedStatement checkEventStmt = this.connection.prepareStatement(checkEventSql);
         checkEventStmt.setInt(1, idEvent);
@@ -136,7 +136,7 @@ public class ServiceEvent implements IService<Event> {
             throw new SQLException("Erreur : L'événement avec id_event = " + idEvent + " n'existe pas !");
         }
 
-        // Insérer la participation
+
         String sql = "INSERT INTO participant (id_user, id_event) VALUES (?, ?)";
         PreparedStatement statement = this.connection.prepareStatement(sql);
         statement.setInt(1, idUser);
@@ -147,7 +147,7 @@ public class ServiceEvent implements IService<Event> {
 
     public Event getEventById(int idEvent) {
         Event event = null;
-        String query = "SELECT * FROM event WHERE id_event = ?";  // Requête pour récupérer le terrain par ID
+        String query = "SELECT * FROM event WHERE id_event = ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -176,7 +176,7 @@ public class ServiceEvent implements IService<Event> {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int id_part = rs.getInt("id_part");  // Vérification que 'id_part' est bien récupéré
+                int id_part = rs.getInt("id_part");
                 int id_user = rs.getInt("id_user");
                 int id_event_fetched = rs.getInt("id_event");
 

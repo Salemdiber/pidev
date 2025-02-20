@@ -55,6 +55,18 @@ public class ServiceParticipant implements IService<Participant> {
         }
         return participants;
     }
+    public boolean aDejaParticipe(int idUser ) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM participant WHERE id_user = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, idUser );
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            int count = resultSet.getInt(1);
+            return count > 0;
+        }
+        return false;
+    }
 
     @Override
     public int modifier(Participant participant, int id) throws SQLException {
@@ -107,7 +119,7 @@ public class ServiceParticipant implements IService<Participant> {
             String prenom = resultSet.getString("prenom");
             return nom + " " + prenom;
         }
-        return "Utilisateur inconnu"; // Si l'ID n'existe pas
+        return "Utilisateur inconnu";
     }
 }
 

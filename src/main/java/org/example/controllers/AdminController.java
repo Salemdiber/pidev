@@ -1,4 +1,5 @@
 package org.example.controllers;
+import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,9 +8,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import org.example.utils.MyDataBase;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Objects;
+
 
 public class AdminController {
 
@@ -34,13 +39,26 @@ public class AdminController {
 
     public void versDash(ActionEvent event) {
         try {
-            // Load the admin dashboard FXML file
+
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/adminDashboard.fxml")));
             Scene scene = ((Node) event.getSource()).getScene();
             scene.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
-            // Optionally, show a user-friendly message or handle the error here
+
         }
     }
+    public void versGestions(ActionEvent event) {
+        try {
+
+            Connection connection = MyDataBase.getInstance().getConnection();
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/HomePage.fxml")));
+            Scene scene = ((Node) event.getSource()).getScene();
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
 }

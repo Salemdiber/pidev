@@ -27,14 +27,14 @@ public class ServiceCommentaire implements IService<Commentaire> {
 
     @Override
     public void modifier_t(Commentaire commentaire) throws SQLException {
-        // Requête corrigée sans les backticks
+
         String sql = "UPDATE commentaire SET id_pub = ?, desc_com = ?, id_user = ? WHERE id_com = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(1, commentaire.getIdPub());     // Paramètre 1 : id_pub
-            ps.setString(2, commentaire.getDesc());   // Paramètre 2 : desc_com
-            ps.setInt(3, commentaire.getIdUser());    // Paramètre 3 : id_user
-            ps.setInt(4, commentaire.getId());        // Paramètre 4 : id_com (ID du commentaire à modifier)
-            ps.executeUpdate(); // Exécuter la mise à jour
+            ps.setInt(1, commentaire.getIdPub());
+            ps.setString(2, commentaire.getDesc());
+            ps.setInt(3, commentaire.getIdUser());
+            ps.setInt(4, commentaire.getId());
+            ps.executeUpdate();
         }
     }
 

@@ -22,8 +22,6 @@ public class ModifierComController {
     private TextField descComField;
     @FXML
     private Button btnModifier;
-    @FXML
-    private Button btnAnnuler;
 
     private Commentaire commentaireSelectionne;
     private final ServiceCommentaire serviceCommentaire = new ServiceCommentaire();
@@ -44,7 +42,7 @@ public class ModifierComController {
     @FXML
     public void initialize() {
         btnModifier.setOnAction(event -> modifierCommentaire());
-        btnAnnuler.setOnAction(event -> fermerFenetre());
+
     }
 
     @FXML
@@ -73,11 +71,11 @@ public class ModifierComController {
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Commentaire modifié avec succès !");
 
             if (detailsComController != null) {
-                detailsComController.setCommentaire(commentaireSelectionne); // Correct method call on an instance
+                detailsComController.setCommentaire(commentaireSelectionne);
             }
 
 
-            fermerFenetre();
+
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de modifier le commentaire : " + e.getMessage());
         }
@@ -99,16 +97,28 @@ public class ModifierComController {
     @FXML
     private void handleReturnButtonClick(ActionEvent event) {
         try {
-            // Charger la nouvelle scène pour homeAffiche.fxml
-            Parent homePage = FXMLLoader.load(getClass().getResource("/view/homeAffiche.fxml"));
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DetailsCom.fxml"));
+            Parent homePage = loader.load();
+
+
+            DetailsComController detailsComController = loader.getController();
+
+
+            if (detailsComController != null && commentaireSelectionne != null) {
+                detailsComController.setCommentaire(commentaireSelectionne);
+            }
+
+
             Scene homeScene = new Scene(homePage);
 
-            // Obtenir le stage actuel et définir la nouvelle scène
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(homeScene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+            e.printStackTrace();
         }
     }
+
 }

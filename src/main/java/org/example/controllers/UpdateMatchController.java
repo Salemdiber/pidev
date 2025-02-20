@@ -33,10 +33,11 @@ public class UpdateMatchController {
     @FXML
     private ComboBox<String> updplacecombobox;
     @FXML
-    private ComboBox<TypeMatch> updtypecombobox; // Type sécurisé avec TypeMatch
+    private ComboBox<TypeMatch> updtypecombobox;
+    @FXML
+    private Label errorType, errorResult, errorTeam1, errorTeam2;
 
 
-    //private Partie currentPartie;
     private Partie selectedPartie;
     private DetailsMatchController detailsMatchController;
     private TeamhomePController TeamhomePController;
@@ -58,9 +59,8 @@ public class UpdateMatchController {
 
             updtypecombobox.setValue(partie.getType());
             updresultxtfield.setText(partie.getResultat());
-            updplacecombobox.setValue(partie.getLieu());
 
-            // Assurez-vous que les équipes existent bien dans la liste avant de les sélectionner
+
             updcbteam1.setValue(partie.getEquipes().get(0).getNom());
             updcbteam2.setValue(partie.getEquipes().get(1).getNom());
             oldEq1ID = partie.getEquipes().get(0).getIdEquipe();
@@ -69,45 +69,79 @@ public class UpdateMatchController {
     }
 
     private void modifierMatch() {
-        if (selectedPartie == null) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Aucune partie sélectionnée !");
-            return;
+
+        errorType.setText("");
+        errorResult.setText("");
+        errorTeam1.setText("");
+        errorTeam2.setText("");
+
+        boolean isValid = true;
+
+
+        TypeMatch type = updtypecombobox.getValue();
+        String resultat = updresultxtfield.getText();
+        String team1Name = updcbteam1.getValue();
+        String team2Name = updcbteam2.getValue();
+
+
+        if (type == null) {
+            errorType.setText("Le type est requis !");
+            isValid = false;
+        }
+        if (resultat.isEmpty()) {
+            errorResult.setText("Le resultat est requis !");
+            isValid = false;
+        } else if (!resultat.matches("\\d+:\\d+")) {
+            errorResult.setText("Le format du résultat est invalide (ex: 1:0) !");
+            isValid = false;
+        }
+        if (team1Name == null) {
+            errorTeam1.setText("Le nom d'equipe 1 est requis !");
+            isValid = false;
+        }
+        if (team2Name == null) {
+            errorTeam2.setText("Le nom d'equipe 2 est requis !");
+            isValid = false;
+        }
+        if (team1Name != null && team2Name != null && team1Name.equals(team2Name)) {
+            errorTeam2.setText("* Les équipes doivent être différentes");
+            isValid = false;
         }
 
-        // Vérification des champs obligatoires
+        if (!isValid) return;
+
+
         if (updtypecombobox.getValue() == null || updresultxtfield.getText().isEmpty() ||
-                updplacecombobox.getValue() == null ||
                 updcbteam1.getValue() == null || updcbteam2.getValue() == null) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Tous les champs sont obligatoires !");
             return;
         }
 
-        // Mise à jour des données
+
         selectedPartie.setType(updtypecombobox.getValue());
         selectedPartie.setResultat(updresultxtfield.getText());
-        selectedPartie.setLieu(updplacecombobox.getValue());
 
-        // Ajout des équipes
+
         try {
             ServiceMatch serviceMatch = new ServiceMatch();
             serviceMatch.modifier_t(selectedPartie);
             serviceMatch.modifierPartieEquipes(selectedPartie.getIdMatch(), oldEq1ID , equipesList.stream().filter(p-> p.getNom().equals(updcbteam1.getValue()) ).map(Equipe::getIdEquipe).findFirst().get(),oldEq2ID, equipesList.stream().filter(p-> p.getNom().equals(updcbteam2.getValue()) ).map(Equipe::getIdEquipe).findFirst().get() );
-//          serviceMatch.modifierPartieEquipe(selectedPartie.getIdMatch(), oldEq2ID, equipesList.stream().filter(p-> p.getNom().equals(updcbteam2.getValue()) ).map(Equipe::getIdEquipe).findFirst().get());
+
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Match modifié avec succès !");
 
-            // ✅ Rafraîchir les détails du match
+
             if (detailsMatchController != null) {
                 detailsMatchController.setMatch(selectedPartie);
             } else {
                 System.out.println("❌ `detailsMatchController` est NULL");
             }
 
-            // ✅ Rafraîchir la liste des matchs
+
             if (TeamhomePController != null)
                 TeamhomePController.rafraichirAffichage();
 
 
-            // ✅ Fermer la fenêtre
+
             fermerFenetre();
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de modifier le match : " + e.getMessage());

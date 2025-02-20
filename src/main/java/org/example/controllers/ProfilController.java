@@ -64,11 +64,11 @@ public class ProfilController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/update_password.fxml"));
         Parent root = loader.load();
 
-        // Get the controller and set the current user
+
         UpdatePasswordController controller = loader.getController();
         controller.setUserDetails(currentUser);
 
-        // Set the new scene
+
         Scene scene = ((Node) event.getSource()).getScene();
         scene.setRoot(root);
     }
@@ -88,14 +88,14 @@ public class ProfilController {
                     boolean deleted = serviceUser.supprimeru(currentUser.getIdUser());
 
                     if (deleted) {
-                        // Success alert
+
                         Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
                         infoAlert.setTitle("Suppression réussie");
                         infoAlert.setHeaderText(null);
                         infoAlert.setContentText("Votre compte a été supprimé avec succès !");
                         infoAlert.showAndWait();
 
-                        // Navigate to the login screen
+
                         goToLogin(actionEvent);
                     } else {
                         showErrorAlert("Erreur lors de la suppression du compte", "Une erreur est survenue. Veuillez réessayer.");
@@ -122,7 +122,7 @@ public class ProfilController {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/login.fxml")));
             Scene scene = new Scene(root);
-            ((Node) event.getSource()).getScene().getWindow().hide(); // Close the current window
+            ((Node) event.getSource()).getScene().getWindow().hide();
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.show();
@@ -136,5 +136,80 @@ public class ProfilController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/reclammationHome.fxml")));
         Scene scene = ((Node) event.getSource()).getScene();
         scene.setRoot(root);
+    }
+
+    @FXML
+    private void handleOuvrirTerrain(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/HomeAffiche.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirForum(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/AfficherPub.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirGame(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/gameHome.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirTeam(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/team_home1.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirEvent(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/AfficherEvent.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleOuvrirHome(ActionEvent event) throws IOException {
+        Parent trajetPage = FXMLLoader.load(getClass().getResource("/view/HomePage.fxml"));
+        Scene scene = new Scene(trajetPage);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void handleLogout(ActionEvent event) {
+
+        SessionManager.getInstance().logout();
+
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Connexion");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page de connexion : " + e.getMessage());
+        }
+    }
+    private static void afficherAlerte(Alert.AlertType type, String titre, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

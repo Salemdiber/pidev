@@ -18,4 +18,13 @@ public class SessionManager {
     public static User getCurrentUser() {
         return currentUser;
     }
+    public String getUserRole() {
+        return currentUser != null ? currentUser.getRole() : null;
+    }
+
+    public void logout() {
+        currentUser = null;
+    }
+
 }
+

@@ -39,15 +39,14 @@ public class SupprimerReservationController  {
 
     @FXML
     public void initialize() {
-        // Initialiser les colonnes du tableau
         colDateRes.setCellValueFactory(new PropertyValueFactory<>("date reservation"));
         colIduser.setCellValueFactory(new PropertyValueFactory<>("id user"));
         colIdterrain.setCellValueFactory(new PropertyValueFactory<>("id terrain"));
 
-        // Charger les données au démarrage
+
         rafraichirAffichage();
 
-        // Action du bouton supprimer
+
         btnsupprimerreservation.setOnAction(event -> supprimerReservation());
     }
 

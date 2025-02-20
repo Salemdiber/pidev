@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.example.entities.Partie;
+import org.example.entities.SessionManager;
 import org.example.services.ServiceEquipe;
 import org.example.services.ServiceMatch;
 
@@ -51,15 +52,20 @@ public class DetailsMatchController
 
     @javafx.fxml.FXML
     public void initialize() {
+        String role = SessionManager.getInstance().getUserRole();
+        if (!"Admin".equals(role)) {
+            Updmatchbtn.setDisable(true);
+            Deletematchbtn.setDisable(true);
+        }
+
 
     }
 
     public void setMatch(Partie partie) {
-        this.selectedPartie = partie; // Stocker l'équipe
+        this.selectedPartie = partie;
         if (partie != null) {
             typelabel.setText(String.valueOf(partie.getType()));
             resultlabel.setText(String.valueOf(partie.getResultat()));
-            placelabel.setText(String.valueOf(partie.getLieu()));
 
         }
         ServiceMatch serviceMatch = new ServiceMatch();
@@ -83,13 +89,13 @@ public class DetailsMatchController
 
             UpdateMatchController updateController = loader.getController();
             updateController.setMatchData(selectedPartie);
-            updateController.setDetailsMatchController(this);  // Pass reference to DetailTeamController
+            updateController.setDetailsMatchController(this);
 
             Stage stage = new Stage();
             stage.setTitle("Update Team");
             stage.setScene(new Scene(root));
 
-            // ✅ Listen for window close and refresh team details
+
             stage.setOnHidden(event -> setMatch(selectedPartie));
             stage.show();
         } catch (IOException e) {
@@ -100,12 +106,12 @@ public class DetailsMatchController
     @FXML
     public void deleteMatch(ActionEvent event) throws SQLException {
         if (selectedPartie != null) {
-            // Appeler le service de suppression (à implémenter selon ton architecture)
-            ServiceMatch serviceMatch = new ServiceMatch(); // Assure-toi d’avoir un service pour gérer les équipes
+
+            ServiceMatch serviceMatch = new ServiceMatch();
             serviceMatch.supprimer_t(selectedPartie.getIdMatch());
-            // Fermer la fenêtre actuelle
+
             Stage stage = (Stage) Deletematchbtn.getScene().getWindow();
-            //System.err.println("Erreur lors de la suppression de l'équipe.")
+
             stage.close();
 
 

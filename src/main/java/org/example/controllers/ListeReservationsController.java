@@ -44,10 +44,10 @@ public class ListeReservationsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        // Charger les réservations
+
         chargerReservations();
 
-        // Configurer le ListView pour afficher les réservations
+
         listViewReservations.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Reservation item, boolean empty) {
@@ -57,7 +57,13 @@ public class ListeReservationsController implements Initializable {
                     setGraphic(null);
                 } else {
                     Label dateLabel = new Label("📅 DATE RESERVATION" +item.getDate_res() );
-                    Label userLabel = new Label("👤 ID Utilisateur: " + item.getId_user());
+                    Label userLabel = null;
+                    try {
+                        userLabel = new Label("👤 Utilisateur: " + serviceReservation.getUserNameById(item.getId_user()));
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+
                     Label terrainLabel = new Label("🏟️  Terrain: " + item.getNomTerrain());
 
                     dateLabel.getStyleClass().add("reservation-label");
@@ -79,10 +85,10 @@ public class ListeReservationsController implements Initializable {
     private void chargerReservations() {
         try {
             List<Reservation> reservations = serviceReservation.afficher_t();
-            // Récupérer le nom du terrain pour chaque réservation
+
             for (Reservation reservation : reservations) {
                 String nomTerrain = serviceTerrain.getTerrainById(reservation.getId_terrain()).getNom();
-                reservation.setNomTerrain(nomTerrain);  // Mettre à jour le nom du terrain dans la réservation
+                reservation.setNomTerrain(nomTerrain);
             }
 
             ObservableList<Reservation> data = FXCollections.observableArrayList(reservations);
@@ -141,7 +147,7 @@ public class ListeReservationsController implements Initializable {
         task.setOnSucceeded(event -> listViewReservations.setItems(task.getValue()));
         task.setOnFailed(event -> afficherAlerte("Erreur SQL", "Impossible de rafraîchir l'affichage"));
 
-        new Thread(task).start(); // Run in background thread
+        new Thread(task).start();
     }
 
 
@@ -150,16 +156,15 @@ public class ListeReservationsController implements Initializable {
     @FXML
     private void handleReturnButtonClick(ActionEvent event) {
         try {
-            // Charger la nouvelle scène pour homeAffiche.fxml
+
             Parent homePage = FXMLLoader.load(getClass().getResource("/view/homeAffiche.fxml"));
             Scene homeScene = new Scene(homePage);
 
-            // Obtenir le stage actuel et définir la nouvelle scène
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(homeScene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();  // Juste un print des erreurs sans afficher une alerte
+            e.printStackTrace();
         }
     }
 
@@ -184,7 +189,7 @@ public class ListeReservationsController implements Initializable {
             stage.setScene(new Scene(root));
             stage.show();
 
-            rafraichirAffichage(); // Refresh the list after the window is closed
+            rafraichirAffichage();
         } catch (IOException e) {
             e.printStackTrace();
             afficherAlerte("Erreur", "Impossible d'ouvrir la page de modification.");

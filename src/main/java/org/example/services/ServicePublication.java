@@ -103,7 +103,7 @@ public class ServicePublication implements IService<Publication> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "Utilisateur inconnu"; // Return default name if user is not found
+        return "Utilisateur inconnu";
     }
 
     @Override
