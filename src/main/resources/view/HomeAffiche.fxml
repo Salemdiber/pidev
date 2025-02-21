@@ -165,7 +165,7 @@
             <VBox.margin>
                 <Insets top="20.0" />
             </VBox.margin>
-            <Button fx:id="logoutBtn" contentDisplay="TOP" mnemonicParsing="false"  prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="Logout">
+            <Button fx:id="logoutBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleLogout" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="Logout">
                 <graphic>
                     <ImageView fx:id="logoutBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../img/se-deconnecter.png" />

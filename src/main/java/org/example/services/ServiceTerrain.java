@@ -13,11 +13,19 @@ public class ServiceTerrain implements IService<Terrain> {
         connection = MyDataBase.getInstance().getConnection();
     }
     @Override
+
     public void ajouter_t(Terrain terrain) throws SQLException {
-        String sql = "INSERT INTO `terrain`(`nom`,`lieu`,`des`,`img`) VALUES ('"+terrain.getNom()+"','"+terrain.getLieu()+"','"+terrain.getDes()+"','"+terrain.getImg()+"')";
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(sql);
+        String sql = "INSERT INTO terrain (nom, lieu, des, img) VALUES (?, ?, ?, ?)";
+        try (Connection conn = MyDataBase.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, terrain.getNom());
+            ps.setString(2, terrain.getLieu());
+            ps.setString(3, terrain.getDes());
+            ps.setString(4, terrain.getImg());
+            ps.executeUpdate();
+        }
     }
+
 
     @Override
     public void supprimer_t(int id_terrain) throws SQLException {
@@ -43,58 +51,64 @@ ps.executeUpdate();
     public List<Terrain> afficher_t() throws SQLException {
         List<Terrain> terrains = new ArrayList<>();
         String sql = "SELECT * FROM terrain";
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery(sql);
-        while (rs.next()) {
-            terrains.add(new Terrain(rs.getInt("id_terrain"), rs.getString("nom"), rs.getString("lieu"), rs.getString("des"),rs.getString("img")));
+        try (Connection conn = MyDataBase.getInstance().getConnection();
+             Statement statement = conn.createStatement();
+             ResultSet rs = statement.executeQuery(sql)) {
+            while (rs.next()) {
+                terrains.add(new Terrain(
+                        rs.getInt("id_terrain"),
+                        rs.getString("nom"),
+                        rs.getString("lieu"),
+                        rs.getString("des"),
+                        rs.getString("img")
+                ));
+            }
         }
-
-
         return terrains;
     }
 
+
     public void reserverTerrain(int idTerrain, int idUser, String dateReservation) throws SQLException {
         String sql = "INSERT INTO reservation (date_res, id_user, id_terrain, nomTerrain) VALUES (?, ?, ?, ?)";
-
 
         Terrain terrain = getTerrainById(idTerrain);
         if (terrain == null) {
             throw new SQLException("Terrain avec ID " + idTerrain + " non trouvé.");
         }
-        String nomTerrain = terrain.getNom();
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+        try (Connection conn = MyDataBase.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, dateReservation);
             stmt.setInt(2, idUser);
             stmt.setInt(3, idTerrain);
-            stmt.setString(4, nomTerrain);
+            stmt.setString(4, terrain.getNom());
             stmt.executeUpdate();
         }
     }
 
-    public Terrain getTerrainById(int idTerrain) {
+
+    public Terrain getTerrainById(int idTerrain) throws SQLException {
         Terrain terrain = null;
         String query = "SELECT * FROM terrain WHERE id_terrain = ?";
 
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-
+        try (Connection conn = MyDataBase.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, idTerrain);
-
             try (ResultSet rs = stmt.executeQuery()) {
-
                 if (rs.next()) {
-
-                    terrain = new Terrain();
-                    terrain.setId_terrain(rs.getInt("id_terrain"));
-                    terrain.setNom(rs.getString("nom"));
-
+                    terrain = new Terrain(
+                            rs.getInt("id_terrain"),
+                            rs.getString("nom"),
+                            rs.getString("lieu"),
+                            rs.getString("des"),
+                            rs.getString("img")
+                    );
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
         return terrain;
     }
+
     public List<String> getAllTerrainNames() throws SQLException {
         List<String> terrainNames = new ArrayList<>();
         String query = "SELECT nom FROM terrain";

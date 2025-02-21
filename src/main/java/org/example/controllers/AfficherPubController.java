@@ -114,7 +114,7 @@ public class AfficherPubController {
 
 
         if (currentUser != null) {
-            // Display user's role
+
             userRoleLabel.setText("Rôle: " + currentUser.getRole());
 
 
@@ -132,7 +132,7 @@ public class AfficherPubController {
         chargerTerrains();
 
         listviewPub.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) { // Vérifiez si c'est un double-clic
+            if (event.getClickCount() == 2) {
                 Publication selectedPub = listviewPub.getSelectionModel().getSelectedItem();
                 if (selectedPub != null) {
                     openTerrainDetail(selectedPub, new ActionEvent(event.getSource(), null));
@@ -172,9 +172,10 @@ public class AfficherPubController {
             ObservableList<Publication> data = FXCollections.observableArrayList(pubs);
             listviewPub.setItems(data);
         } catch (SQLException e) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de charger les pubs : " + e.getMessage());
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de charger les publications : " + e.getMessage());
         }
     }
+
 
     private static void afficherAlerte(Alert.AlertType type, String titre, String message) {
         Alert alert = new Alert(type);
