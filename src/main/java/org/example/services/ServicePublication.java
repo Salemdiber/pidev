@@ -17,42 +17,33 @@ public class ServicePublication implements IService<Publication> {
     @Override
     public void ajouter_t(Publication publication) throws SQLException {
         String sql = "INSERT INTO publication (titre, describ, id_user) VALUES (?, ?, ?)";
-        System.out.println("SQL Query: " + sql);
 
-        try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            System.out.println("Setting parameters:");
-            System.out.println("Title: " + publication.getTitre());
+        try (Connection conn = MyDataBase.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, publication.getTitre());
-
-            System.out.println("Description: " + publication.getDescrib());
             ps.setString(2, publication.getDescrib());
-
-            System.out.println("User ID: " + publication.getIdUser());
             ps.setInt(3, publication.getIdUser());
 
-            System.out.println("Executing update...");
             int rowsAffected = ps.executeUpdate();
-            System.out.println("Update executed. Rows affected: " + rowsAffected);
 
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) {
-                    int generatedId = rs.getInt(1);
-                    publication.setIdPub(generatedId);
-                    System.out.println("Generated ID: " + generatedId);
+                    publication.setIdPub(rs.getInt(1));
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error in ajouter(): " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("Erreur dans ajouter_t: " + e.getMessage());
             throw e;
         }
-        System.out.println("Exiting ajouter()");
     }
+
 
     @Override
     public void modifier_t(Publication publication) throws SQLException {
         String sql = "UPDATE publication SET titre=?, describ=?, id_user=? WHERE id_pub=?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+        try (Connection conn = MyDataBase.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, publication.getTitre());
             ps.setString(2, publication.getDescrib());
             ps.setInt(3, publication.getIdUser());
@@ -60,6 +51,7 @@ public class ServicePublication implements IService<Publication> {
             ps.executeUpdate();
         }
     }
+
 
     @Override
     public void supprimer_t(int id) throws SQLException {
@@ -77,7 +69,8 @@ public class ServicePublication implements IService<Publication> {
                 "FROM publication p " +
                 "JOIN user u ON p.id_user = u.id_user";
 
-        try (Statement statement = connection.createStatement();
+        try (Connection conn = MyDataBase.getInstance().getConnection();
+             Statement statement = conn.createStatement();
              ResultSet rs = statement.executeQuery(sql)) {
             while (rs.next()) {
                 publications.add(new Publication(
@@ -92,19 +85,23 @@ public class ServicePublication implements IService<Publication> {
         return publications;
     }
 
+
     public String getUserNameById(int idUser) {
         String sql = "SELECT nom FROM user WHERE id_user = ?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        try (Connection conn = MyDataBase.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idUser);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getString("nom");
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("nom");
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return "Utilisateur inconnu";
     }
+
 
     @Override
     public int modifier(Publication publication, int id) throws SQLException {

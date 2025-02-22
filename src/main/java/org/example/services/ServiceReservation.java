@@ -1,6 +1,7 @@
 package org.example.services;
 
 import org.example.entities.Reservation;
+import org.example.utils.MyDB;
 import org.example.utils.MyDataBase;
 
 import java.sql.*;
@@ -21,13 +22,23 @@ public class ServiceReservation implements IService<Reservation> {
         ps.executeUpdate();
 
     }
-
     @Override
     public void supprimer_t(int id_res) throws SQLException {
-        String sql = "DELETE FROM reservation WHERE id_res = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setInt(1, id_res);
-        ps.executeUpdate();
+        try (Connection connection = MyDB.getInstance().getNewConnection()) {
+            if (connection == null || connection.isClosed() || !connection.isValid(2)) {
+                throw new SQLException("Connection is closed or invalid");
+            }
+
+            String sql = "DELETE FROM reservation WHERE id_res = ?";
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, id_res);
+                ps.executeUpdate();
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new SQLException("Cannot delete reservation: it is referenced by other records.", e);
+        } catch (SQLException e) {
+            throw new SQLException("Error deleting reservation: " + e.getMessage(), e);
+        }
     }
 
     @Override
@@ -57,18 +68,28 @@ public class ServiceReservation implements IService<Reservation> {
         }
         return reservations;
     }
-    public String getUserNameById(int idUser) throws SQLException {
-        String sql = "SELECT nom, prenom FROM user WHERE id_user = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, idUser);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                return resultSet.getString("nom") + " " + resultSet.getString("prenom");
+    public String getUserNameById(int idUser) {
+        try (Connection connection = MyDB.getInstance().getNewConnection()) {
+            if (connection == null) {
+                return "❌ Unable to connect to the database";
             }
+
+            String sql = "SELECT nom, prenom FROM user WHERE id_user = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, idUser);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        return resultSet.getString("nom") + " " + resultSet.getString("prenom");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("⚠ SQL Error: " + e.getMessage());
+            return "❌ Error fetching user name";
         }
         return "Utilisateur inconnu";
     }
+
 
 
     @Override
