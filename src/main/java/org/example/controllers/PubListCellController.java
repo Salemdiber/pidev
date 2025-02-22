@@ -46,12 +46,7 @@ public class PubListCellController extends ListCell<Publication> {
         if (empty || publication == null) {
             setGraphic(null);
         } else {
-            // Assurez-vous que 'publication.getNom()' renvoie bien le nom de l'utilisateur
-            if (publication.getNom() != null) {
-                userLabel.setText("Posté par : " + publication.getNom());
-            } else {
-                userLabel.setText("Utilisateur inconnu");
-            }
+            userLabel.setText("Posté par : " + publication.getNom());
             titreLabel.setText(publication.getTitre());
             descriptionLabel.setText(publication.getDescrib());
             setGraphic(content);
