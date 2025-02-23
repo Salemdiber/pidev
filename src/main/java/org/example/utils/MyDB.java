@@ -30,9 +30,9 @@ public class MyDB {
     private void connect() {
         try {
             con = DriverManager.getConnection(url, username, password);
-            System.out.println("✅ Connection established");
+            System.out.println(" Connection established");
         } catch (SQLException ex) {
-            System.err.println("❌ Connection failed: " + ex.getMessage());
+            System.err.println(" Connection failed: " + ex.getMessage());
         }
     }
 

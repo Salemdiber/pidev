@@ -31,6 +31,7 @@
 
             </ListView>
         </VBox>
+        <Button fx:id="btnExport" text="Exporter en Excel"  />
          <Button fx:id="btnsupprimerreservation" alignment="CENTER" contentDisplay="TOP" layoutX="27.0" layoutY="715.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#supprimerReservation" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
              <graphic>
                  <ImageView fx:id="btnsupprimerreservation1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">

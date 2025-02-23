@@ -2,6 +2,7 @@ package org.example.controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ import org.example.entities.SessionManager;
 import org.example.entities.Terrain;
 import org.example.services.ServiceTerrain;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -35,6 +37,8 @@ public class HomeAfficheTerrainController {
     private Button btnsupprimer;
     @FXML
     private Button btnmodifier;
+    @FXML
+    private TextField searchbar;
 
     @FXML
     private Button eventbtn;
@@ -42,7 +46,8 @@ public class HomeAfficheTerrainController {
     private Button btnajouter;
     @FXML
     private Button btnreserver1;
-
+    private ObservableList<Terrain> terrainList;
+    private FilteredList<Terrain> filteredList;
     private static final ServiceTerrain serviceTerrain = new ServiceTerrain();
 
     @FXML
@@ -55,8 +60,20 @@ public class HomeAfficheTerrainController {
 
 
         chargerTerrains();
+        filteredList = new FilteredList<>(terrainList, p -> true);
+        listViewTerrains.setItems(filteredList);
+        searchbar.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(terrain -> {
+                // If the search bar is empty, display all terrains
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
 
 
+                String lowerCaseFilter = newValue.toLowerCase();
+                return terrain.getNom().toLowerCase().contains(lowerCaseFilter); // Assuming Terrain has a getName() method
+            });
+        });
 
 
         listViewTerrains.setOnMouseClicked(event -> {
@@ -82,6 +99,10 @@ public class HomeAfficheTerrainController {
 
 
     }
+
+
+
+
 
     private void openTerrainDetail(Terrain selectedTerrain, ActionEvent event) {
         if (selectedTerrain == null) {
@@ -109,8 +130,9 @@ public class HomeAfficheTerrainController {
     private void chargerTerrains() {
         try {
             List<Terrain> terrains = serviceTerrain.afficher_t();
-            ObservableList<Terrain> data = FXCollections.observableArrayList(terrains);
-            listViewTerrains.setItems(data);
+            terrainList = FXCollections.observableArrayList(terrains); // Store the original list
+            filteredList = new FilteredList<>(terrainList, p -> true); // Initialize the filtered list
+            listViewTerrains.setItems(filteredList); // Set the filtered list to the ListView
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de charger les terrains : " + e.getMessage());
         }
@@ -152,62 +174,6 @@ public class HomeAfficheTerrainController {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de rafraîchir l'affichage : " + e.getMessage());
         }
     }
-
-    public void supprimerTerrain() {
-        Terrain terrainSelectionne = listViewTerrains.getSelectionModel().getSelectedItem();
-        if (terrainSelectionne == null) {
-            afficherAlerte(Alert.AlertType.WARNING, "Avertissement", "Veuillez sélectionner un terrain à supprimer.");
-            return;
-        }
-
-        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmation.setTitle("Confirmation de suppression");
-        confirmation.setHeaderText(null);
-        confirmation.setContentText("Voulez-vous vraiment supprimer ce terrain ?");
-
-        Optional<ButtonType> result = confirmation.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            try {
-                serviceTerrain.supprimer_t(terrainSelectionne.getId_terrain());
-                afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Terrain supprimé avec succès !");
-                rafraichirAffichage();
-            } catch (SQLException e) {
-                afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de supprimer le terrain : " + e.getMessage());
-            }
-        }
-    }
-
-    public void ouvrirFenetreModification(ActionEvent event) {
-        if (listViewTerrains == null) {
-            System.out.println("❌ ERREUR : listViewTerrains n'est pas initialisé !");
-            return;
-        }
-        Terrain terrain = listViewTerrains.getSelectionModel().getSelectedItem();
-        if (terrain == null) {
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Veuillez sélectionner un terrain à modifier.");
-            return;
-        }
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/UpdateTerrain.fxml"));
-            Parent root = loader.load();
-
-            ModifierTerrainController controller = loader.getController();
-            controller.setTerrain(terrain);
-            controller.setHomeAfficheTerrainController(this);
-
-
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-             stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la fenêtre de modification : " + e.getMessage());
-        }
-    }
-
 @FXML
 private void handleAfficherReservations(ActionEvent event) {
     try {

@@ -700,5 +700,45 @@ btnClearAdmin:hover,.btnAdminReports:hover,.btnCancel:hover,.btn-light:hover{
 .TMVboxHomePage{
     -fx-background-color: #D5FFDC;
 }
+.container {
+    -fx-background-color: linear-gradient(to right, #b3d0fd, #a4caf8);
+    -fx-background-radius: 50px;
+    -fx-padding: 10px;
+    -fx-alignment: center;
+}
+
+.search-container {
+    -fx-background-color: linear-gradient(to bottom, #dae8f7, #d6e5f7);
+    -fx-background-radius: 50px;
+    -fx-padding: 5px;
+    -fx-border-color: white;
+    -fx-border-radius: 50px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(79, 156, 232, 0.7), 5, 0, 3, 3);
+    -fx-max-width: 300px;
+}
+
+.input {
+    -fx-background-color: transparent;
+    -fx-text-fill: #9EBCD9;
+    -fx-font-size: 18px;
+    -fx-border-width: 0;
+    -fx-padding: 10px;
+    -fx-pref-width: 250px;
+}
+
+.input:focused {
+    -fx-background-color: linear-gradient(to bottom, #eff7ff, #d6e5f7);
+}
+
+.search-icon {
+    -fx-border-color: white;
+    -fx-border-width: 0 0 0 2px;
+    -fx-padding: 10px;
+}
+
+.search-icon:hover {
+    -fx-border-width: 0 0 0 3px;
+}
 
 
