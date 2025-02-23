@@ -1,7 +1,7 @@
 package org.example.services;
 
 import org.example.entities.MiniGame;
-import org.example.utilis.MyDataBase;
+import org.example.utils.MyDataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ public class ServiceMiniGame implements IService<MiniGame> {
     public ServiceMiniGame() {connection= MyDataBase.getInstance().getConnection();}
 
     @Override
-    public int ajouter(MiniGame miniGame) throws SQLException
+    public void ajouter_t(MiniGame miniGame) throws SQLException
     {
         String sql="INSERT INTO `minigame`(`result`, `type`, `userId`, `data`,`score`) VALUES (?,?,?,?,?)";
         PreparedStatement ps=connection.prepareStatement(sql);
@@ -21,7 +21,7 @@ public class ServiceMiniGame implements IService<MiniGame> {
         ps.setInt(3,miniGame.getUser());
         ps.setString(4,miniGame.getData());
         ps.setInt(5,miniGame.getScore());
-        return ps.executeUpdate();
+         ps.executeUpdate();
 
     }
     @Override
@@ -38,16 +38,52 @@ public class ServiceMiniGame implements IService<MiniGame> {
 
         return ps.executeUpdate();
     }
+
     @Override
-    public int supprimer(int id)throws SQLException
+    public boolean ajouteru(MiniGame miniGame) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean modifieru(MiniGame miniGame) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean supprimeru(int id) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public void ajouterEquipeAMatch(int idMatch, int idEquipe) throws SQLException {
+
+    }
+
+    @Override
+    public void supprimerEquipeDuMatch(int idMatch, int idEquipe) throws SQLException {
+
+    }
+
+    @Override
+    public List<Integer> getEquipesParMatch(int idMatch) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public List<Integer> getMatchsParEquipe(int idEquipe) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public void supprimer_t(int id)throws SQLException
     {
         String sql="DELETE FROM `minigame` WHERE `id`=?";
         PreparedStatement ps=connection.prepareStatement(sql);
         ps.setInt(1,id);
-        return ps.executeUpdate();
+         ps.executeUpdate();
     }
     @Override
-    public List<MiniGame> afficher() throws SQLException
+    public List<MiniGame> afficher_t() throws SQLException
     {
         Statement st=connection.createStatement();
         List<MiniGame> miniGames = new ArrayList<>();
@@ -90,7 +126,7 @@ public class ServiceMiniGame implements IService<MiniGame> {
         System.out.println("lastSavedGame");
         int lastGameId = -1;
         Statement st=connection.createStatement();
-        String query = "SELECT id FROM minigame ORDER BY id DESC LIMIT 1";  // Modify column and table names
+        String query = "SELECT id FROM minigame ORDER BY id DESC LIMIT 1";
         ResultSet rs = st.executeQuery(query);
         if (rs.next()) {
             System.out.println("lastSavedGame");
@@ -111,5 +147,10 @@ public class ServiceMiniGame implements IService<MiniGame> {
             data=rs.getString("data");
         }
         return data;
+    }
+
+    @Override
+    public void modifier_t(MiniGame miniGame) throws SQLException {
+
     }
 }

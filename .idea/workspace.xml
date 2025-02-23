@@ -14,6 +14,7 @@
       <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/AjouterTerrainController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/HomeAfficheTerrainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/HomePage.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ListeReservationsController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ModifierReservationController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controllers/ModifierTerrainController.java" afterDir="false" />
@@ -24,9 +25,12 @@
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Reservation.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/Terrain.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/IService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceEquipe.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceMatch.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceReservation.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/services/ServiceTerrain.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/test/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/MyDB.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/MyDataBase.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/29516027-isolé-noir-blanc-joueur-de-football-vecteur-de-prise-de-vue-illustration-removebg-preview.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/abri.png" afterDir="false" />
@@ -42,6 +46,8 @@
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/logo.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/podium.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/position.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/profile.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/img/profile1.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/realmadrid.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/recherche.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/img/se-deconnecter.png" afterDir="false" />
@@ -51,6 +57,7 @@
       <change afterPath="$PROJECT_DIR$/src/main/resources/styles/style.css" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/view/AddTerrain.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/view/HomeAffiche.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/HomePage.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/view/Listereservations.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/view/TerrainDetail.fxml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/view/UpdateReservation.fxml" afterDir="false" />
@@ -91,33 +98,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/KF7/IdeaProjects/pidev-pub",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/KF7/IdeaProjects/sportnexus/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/KF7/IdeaProjects/sportnexusTest&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/KF7/IdeaProjects/sportnexus/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\KF7\IdeaProjects\sportnexusTest\src\main\java\org\example\utils" />
+      <recent name="C:\Users\KF7\IdeaProjects\sportnexusTest\src\main\java\org\example\services" />
       <recent name="C:\Users\KF7\IdeaProjects\sportnexusTest\src\main\resources\img" />
       <recent name="C:\Users\KF7\IdeaProjects\sportnexus\src\main\resources\img" />
     </key>
@@ -175,6 +184,13 @@
       <workItem from="1739799360552" duration="72000" />
       <workItem from="1739810621748" duration="12614000" />
       <workItem from="1739866491004" duration="3243000" />
+      <workItem from="1739870188562" duration="2715000" />
+      <workItem from="1739873534265" duration="10655000" />
+      <workItem from="1739884597273" duration="4245000" />
+      <workItem from="1739903425819" duration="21703000" />
+      <workItem from="1739977364214" duration="11421000" />
+      <workItem from="1739992312660" duration="44677000" />
+      <workItem from="1740078909826" duration="66000" />
     </task>
     <servers />
   </component>

@@ -11,9 +11,6 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="987.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ModifierTerrainController">
     <AnchorPane prefHeight="100.0" prefWidth="258.0">
-        <ImageView fitHeight="97.0" fitWidth="124.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../img/ajouter-de-la-musique.png" />
-        </ImageView>
         <Label layoutX="105.0" layoutY="18.0" prefHeight="74.0" prefWidth="349.0" styleClass="title_page" stylesheets="@../styles/style.css" text="Modifier Terrain">
             <font>
                 <Font name="Century Gothic Bold" size="26.0" />
@@ -40,7 +37,7 @@
     <TextField fx:id="desctxtfield" layoutX="258.0" layoutY="277.0" prefHeight="31.0" prefWidth="277.0" promptText="ENTRER UN DESCRIPTION" />
 
     <TextField fx:id="txtImgTerrain" layoutX="258.0" layoutY="320.0" prefHeight="31.0" prefWidth="277.0" />
-    <Button fx:id="btnChoisirImage" layoutX="263.0" layoutY="374.0" prefHeight="25.0" prefWidth="277.0" text="Choisir Image" />
+    <Button fx:id="btnChoisirImage" styleClass="add_team" stylesheets="@../styles/style.css" layoutX="263.0" layoutY="374.0" prefHeight="25.0" prefWidth="277.0" text="Choisir Image" />
 
 
     <ImageView fx:id="terrainImage" fitHeight="100.0" fitWidth="150.0" layoutX="313.0" layoutY="374.0" preserveRatio="true" />
@@ -56,4 +53,13 @@
             <Font name="System Bold" size="21.0" />
         </font>
     </Label>
+    <Button fx:id="btnreturn" alignment="CENTER" contentDisplay="TOP" layoutX="24.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleReturnButtonClick" prefHeight="50.0" prefWidth="52.0" styleClass="btnreturn" stylesheets="@../styles/style.css">
+        <graphic>
+            <ImageView fx:id="returnbtn" fitHeight="64.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../img/return-104.png" />
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
 </Pane>

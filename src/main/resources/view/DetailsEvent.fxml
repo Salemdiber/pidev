@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.DetailsEventController">
+    <Pane fx:id="mainPageContainer" layoutX="15.0" layoutY="6.0" prefHeight="590.0" prefWidth="978.0" styleClass="main-content-container" stylesheets="@../styles/style.css">
+
+        <Label fx:id="nomLabelDetail" layoutX="238.0" layoutY="141.0" prefHeight="17.0" prefWidth="323.0" text="Label">
+            <font>
+                <Font name="System Bold" size="36.0" />
+            </font></Label>
+
+        <Label fx:id="lieuLabelDetail" layoutX="246.0" layoutY="202.0" prefHeight="17.0" prefWidth="323.0" text="Label">
+
+            <font>
+                <Font size="24.0" />
+            </font></Label>
+        <Label fx:id="desLabelDetail" layoutX="238.0" layoutY="314.0" prefHeight="128.0" prefWidth="275.0" text="Label">
+            <font>
+                <Font size="24.0" />
+            </font></Label>
+        <ImageView fx:id="ImageViewDetail" fitHeight="246.0" fitWidth="422.0" layoutX="530.0" layoutY="26.0" preserveRatio="true" />
+        <Label layoutX="11.0" layoutY="153.0" prefHeight="17.0" prefWidth="218.0" text="Nom Evenement:" textFill="#0c510c">
+            <font>
+                <Font name="Modern No. 20" size="29.0" />
+            </font>
+        </Label>
+        <Label layoutX="15.0" layoutY="205.0" prefHeight="17.0" prefWidth="218.0" text="Lieu :" textFill="#0c510c">
+            <font>
+                <Font name="Modern No. 20" size="29.0" />
+            </font>
+        </Label>
+        <Button fx:id="btnsupp" alignment="CENTER" contentDisplay="TOP" layoutX="437.0" layoutY="491.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#supprimerEvent" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
+            <graphic>
+                <ImageView fx:id="btnsupp1" fitHeight="32.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
+                    <Image url="@../img/deleteicon.png" />
+                </ImageView>
+            </graphic>
+            <font>
+                <Font name="System Bold" size="11.773585319519043" />
+            </font>
+        </Button>
+        <Label layoutX="17.0" layoutY="42.0" prefHeight="52.0" prefWidth="403.0" styleClass="course-title" stylesheets="@../styles/style.css" text="Detail Evenement" textFill="#3d9034">
+            <font>
+                <Font name="Century Gothic" size="41.0" />
+            </font>
+        </Label>
+        <Label layoutX="14.0" layoutY="316.0" prefHeight="17.0" prefWidth="218.0" text="Description:" textFill="#0c510c">
+            <font>
+                <Font name="Modern No. 20" size="29.0" />
+            </font>
+        </Label>
+      <Label layoutX="13.0" layoutY="259.0" prefHeight="17.0" prefWidth="218.0" text="Date:" textFill="#0c510c">
+         <font>
+            <Font name="Modern No. 20" size="29.0" />
+         </font>
+      </Label>
+      <Label fx:id="dateLabelDetail" layoutX="246.0" layoutY="255.0" prefHeight="17.0" prefWidth="323.0" text="Label">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnmodifier" alignment="CENTER" contentDisplay="TOP" layoutX="517.0" layoutY="491.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modifierEvent" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
+         <graphic>
+            <ImageView fx:id="btnmodifier1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
+               <image>
+                  <Image url="@../img/modifyicon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+
+         <font>
+            <Font name="System Bold" size="11.773585319519043" />
+         </font>
+      </Button>
+      <Button fx:id="btnparticiper" alignment="CENTER" contentDisplay="TOP" layoutX="33.0" layoutY="483.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Participer" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
+         <graphic>
+            <ImageView fx:id="btnparticiper1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
+               <image>
+                  <Image url="@../img/participer.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="System Bold" size="11.773585319519043" />
+         </font>
+      </Button>
+      <Button fx:id="btnpart" alignment="CENTER" contentDisplay="TOP" layoutX="888.0" layoutY="502.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#afficherListeParticipants" prefHeight="50.0" prefWidth="52.0" styleClass="btnsupprimer" stylesheets="@../styles/style.css">
+         <graphic>
+            <ImageView fx:id="btnpart1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
+               <image>
+                  <Image url="@../img/team-building.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="System Bold" size="11.773585319519043" />
+         </font>
+      </Button>
+      <Button fx:id="btnreturn" alignment="CENTER" contentDisplay="TOP" layoutX="-6.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleReturnButtonClick" prefHeight="36.0" prefWidth="41.0" styleClass="btnreturn" stylesheets="@../styles/style.css">
+         <graphic>
+            <ImageView fitHeight="31.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/return-104.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+
+
+    </Pane>
+    <Label fx:id="userRoleLabel" text="User Role" visible="false" />
+</AnchorPane>

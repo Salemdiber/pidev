@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="AddMatchpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.AddMatchController">
+   <children>
+      <AnchorPane layoutX="119.0" layoutY="10.0" prefHeight="100.0" prefWidth="258.0">
+         <children>
+            <Label layoutX="104.0" layoutY="21.0" prefHeight="62.0" prefWidth="134.0" text="Add Match">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="97.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/ajouter-de-la-musique.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Label layoutX="617.0" layoutY="346.0" prefHeight="31.0" prefWidth="84.0" text="TYPE:">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="617.0" layoutY="402.0" prefHeight="31.0" prefWidth="117.0" text="RESULT:">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="617.0" layoutY="448.0" prefHeight="31.0" prefWidth="97.0" text="TEAMS:">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <TextField fx:id="resultxtfield" layoutX="766.0" layoutY="402.0" prefHeight="31.0" prefWidth="277.0" promptText="Your Team's result" />
+      <Label fx:id="errorResult" layoutX="1060.0" layoutY="402.0" textFill="RED" />
+
+      <Button fx:id="addmatchbtn" layoutX="769.0" layoutY="586.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="277.0" styleClass="add_team" stylesheets="@../styles/style.css" text="Add Match" />
+      <Label layoutX="674.0" layoutY="250.0" prefHeight="62.0" prefWidth="446.0" text="Add your match now and enjoy your experience!">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+
+      <!-- Type Match -->
+      <ComboBox fx:id="typecombobox" layoutX="767.0" layoutY="346.0" prefHeight="31.0" prefWidth="277.0" />
+      <Label fx:id="errorType" layoutX="1060.0" layoutY="352.0" textFill="RED" />
+
+      <!-- Équipe 1 -->
+      <ComboBox fx:id="cbteam1" layoutX="768.0" layoutY="448.0" prefHeight="31.0" prefWidth="277.0" />
+      <Label fx:id="errorTeam1" layoutX="1060.0" layoutY="454.0" textFill="RED" />
+
+      <!-- Équipe 2 -->
+      <ComboBox fx:id="cbteam2" layoutX="768.0" layoutY="495.0" prefHeight="31.0" prefWidth="277.0" />
+      <Label fx:id="errorTeam2" layoutX="1060.0" layoutY="501.0" textFill="RED" />
+
+      <Button fx:id="btnreturn" alignment="CENTER" contentDisplay="TOP" layoutX="34.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleReturnButtonClick" prefHeight="50.0" prefWidth="52.0" styleClass="btnreturn" stylesheets="@../styles/style.css">
+         <graphic>
+            <ImageView fx:id="returnbtn" fitHeight="64.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/return-104.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+
+   </children>
+</Pane>

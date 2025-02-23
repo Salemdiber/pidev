@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,9 +20,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.example.entities.Carte;
+import org.example.services.IService;
 import org.example.services.ServiceCarte;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -30,6 +34,8 @@ public class afficherCarteAdminController {
 
     @FXML
     private Button supprimerCarte;
+    @FXML
+    private Button btnreturn;
     @FXML
     private Button modifierCarte;
 
@@ -84,7 +90,7 @@ public class afficherCarteAdminController {
 
     private void loadCarte() {
         try {
-            List<Carte> cartes = serviceCarte.afficher();
+            List<Carte> cartes = serviceCarte.afficher_t();
             if (cartes.isEmpty()) {
                 System.out.println("No cards found.");
                 return;
@@ -120,6 +126,21 @@ public class afficherCarteAdminController {
             primaryStage.show();
         } catch (Exception e) {
             System.err.println("Error loading FXML: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleReturnButtonClick(ActionEvent event) {
+        try {
+
+            Parent homePage = FXMLLoader.load(getClass().getResource("/view/gameHome.fxml"));
+            Scene homeScene = new Scene(homePage);
+
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(homeScene);
+            stage.show();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

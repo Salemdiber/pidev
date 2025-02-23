@@ -3,6 +3,8 @@ package org.example.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -12,10 +14,11 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.entities.Carte;
+import org.example.services.IService;
 import org.example.services.ServiceCarte;
 
-import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class modifierCarteController {
@@ -127,6 +130,21 @@ public class modifierCarteController {
 
         return scoreText.matches("\\d+");
 
+    }
+    @FXML
+    private void handleReturnButtonClick(ActionEvent event) {
+        try {
+
+            Parent homePage = FXMLLoader.load(getClass().getResource("/view/gameHome.fxml"));
+            Scene homeScene = new Scene(homePage);
+
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(homeScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

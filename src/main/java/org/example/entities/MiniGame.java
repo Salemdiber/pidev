@@ -1,7 +1,7 @@
 package org.example.entities;
 import java.sql.Blob;
 import java.sql.Date;
-import org.example.utilis.MyDataBase;
+import org.example.utils.MyDataBase;
 
 import javax.swing.*;
 

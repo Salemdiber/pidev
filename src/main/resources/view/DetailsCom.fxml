@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1080" prefWidth="1920" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.DetailsComController">
+
+    <children>
+        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0">
+
+            <!-- Titre de la fenêtre -->
+            <AnchorPane prefHeight="80.0" prefWidth="500.0">
+                <Label layoutX="110.0" layoutY="20.0" prefHeight="40.0" prefWidth="300.0" text="Détails du Commentaire">
+                    <font>
+                        <Font name="Century Gothic Bold" size="22.0" />
+                    </font>
+                </Label>
+            </AnchorPane>
+
+            <!-- Label affichant le contenu du commentaire -->
+            <Label layoutX="30.0" layoutY="91.0" prefHeight="35.0" prefWidth="144.0" text="Commentaire:" textFill="#278d01">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
+            <Label fx:id="descCommentLabel" layoutX="151.0" layoutY="99.0" prefHeight="60.0" prefWidth="250.0" text="Contenu Commentaire" textFill="#278d01" wrapText="true">
+            <font>
+               <Font size="18.0" />
+            </font></Label>
+
+            <!-- Boutons Modifier et Supprimer -->
+            <Button fx:id="btnModifier" styleClass="add_team" stylesheets="@../styles/style.css"  layoutX="120.0" layoutY="230.0" mnemonicParsing="false" onAction="#modifierCommentaire" text="Modifier" />
+
+            <Button fx:id="btnSupprimer" styleClass="add_team" stylesheets="@../styles/style.css"  layoutX="240.0" layoutY="230.0" mnemonicParsing="false" onAction="#supprimerCommentaire" text="Supprimer" />
+            <Button fx:id="btnreturn" alignment="CENTER" contentDisplay="TOP" layoutX="24.0" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleReturnButtonClick" prefHeight="50.0" prefWidth="52.0" styleClass="btnreturn" stylesheets="@../styles/style.css">
+                <graphic>
+                    <ImageView fx:id="returnbtn" fitHeight="64.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../img/return-104.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+        </Pane>
+    </children>
+</AnchorPane>

@@ -3,13 +3,17 @@ package org.example.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.example.services.IService;
 import org.example.services.ServiceCarte;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class supprimerCarteController {
@@ -32,14 +36,7 @@ public class supprimerCarteController {
                 return;
             }
             int id = Integer.parseInt(idText);
-            int result = serviceCarte.supprimer(id);
-
-            if (result > 0) {
-                showAlert(Alert.AlertType.INFORMATION, "Succès", "Carte supprimée avec succès");
-                idCarte.clear();
-            } else {
-                showAlert(Alert.AlertType.WARNING, "Échec", "Aucune carte trouvée");
-            }
+            serviceCarte.supprimer_t(id);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,5 +65,20 @@ public class supprimerCarteController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+    @FXML
+    private void handleReturnButtonClick(ActionEvent event) {
+        try {
+
+            Parent homePage = FXMLLoader.load(getClass().getResource("/view/homeAffiche.fxml"));
+            Scene homeScene = new Scene(homePage);
+
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(homeScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

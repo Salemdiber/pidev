@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -15,9 +17,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.example.entities.Carte;
+import org.example.services.IService;
 import org.example.services.ServiceCarte;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -91,6 +95,21 @@ public class afficherCartesController {
             primaryStage.show();
         } catch (Exception e) {
             System.err.println("Erreur lors du chargement du fichier FXML : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleReturnButtonClick(ActionEvent event) {
+        try {
+
+            Parent homePage = FXMLLoader.load(getClass().getResource("/view/gameHome.fxml"));
+            Scene homeScene = new Scene(homePage);
+
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(homeScene);
+            stage.show();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

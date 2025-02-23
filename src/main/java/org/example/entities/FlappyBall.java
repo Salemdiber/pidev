@@ -1,5 +1,5 @@
 package org.example.entities;
-import javafx.scene.chart.ScatterChart;
+import org.example.services.IService;
 import org.example.services.ServiceCarte;
 import org.example.services.ServiceMiniGame;
 
@@ -11,7 +11,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 
 public class FlappyBall extends MiniGame implements ActionListener, KeyListener {
@@ -23,10 +22,10 @@ public class FlappyBall extends MiniGame implements ActionListener, KeyListener 
     private int H=640;
     private int test=0;
     private boolean isPaused = false;
-    private Image background=new ImageIcon("src/main/resources/images/background.png").getImage();
-    private Image ballImg=new ImageIcon("src/main/resources/images/ball.png").getImage();
-    private Image topPipe= new ImageIcon("src/main/resources/images/toppipe.png").getImage();
-    private Image bottomPipe=new ImageIcon("src/main/resources/images/bottompipe.png").getImage();
+    private Image background=new ImageIcon("src/main/resources/img/background.png").getImage();
+    private Image ballImg=new ImageIcon("src/main/resources/img/ball.png").getImage();
+    private Image topPipe= new ImageIcon("src/main/resources/img/toppipe.png").getImage();
+    private Image bottomPipe=new ImageIcon("src/main/resources/img/bottompipe.png").getImage();
     private int ballX=W/8;
     private int ballY=H/2;
     private int ballWidth=30;
@@ -43,8 +42,8 @@ public class FlappyBall extends MiniGame implements ActionListener, KeyListener 
     private ArrayList<Pipe>pipes;
     private Timer pipeTimer;
     private Random random=new Random();
-    private boolean start=false;
 
+    private boolean start =false;
 
     public void placePipes()
     {
@@ -65,7 +64,6 @@ public class FlappyBall extends MiniGame implements ActionListener, KeyListener 
         setPreferredSize(new Dimension(W,H));
         ball = new Ball(ballImg);
         pipes = new ArrayList<Pipe>();
-
 
 
     }
@@ -117,7 +115,7 @@ public class FlappyBall extends MiniGame implements ActionListener, KeyListener 
         try {
             this.data=convertDataString();
             this.result="Lost";
-            service.ajouter(this);
+            service.ajouter_t(this);
             System.out.println("JAWEK BHI");
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -134,7 +132,7 @@ public class FlappyBall extends MiniGame implements ActionListener, KeyListener 
                 long elapsedTime = System.currentTimeMillis() - startTime;
 
                 if (!isPaused) {
-                   // System.out.println("Game resumed");
+
                     ((Timer) e.getSource()).stop();
                     return;
                 }
@@ -143,7 +141,7 @@ public class FlappyBall extends MiniGame implements ActionListener, KeyListener 
                         isDeleted=1;
                         ServiceMiniGame s = new ServiceMiniGame();
                         int id = s.lastSavedGame();
-                        s.supprimer(id);
+                        s.supprimer_t(id);
                         System.out.println("sayey tfaskhet");
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -199,29 +197,29 @@ public class FlappyBall extends MiniGame implements ActionListener, KeyListener 
     }
     public void checkAndCreateReward(MiniGame miniGame) throws SQLException {
 
-        if (score==10 && serviceCarte.VerifierCarte("commune",this.user) )
+        if (score>10 && serviceCarte.VerifierCarte("commune",this.user) )
         {
             Carte carte=new Carte(1000,1,"commune","");
             try{
-                serviceCarte.ajouter(carte);
+                serviceCarte.ajouter_t(carte);
             }catch(Exception e){
                 e.printStackTrace();
             }
         }
-        if (score==100 && serviceCarte.VerifierCarte("rare",this.user) )
+        if (score>1000 && serviceCarte.VerifierCarte("rare",this.user) )
         {
             Carte carte=new Carte(2000,1,"rare","");
             try{
-                serviceCarte.ajouter(carte);
+                serviceCarte.ajouter_t(carte);
             }catch(Exception e){
                 e.printStackTrace();
             }
         }
-        if (score==2500 && serviceCarte.VerifierCarte("legendaire",this.user))
+        if (score>2500 && serviceCarte.VerifierCarte("legandaire",this.user))
         {
-            Carte carte=new Carte(3000,1,"legendaire","");
+            Carte carte=new Carte(3000,1,"legandaire","");
             try{
-                serviceCarte.ajouter(carte);
+                serviceCarte.ajouter_t(carte);
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -248,7 +246,7 @@ public class FlappyBall extends MiniGame implements ActionListener, KeyListener 
         {
 
             saveGameResult();
-            //System.out.println(this);
+
             try{
                 checkAndCreateReward(this);
             }catch(SQLException ex){
@@ -279,9 +277,8 @@ public class FlappyBall extends MiniGame implements ActionListener, KeyListener 
         {
             if (start)
             {
-                volY=-11;
-            }
-            else
+                volY=-10;
+            }else
             {
                 start=true;
                 pipeTimer = new Timer(1500,new ActionListener() {
@@ -294,6 +291,7 @@ public class FlappyBall extends MiniGame implements ActionListener, KeyListener 
                 gameLoop=new Timer(1000/60,this);
                 gameLoop.start();
             }
+
         }
         if (e.getKeyCode()==KeyEvent.VK_P)
         {

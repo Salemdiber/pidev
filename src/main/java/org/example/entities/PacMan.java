@@ -1,11 +1,11 @@
 package org.example.entities;
+import org.example.services.IService;
 import org.example.services.ServiceCarte;
 import org.example.services.ServiceMiniGame;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
 import java.util.HashSet;
@@ -24,12 +24,12 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
     private int row = 19;
     private int col = 19;
     private int tileSize = 30;
-    private Image wallImage = new ImageIcon("src/main/resources/images/wall.png").getImage();
-    private Image ball = new ImageIcon("src/main/resources/images/ball.png").getImage();
-    private Image orangeGhost = new ImageIcon("src/main/resources/images/Mbappe.png").getImage();
-    private Image pinkGhost = new ImageIcon("src/main/resources/images/Haland.png").getImage();
-    private Image blueGhost = new ImageIcon("src/main/resources/images/Messi.png").getImage();
-    private Image foodimg = new ImageIcon("src/main/resources/images/food.png").getImage();
+    private Image wallImage = new ImageIcon("src/main/resources/img/wall.png").getImage();
+    private Image ball = new ImageIcon("src/main/resources/img/ball.png").getImage();
+    private Image orangeGhost = new ImageIcon("src/main/resources/img/Mbappe.png").getImage();
+    private Image pinkGhost = new ImageIcon("src/main/resources/img/Haland.png").getImage();
+    private Image blueGhost = new ImageIcon("src/main/resources/img/Messi.png").getImage();
+    private Image foodimg = new ImageIcon("src/main/resources/img/food.png").getImage();
     private boolean isPaused = false;
     private boolean isInactive = false;
     private int test=0;
@@ -87,8 +87,8 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
 
     }
     public void simplePauseTimer() {
-        // Set up a timer to check every 100 milliseconds
-        int pauseDuration = 60000; // 1 minute in milliseconds
+
+        int pauseDuration = 60000;
         Timer timer = new Timer(100, new ActionListener() {
             private long startTime = System.currentTimeMillis();
 
@@ -105,7 +105,7 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
                     try {
                         ServiceMiniGame s = new ServiceMiniGame();
                         int id = s.lastSavedGame();
-                        s.supprimer(id);
+                        s.supprimer_t(id);
                         System.out.println("sayey tfaskht");
                         isDeleted=1;
                     } catch (Exception ex) {
@@ -186,7 +186,7 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
         {
             Carte carte=new Carte(1000,1,"commune","");
             try{
-                serviceCarte.ajouter(carte);
+                serviceCarte.ajouter_t(carte);
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -195,7 +195,7 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
         {
             Carte carte=new Carte(2000,1,"rare","");
             try{
-                serviceCarte.ajouter(carte);
+                serviceCarte.ajouter_t(carte);
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -204,7 +204,7 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
         {
             Carte carte=new Carte(3000,1,"legandaire","");
             try{
-                serviceCarte.ajouter(carte);
+                serviceCarte.ajouter_t(carte);
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -287,7 +287,7 @@ public class PacMan extends MiniGame implements ActionListener ,KeyListener{
         try {
             String data = convertDataString();
             this.data=data;
-            serviceMiniGame.ajouter(this);
+            serviceMiniGame.ajouter_t(this);
             System.out.println("JAWEK BHI");
         } catch (SQLException ex) {
             ex.printStackTrace();

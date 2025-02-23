@@ -9,10 +9,10 @@ import java.util.List;
 
 public class ServiceCarte implements IService<Carte> {
     public Connection connection;
-    public ServiceCarte() {connection= org.example.utilis.MyDataBase.getInstance().getConnection();}
+    public ServiceCarte() {connection= org.example.utils.MyDataBase.getInstance().getConnection();}
 
     @Override
-    public int ajouter(Carte carte) throws SQLException
+    public void  ajouter_t(Carte carte) throws SQLException
     {
         String sql="INSERT INTO `carte`(`rarite`, `score`, `image`, `id_user`) VALUES (?,?,?,?)";
         PreparedStatement ps=connection.prepareStatement(sql);
@@ -20,7 +20,7 @@ public class ServiceCarte implements IService<Carte> {
         ps.setInt(2,carte.getScore());
         ps.setString(3,carte.getImage());
         ps.setInt(4,carte.getId_user());
-        return ps.executeUpdate();
+         ps.executeUpdate();
 
     }
     @Override
@@ -36,16 +36,32 @@ public class ServiceCarte implements IService<Carte> {
 
         return ps.executeUpdate();
     }
+
     @Override
-    public int supprimer(int id)throws SQLException
+    public boolean ajouteru(Carte carte) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean modifieru(Carte carte) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean supprimeru(int id) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public void supprimer_t(int id)throws SQLException
     {
         String sql="DELETE FROM `carte` WHERE `id`=?";
         PreparedStatement ps=connection.prepareStatement(sql);
         ps.setInt(1,id);
-        return ps.executeUpdate();
+         ps.executeUpdate();
     }
     @Override
-    public List<Carte> afficher() throws SQLException
+    public List<Carte> afficher_t() throws SQLException
     {
         Statement st=connection.createStatement();
         List<Carte> cartes = new ArrayList<>();
@@ -95,6 +111,29 @@ public class ServiceCarte implements IService<Carte> {
         return cartes;
     }
 
+    @Override
+    public void modifier_t(Carte carte) throws SQLException {
 
+    }
+
+    @Override
+    public void ajouterEquipeAMatch(int idMatch, int idEquipe) throws SQLException {
+
+    }
+
+    @Override
+    public void supprimerEquipeDuMatch(int idMatch, int idEquipe) throws SQLException {
+
+    }
+
+    @Override
+    public List<Integer> getEquipesParMatch(int idMatch) throws SQLException {
+        return List.of();
+    }
+
+    @Override
+    public List<Integer> getMatchsParEquipe(int idEquipe) throws SQLException {
+        return List.of();
+    }
 
 }
