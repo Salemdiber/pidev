@@ -6,28 +6,23 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="home-page-container" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.HomeAfficheTerrainController">
-    <HBox alignment="CENTER_RIGHT" layoutX="345.0" layoutY="20.0" prefHeight="60.0" prefWidth="797.0" styleClass="headerContainer" stylesheets="@../styles/style.css">
-        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="420.0" styleClass="search-bar-container" stylesheets="@../styles/style.css">
-            <padding>
-                <Insets left="-40.0" />
-            </padding>
-        </HBox>
-        <HBox prefHeight="50.0" prefWidth="80.0">
-            <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="37.0" styleClass="notif-btn" stylesheets="@../styles/style.css" translateY="8.0" />
-        </HBox>
-    </HBox>
     <Pane fx:id="mainPageContainer" layoutX="162.0" layoutY="79.0" prefHeight="939.0" prefWidth="1699.0" styleClass="main-content-container" stylesheets="@../styles/style.css">
+        <HBox alignment="CENTER_RIGHT" layoutX="503.0" layoutY="199.0" prefHeight="60.0" prefWidth="320.0" styleClass="headerContainer" stylesheets="@../styles/style.css">
+         <children>
+            <TextField fx:id="searchbar" prefHeight="25.0" prefWidth="257.0" text="rechercher" />
+         </children>
+        </HBox>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="153.0" layoutX="20.0" layoutY="23.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="welcome-container" width="628.0" />
         <ImageView fitHeight="153.0" fitWidth="212.0" layoutX="451.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" styleClass="welcome-img">
             <Image url="@../img/29516027-isolé-noir-blanc-joueur-de-football-vecteur-de-prise-de-vue-illustration-removebg-preview.png" />
@@ -90,7 +85,7 @@
             </ImageView>
         </HBox>
         <HBox alignment="CENTER" prefHeight="80.0" prefWidth="80.0">
-            <Button fx:id="homeBtn" alignment="CENTER" contentDisplay="TOP" onAction="#handleHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="HOME">
+            <Button fx:id="homeBtn" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleHome" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="HOME">
                 <graphic>
                     <ImageView fx:id="homeBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" styleClass="home-btn-img">
                         <Image url="@../img/abri.png" />
@@ -165,7 +160,7 @@
             <VBox.margin>
                 <Insets top="20.0" />
             </VBox.margin>
-            <Button fx:id="logoutBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleLogout"  prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="Logout">
+            <Button fx:id="logoutBtn" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleLogout" prefHeight="70.4" prefWidth="82.4" styleClass="menu-btn" stylesheets="@../styles/style.css" text="Logout">
                 <graphic>
                     <ImageView fx:id="logoutBtnImg" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../img/se-deconnecter.png" />
@@ -177,4 +172,5 @@
             </Button>
         </HBox>
     </VBox>
+    <VBox alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml/1" />
 </AnchorPane>

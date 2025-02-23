@@ -7,6 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -15,6 +17,7 @@ import org.example.entities.Terrain;
 import org.example.entities.User;
 import org.example.services.ServiceTerrain;
 
+import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -53,6 +56,29 @@ public class TerrainDetailController {
         }
         btnreserver.setOnAction(event -> reserverTerrain());
         btnmodifier.setOnAction(event -> modifierTerrain(event));
+    }
+    private void showNotification(String title, String message) {
+        if (!SystemTray.isSupported()) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Le système ne supporte pas les notifications de bureau.");
+            return;
+        }
+
+
+        TrayIcon trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage("/img/logo-removebg-preview1"), "Notification");
+        trayIcon.setImageAutoSize(true);
+
+
+        SystemTray tray = SystemTray.getSystemTray();
+
+        try {
+
+            tray.add(trayIcon);
+
+            trayIcon.displayMessage(title, message, TrayIcon.MessageType.INFO);
+        } catch (AWTException e) {
+            e.printStackTrace();
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible d'afficher la notification : " + e.getMessage());
+        }
     }
     public void setTerrain(Terrain terrain) {
         this.terrain = terrain;
@@ -104,8 +130,31 @@ public class TerrainDetailController {
 
             serviceTerrain.reserverTerrain(idTerrain, idUser, dateHeureReservation);
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Terrain réservé avec succès !");
+            showNotification("Réservation réussie", "Le terrain a été réservé avec succès pour le " + dateHeureReservation + ".");
+            openPhoneNumberInputWindow();
         } catch (SQLException e) {
             afficherAlerte(Alert.AlertType.ERROR, "Erreur SQL", "Impossible de réserver le terrain : " + e.getMessage());
+        }
+    }
+    private void openPhoneNumberInputWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PhoneNumberInput.fxml"));
+            Parent root = loader.load();
+
+            PhoneNumberInputController controller = loader.getController();
+
+            // Set user name and reservation details
+            String userName = SessionManager.getInstance().getCurrentUser ().getNom();
+            String reservationDetails = "Votre réservation est pour le " + datePicker.getValue() + " à " + heureComboBox.getValue() + ".";
+
+            controller.setDetails(reservationDetails);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Entrer le numéro de téléphone");
+            stage.show();
+        } catch (IOException e) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la fenêtre de numéro de téléphone : " + e.getMessage());
         }
     }
     @FXML
